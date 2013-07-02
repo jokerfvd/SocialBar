@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <color name="orange">#F15A24</color><!-- cor base -->
+    <color name="orange_dark">#790016</color>
+    <color name="orange_light">#FFAC59</color>    
+    <color name="gray80">#333333</color><!-- texto -->
+    <color name="gray30">#B3B3B3</color><!-- texto -->
+    <color name="gray20">#CCCCCC</color>
+    <color name="gray10">#E6E6E6</color><!-- linhas -->
+    <color name="gray8">#EBEBEB</color><!-- background -->
+    <color name="gray3">#F7F7F7</color><!-- caixas destaque -->
+    <color name="white">#FFFFFF</color><!-- fundo branco -->
+    
+    
+    <!-- nomes resolvidos -->    
+    <color name="app_text_dark">@color/gray80</color>
+    <color name="app_text_white">@color/white</color>
+    <color name="app_text_lightgrey">@color/gray30</color>    
+    <color name="app_background">@color/gray8</color>
+    <color name="app_foreground">@color/white</color>
+    <color name="app_line">@color/gray10</color>
+    <color name="app_small_box">@color/gray3</color>
+    <color name="app_base_color">@color/orange</color>
+    <color name="app_base_color_dark">@color/orange_dark</color>
+    <color name="app_base_color_light">@color/orange_light</color>
+</resources>

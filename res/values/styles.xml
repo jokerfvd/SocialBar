@@ -1,20 +1,59 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+    <!--  -->
+    <style name="AppBaseTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@android:style/Widget.Holo.Light.ActionBar</item>
+    </style>
+
+    <style name="AppBaseThemeHome" parent="AppBaseTheme">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+
+
+    <!-- default style -->
+
+
+    <!-- text style -->
+    <style name="app_normal_text">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="app_header_text" parent="app_normal_text">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- fundo -->
+    <style name="app_background_base">
+        <item name="android:background">@color/app_background</item>
+        <item name="android:textColor">@color/app_text_dark</item>
+    </style>
+
+    <style name="app_background_profile">
+        <item name="android:padding">10dp</item>
+    </style>
+    <!-- profile -->
+    <style name="app_profile_box">
+        <item name="android:background">@drawable/border</item>
+    </style>
+
+    <style name="app_profile_textbox">
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="app_home_buttons" parent="app_header_text">
+        <item name="android:background">@drawable/home_button_selector</item>
+        <item name="android:textColor">@color/app_text_white</item>
+        <item name="android:drawableLeft">@drawable/rating_important_white</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">40dp</item>
     </style>
 
 </resources>

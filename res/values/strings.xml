@@ -1,5 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">SocialBar</string>
+    <string name="action_settings">Settings</string>
+    <string name="bar_population">+1101</string>
+    <string name="bar_name">Lorem Ipsum Bar</string>
+    <string name="bar_last_modified">atualizado em 23/06/2013</string>
+    <string name="bar_address">Av Rio Branco, 9, centro, Rio de Janeiro - RJ</string>
+    <string name="bar_header_description">Descrição</string>
+    <string name="bar_description_text">    	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et mauris nunc. Integer cursus congue magna, ac aliquam lectus consequat vel. Sed iaculis non diam eget rhoncus. Morbi scelerisque lacus magna, eget feugiat nisi tincidunt ut. Curabitur arcu tellus, tincidunt in iaculis tristique, convallis in felis. Praesent iaculis egestas leo, in vulputate mi pretium quis. Cras porttitor sodales neque, at commodo justo tincidunt non. Donec ullamcorper et diam vitae ultricies. In rutrum, dolor quis fringilla rutrum, nisl arcu porttitor nibh, at ultricies libero mi a justo. Pellentesque ut aliquam ligula.\n
+
+		Fusce ullamcorper justo sed pretium rhoncus. Aliquam at orci eros. Nullam sollicitudin egestas dui nec vestibulum. Sed eros odio, mollis in lacinia ut, volutpat non turpis. In tempus nibh tempus, semper nunc sit amet, convallis nunc. Phasellus ante enim, condimentum sit amet lorem porta, lobortis blandit nibh. Quisque sem eros, pulvinar at gravida eget, ultrices molestie nisl. Vivamus a ullamcorper est, ac tristique massa. Pellentesque laoreet quam non dui hendrerit, eu vulputate neque ullamcorper. Donec sed consequat massa. Mauris congue lorem interdum, placerat tellus a, pellentesque ipsum. Aliquam vel leo non arcu aliquam ultrices eu non purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. In non hendrerit massa. Mauris congue dui ac orci pharetra sollicitudin.\n
+		
+		Ut vel enim tempus, congue massa quis, congue orci. Nulla elementum sollicitudin ligula vel gravida. Suspendisse sed dolor ornare, pretium magna quis, commodo lorem. Integer id mauris sodales, rhoncus libero a, tempor odio. Quisque malesuada lorem et orci interdum facilisis. Pellentesque nec sollicitudin dolor, sit amet molestie turpis. Aliquam erat volutpat. In hac habitasse platea dictumst. Aliquam sollicitudin ultrices magna ut feugiat. Duis ac dui et dui dictum volutpat.\n
+		
+		Maecenas eu vestibulum sem. Sed varius velit non dolor fringilla vestibulum. Nunc a erat ut lectus rhoncus interdum. Aenean non porta ante. Integer placerat leo ligula, ut scelerisque massa elementum eget. Nunc tincidunt sollicitudin metus non euismod. Etiam fermentum ligula urna, a dictum arcu auctor sed. Pellentesque a ligula molestie orci blandit porttitor ut a orci. Donec in ante diam. Aliquam vitae dictum mauris. Sed consequat id odio et tincidunt. Quisque lobortis felis sed interdum viverra. Duis interdum euismod erat eu rhoncus. Maecenas tincidunt non enim a ultricies.\n</string>
+    <string name="bar_comment">Fulano: Muito bom, recomendo!</string>
+    <string name="bar_header_comments">Comentários</string>
+    <string name="image_bar_welcome_photo">Foto do bar</string>
+    <string name="image_bar_logo">Logo do bar</string>
+    <string name="button_checkin">Estou aqui!</string>
+    <string name="button_favorite">Botao favorito</string>
+    <string name="button_expandable_more">mais...</string>
+    <string name="button_expandable_less">menos</string>
+
+    <!-- image descriptions -->
+	<string name="image_description_applogo">Social Bar Logo</string>
+
+    <!-- botoes tela inicial -->
+    <string name="button_favorites">Favoritos</string>
+    <string name="button_new_bar">Adicionar Bar</string>
+    <string name="button_search">Buscar</string>
+    <string name="button_radar">Radar</string>
 
 </resources>

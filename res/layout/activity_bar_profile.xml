@@ -1,0 +1,234 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarStyle="outsideOverlay"
+    style="@style/app_background_base" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+       style="@style/app_background_profile">
+
+
+        <!-- bar -->
+
+        <LinearLayout
+            style="@style/app_profile_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <!-- imagem -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="100dp"
+                    android:adjustViewBounds="false"
+                    android:background="#000000"
+                    android:contentDescription="@string/image_bar_welcome_photo"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/photo" />
+
+                <TextView
+                    style="@style/app_header_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/border_top_bottom"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="7dp"
+                    android:paddingTop="3dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/bar_population" />
+            </RelativeLayout>
+
+            <!-- informações com padding -->
+
+            <LinearLayout
+                style="@style/app_profile_textbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <!-- logo, nome do estabelecimento, data de update e botao favorito -->
+
+                <TableLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:collapseColumns="*"
+                    android:shrinkColumns="*"
+                    android:stretchColumns="1" >
+
+                    <TableRow>
+
+                        <ImageView
+                            android:layout_width="46dp"
+                            android:layout_height="46dp"
+                            android:layout_marginRight="4dp"
+                            android:contentDescription="@string/image_bar_logo"
+                            android:src="@drawable/logo" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:orientation="vertical" >
+
+                            <!-- nome do estabelecimento -->
+
+                            <TextView
+                                android:id="@+id/locinfo"
+                                style="@style/app_header_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/bar_name" />
+
+                            <!-- endereco -->
+
+                            <TextView
+                                android:id="@+id/address"
+                                style="@style/app_normal_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/bar_address" />
+
+                            <!-- data de update -->
+
+                            <TextView
+                                android:id="@+id/timestamp"
+                                style="@style/app_normal_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/bar_last_modified"
+                                android:textColor="#B3B3B3" />
+                        </LinearLayout>
+
+                        <!-- botao favorito -->
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:gravity="right"
+                            android:orientation="horizontal" >
+
+                            <ImageButton
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="#00FFFFFF"
+                                android:contentDescription="@string/button_favorite"
+                                android:src="@drawable/rating_not_important" />
+                        </LinearLayout>
+                    </TableRow>
+                </TableLayout>
+
+                <!-- descricao -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/border_simple"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp" >
+
+                    
+                    <!-- texto -->
+
+                    <TextView
+                        android:id="@+id/description_text"
+                        style="@style/app_normal_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:paddingLeft="1dp"
+                        android:paddingRight="1dp"
+                        android:text="@string/bar_description_text" />
+
+                    <Button
+                        android:id="@+id/expandable"
+                        style="@style/app_normal_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="32dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/app_small_box"
+                        android:gravity="right|center_vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="@string/button_expandable_more"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/app_text_lightgrey" />
+                </LinearLayout>
+
+                <!-- botao laranja -->
+
+                <Button
+                    android:id="@+id/checkin"
+                    style="@style/app_home_buttons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:background="@drawable/orange_button_selector"
+                    android:text="@string/button_checkin"
+                    android:drawableLeft="@drawable/device_access_location_found_white" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:paddingLeft="5dp" >
+
+            <TextView
+                android:id="@+id/comment_section"
+                style="@style/app_normal_text"
+                android:textColor="@color/app_text_lightgrey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bar_header_comments" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/app_profile_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                style="@style/app_profile_textbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/comment1"
+                    style="@style/app_normal_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bar_comment" />
+
+                <TextView
+                    android:id="@+id/comment2"
+                    style="@style/app_normal_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bar_comment" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
