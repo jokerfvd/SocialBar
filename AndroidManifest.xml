@@ -24,7 +24,11 @@
         </activity>
         <activity
             android:name=".activities.BarProfileActivity"
-            android:label="Bar Profile" >
+            android:label="@string/activity_bar_profile" >
+        </activity>
+        <activity
+            android:name=".activities.RadarActivity"
+            android:label="@string/activity_radar" >
         </activity>
     </application>
 

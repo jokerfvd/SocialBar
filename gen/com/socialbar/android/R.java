@@ -100,14 +100,22 @@ public final class R {
         public static final int radar=0x7f09000d;
         public static final int scroll=0x7f090000;
         public static final int search=0x7f09000c;
+        public static final int textView1=0x7f09000f;
         public static final int timestamp=0x7f090003;
     }
     public static final class layout {
         public static final int activity_bar_profile=0x7f030000;
         public static final int activity_home=0x7f030001;
+        public static final int activity_radar=0x7f030002;
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
+        public static final int activity_bar_list=0x7f070016;
+        public static final int activity_bar_profile=0x7f070017;
+        /**  label das activities 
+         */
+        public static final int activity_radar=0x7f070015;
+        public static final int activity_search=0x7f070018;
         public static final int app_name=0x7f070000;
         public static final int bar_address=0x7f070005;
         public static final int bar_comment=0x7f070008;

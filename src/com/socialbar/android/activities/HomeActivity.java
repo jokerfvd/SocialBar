@@ -18,49 +18,28 @@ public class HomeActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
-		Button radar = (Button) findViewById(R.id.newbar);
+		Button newbar = (Button) findViewById(R.id.newbar);
+		Button radar = (Button) findViewById(R.id.radar);
+		newbar.setOnClickListener(this);
 		radar.setOnClickListener(this);
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		this.BackToFront();
-	}
-
-	@Override
 	public void onClick(View v) {
-
+		Intent intent;
 		switch (v.getId()) {
 		case R.id.newbar:
-			Intent intent = new Intent(this, BarProfileActivity.class);
+			intent = new Intent(this, BarProfileActivity.class);
 			startActivity(intent);
-			this.NewChild();
+			break;
+		case R.id.radar:
+			intent = new Intent(this, RadarActivity.class);
+			startActivity(intent);
 			break;
 		default:
 			break;
 		}
 	}
 	
-	/**
-	 * variavel para marcar a chamada de um filho
-	 */
-	private boolean child;
-	/**
-	 * metodo para executar quando um filho é chamado
-	 */
-	private void NewChild(){
-		this.child = true;
-		this.overridePendingTransition(R.anim.in_enter, R.anim.in_leave);
-	}
-	/**
-	 * Metodo executado quando o app volta a funcionar, seja pelo retorno de um filho, seja pelo sistema operacional
-	 * BUG: para de funcionar quando a tela é rotacionada
-	 */
-	private void BackToFront(){
-		if(child){
-			//this.overridePendingTransition(R.anim.out_enter, R.anim.out_leave);
-			this.child = false;
-		}
-	}
+	
 }

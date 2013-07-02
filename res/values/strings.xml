@@ -32,5 +32,11 @@
     <string name="button_new_bar">Adicionar Bar</string>
     <string name="button_search">Buscar</string>
     <string name="button_radar">Radar</string>
+    
+    <!-- label das activities -->
+    <string name="activity_radar">Radar</string>
+    <string name="activity_bar_list">Lista de bares</string>
+    <string name="activity_bar_profile">Perfil do bar</string>
+    <string name="activity_search">Busca bar</string>
 
 </resources>
