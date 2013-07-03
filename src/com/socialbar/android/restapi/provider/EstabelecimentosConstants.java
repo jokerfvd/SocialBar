@@ -13,7 +13,7 @@ public class EstabelecimentosConstants {
 	public static final String CARACTERISTICAS_TABLE_NAME = "caracteristicas";
 	
 	//symbolic name of the entire provider
-	public static final String AUTHORITY = "com.example.restclient.estabelecimentos";
+	public static final String AUTHORITY = "com.socialbar.android.restapi.estabelecimentos";
 	
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + TABLE_NAME);
 

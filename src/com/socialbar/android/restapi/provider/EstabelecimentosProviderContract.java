@@ -7,7 +7,7 @@ public final class EstabelecimentosProviderContract {
 	
 	
 
-		public static final String AUTHORITY = "com.example.restclient.estabelecimentosprovider";
+		public static final String AUTHORITY = "com.socialbar.android.restapi.estabelecimentosprovider";
 
 		// ESTABELECIMENTO TABLE CONTRACT
 		public static final class EstabelecimentoTable implements ResourceTable {
@@ -22,7 +22,7 @@ public final class EstabelecimentosProviderContract {
 			private static final String URI_PATH_PRODUTO = "/" + TABLE_NAME + "/";
 			public static final int PRODUTO_ID_PATH_POSITION = 1;
 
-			// content://com.example.restclient.estabelecimentosprovider/estabelecimento
+			// content://com.socialbar.android.restapi.estabelecimentosprovider/estabelecimento
 			public static final Uri CONTENT_URI = Uri.parse(URI_PREFIX + URI_PATH_ESTABELECIMENTO);
 
 			public static final String[] ALL_COLUMNS;
