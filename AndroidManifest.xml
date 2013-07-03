@@ -75,6 +75,12 @@
             android:name=".activities.FavoritesActivity"
             android:label="@string/activity_favorites" >
         </activity>
+        
+        <service android:name="com.socialbar.android.restapi.service.Service" />
+
+        <provider
+            android:name="com.socialbar.android.restapi.provider.EstabelecimentosProvider"
+            android:authorities="com.socialbar.android.restapi.estabelecimentos" />
     </application>
 
 </manifest>
