@@ -3,7 +3,9 @@ package com.socialbar.android.activities.advance.resources;
 import android.app.Activity;
 
 import com.socialbar.android.R;
-
+/**
+ * Class <code>GenericActivitySlider</code>.
+ */
 public class GenericActivitySlider extends GenericActivity {
 	public GenericActivitySlider(Activity activity) {
 		super(activity);

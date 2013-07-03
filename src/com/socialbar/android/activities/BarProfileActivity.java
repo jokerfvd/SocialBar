@@ -19,7 +19,7 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 	/**
 	 * Funcoes genericas utilizadas por um conjunto de activities
 	 */
-	private GenericActivity generic_activity;
+	private GenericActivity genericActivity;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,8 +35,8 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 		 * efeitos da activity
 		 */
 		
-		this.generic_activity = new GenericActivitySlider(this);
-		this.generic_activity.resume();
+		this.genericActivity = new GenericActivitySlider(this);
+		this.genericActivity.resume();
 		
 		/**
 		 * Botoes
@@ -75,7 +75,7 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 	}
 	@Override
 	public void onBackPressed() {
-		this.generic_activity.finish();
+		this.genericActivity.finish();
 	}
 
 	/**

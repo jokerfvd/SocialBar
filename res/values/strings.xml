@@ -25,18 +25,19 @@
     <string name="button_expandable_less">menos</string>
 
     <!-- image descriptions -->
-	<string name="image_description_applogo">Social Bar Logo</string>
+    <string name="image_description_applogo">Social Bar Logo</string>
 
     <!-- botoes tela inicial -->
     <string name="button_favorites">Favoritos</string>
     <string name="button_new_bar">Adicionar Bar</string>
     <string name="button_search">Buscar</string>
     <string name="button_radar">Radar</string>
-    
+
     <!-- label das activities -->
     <string name="activity_radar">Radar</string>
     <string name="activity_bar_list">Lista de bares</string>
     <string name="activity_bar_profile">Perfil do bar</string>
     <string name="activity_search">Busca bar</string>
+    <string name="activity_favorites">Favoritos</string>
 
 </resources>

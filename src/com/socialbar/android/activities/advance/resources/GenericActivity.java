@@ -1,7 +1,9 @@
 package com.socialbar.android.activities.advance.resources;
 
 import android.app.Activity;
-
+/**
+ * Abstract Class <code>GenericActivity</code>.
+ */
 public abstract class GenericActivity {
 	private Activity activity;
 	public GenericActivity(Activity activity){
