@@ -87,24 +87,36 @@ public final class R {
         public static final int rating_not_important=0x7f020018;
     }
     public static final class id {
-        public static final int address=0x7f090002;
-        public static final int checkin=0x7f090006;
-        public static final int comment1=0x7f090008;
-        public static final int comment2=0x7f090009;
-        public static final int comment_section=0x7f090007;
-        public static final int description_text=0x7f090004;
-        public static final int expandable=0x7f090005;
-        public static final int favorites=0x7f09000f;
-        public static final int imageView1=0x7f09000b;
-        public static final int locinfo=0x7f090001;
-        public static final int newbar=0x7f09000c;
-        public static final int radar=0x7f09000e;
-        public static final int scroll=0x7f090000;
-        public static final int search=0x7f09000d;
-        public static final int textView1=0x7f09000a;
-        public static final int timestamp=0x7f090003;
-        public static final int tv_lat=0x7f090010;
-        public static final int tv_lng=0x7f090011;
+        public static final int EditText01=0x7f0a0010;
+        public static final int EditText02=0x7f0a0014;
+        public static final int EditText03=0x7f0a0016;
+        public static final int EditText04=0x7f0a0011;
+        public static final int TextView01=0x7f0a0013;
+        public static final int TextView02=0x7f0a0015;
+        public static final int TextView03=0x7f0a0017;
+        public static final int action_settings=0x7f0a001d;
+        public static final int address=0x7f0a0002;
+        public static final int button1=0x7f0a0012;
+        public static final int button2=0x7f0a0018;
+        public static final int checkin=0x7f0a0006;
+        public static final int comment1=0x7f0a0008;
+        public static final int comment2=0x7f0a0009;
+        public static final int comment_section=0x7f0a0007;
+        public static final int description_text=0x7f0a0004;
+        public static final int expandable=0x7f0a0005;
+        public static final int favorites=0x7f0a000f;
+        public static final int idEstabelecimento=0x7f0a0019;
+        public static final int imageView1=0x7f0a000b;
+        public static final int locinfo=0x7f0a0001;
+        public static final int mensagem=0x7f0a001a;
+        public static final int newbar=0x7f0a000c;
+        public static final int radar=0x7f0a000e;
+        public static final int scroll=0x7f0a0000;
+        public static final int search=0x7f0a000d;
+        public static final int textView1=0x7f0a000a;
+        public static final int timestamp=0x7f0a0003;
+        public static final int tv_lat=0x7f0a001b;
+        public static final int tv_lng=0x7f0a001c;
     }
     public static final class layout {
         public static final int activity_bar_profile=0x7f030000;
@@ -112,7 +124,15 @@ public final class R {
         public static final int activity_home=0x7f030002;
         public static final int activity_radar=0x7f030003;
         public static final int activity_search=0x7f030004;
-        public static final int radar_info=0x7f030005;
+        public static final int dummy_activity_criar_estabelecimento=0x7f030005;
+        public static final int dummy_activity_main=0x7f030006;
+        public static final int dummy_activity_ver_estabelecimento=0x7f030007;
+        public static final int piece_radar_info=0x7f030008;
+    }
+    public static final class menu {
+        public static final int dummy_criar_estabelecimento=0x7f090000;
+        public static final int dummy_main=0x7f090001;
+        public static final int dummy_ver_estabelecimento=0x7f090002;
     }
     public static final class string {
         public static final int action_settings=0x7f070001;

@@ -35,7 +35,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		 */
 		switch (v.getId()) {
 		case R.id.newbar:
-			intent = new Intent(this, BarProfileActivity.class);
+			intent = new Intent(this, DummyMainActivity.class);
 			startActivity(intent);
 			break;
 		case R.id.radar:

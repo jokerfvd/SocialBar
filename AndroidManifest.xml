@@ -63,6 +63,7 @@
             android:name=".activities.BarProfileActivity"
             android:label="@string/activity_bar_profile" >
         </activity>
+        
         <activity
             android:name=".activities.SearchActivity"
             android:label="@string/activity_search" >
@@ -76,11 +77,25 @@
             android:label="@string/activity_favorites" >
         </activity>
         
-        <service android:name="com.socialbar.android.restapi.service.Service" />
+        <!-- dummy activities -->
+        <activity
+            android:name=".activities.DummyMainActivity"
+            android:label="dummy rest main " >
+        </activity>
+        <activity
+            android:name=".activities.DummyVerEstabelecimentoActivity"
+            android:label="dummy rest ver " >
+        </activity>
+        <activity
+            android:name=".activities.DummyCriarEstabelecimentoActivity"
+            android:label="dummy rest criar " >
+        </activity>
+        
+        <service android:name="com.socialbar.android.rest.service.Service" />
 
         <provider
-            android:name="com.socialbar.android.restapi.provider.EstabelecimentosProvider"
-            android:authorities="com.socialbar.android.restapi.estabelecimentos" />
+            android:name="com.socialbar.android.rest.provider.EstabelecimentosProvider"
+            android:authorities="com.socialbar.android.rest.estabelecimentos" />
     </application>
 
 </manifest>

@@ -56,7 +56,7 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener {
 		this.map = map;
 		this.activity = activity;
 		this.iconResource = R.drawable.bar_mark;
-		this.layoutResource = R.layout.radar_info;
+		this.layoutResource = R.layout.piece_radar_info;
 		this.initilize();
 		this.initialize2();
 		
@@ -85,7 +85,7 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener {
             public View getInfoContents(Marker marker) {
 
                 // Getting view from the layout file info_window_layout
-                View v = activity.getLayoutInflater().inflate(R.layout.radar_info, null);
+                View v = activity.getLayoutInflater().inflate(R.layout.piece_radar_info, null);
 
                 // Getting reference to the TextView to set title
                 TextView note = (TextView) v.findViewById(R.id.tv_lat);
