@@ -25,7 +25,7 @@ public class DummyEstablishment {
 		for (int i = 1; i <= qt; i++)
 			list.add(this.create(String.valueOf(i), "Bar " + String.valueOf(i),
 					String.valueOf(i) + "1234-5678",
-					"Rua multi " + String.valueOf(i), lat+i/50, lon+i/50));
+					"Rua multi " + String.valueOf(i), lat+(i/1000.0), lon+(i/1000.0)));
 
 		return list;
 	}
@@ -38,6 +38,7 @@ public class DummyEstablishment {
 		e.setAddress(address);
 		e.setLatitude(lat);
 		e.setLongitude(lon);
+		e.setLastModified(System.currentTimeMillis());
 
 		return e;
 	}

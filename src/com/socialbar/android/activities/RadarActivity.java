@@ -8,6 +8,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -147,7 +148,7 @@ public class RadarActivity extends Activity implements OnClickListener,RadarEven
             public View getInfoContents(Marker marker) {
 
                 // Getting view from the layout file info_window_layout
-                View v = getLayoutInflater().inflate(R.layout.snippet_radar_info, null);
+                View v = getLayoutInflater().inflate(R.layout.snippet_radar_info_window, null);
 
                 // Getting reference to the TextView to set title
                 TextView note = (TextView) v.findViewById(R.id.tv_lat);
@@ -164,7 +165,8 @@ public class RadarActivity extends Activity implements OnClickListener,RadarEven
 	@Override
 	public void onRadarLocationChange(double latitude, double longitude) {
 		Model model = AbstractModelFactory.getInstance();
-		List<Establishment> es = model.getEstablishment( longitude,latitude);		
+		List<Establishment> es = model.getEstablishment( longitude,latitude);
+		Log.i("RADAR",String.valueOf(es.size()));
 		radar.addMakers(GooglePointer.getPointer(es, R.drawable.bar_mark));		
 	}
 	@Override

@@ -13,6 +13,7 @@ public class EstablishmentProvider implements Establishment {
 	private String address;
 	private String description;
 	private int people;
+	private long lastModified;
 
 	public EstablishmentProvider() {
 	}
@@ -171,8 +172,13 @@ public class EstablishmentProvider implements Establishment {
 
 	@Override
 	public long getLastModified() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.lastModified;
+	}
+
+	@Override
+	public void setLastModified(long miliseconds) {
+		this.lastModified = miliseconds;
+		
 	}
 
 }

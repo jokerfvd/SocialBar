@@ -128,7 +128,7 @@ public final class R {
         public static final int dummy_activity_criar_estabelecimento=0x7f030005;
         public static final int dummy_activity_main=0x7f030006;
         public static final int dummy_activity_ver_estabelecimento=0x7f030007;
-        public static final int snippet_radar_info=0x7f030008;
+        public static final int snippet_radar_info_window=0x7f030008;
     }
     public static final class menu {
         public static final int dummy_criar_estabelecimento=0x7f090000;

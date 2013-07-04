@@ -20,9 +20,13 @@ public interface Establishment {
 
 	// informações
 	String getID();
+
 	String getName();
 
 	String getDescription();
+
+	void setLastModified(long miliseconds);
+
 	long getLastModified();
 
 	/** Getter for property <b>number of people</b> on establishment */

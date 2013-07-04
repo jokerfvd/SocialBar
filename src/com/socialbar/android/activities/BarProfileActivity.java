@@ -1,5 +1,11 @@
 package com.socialbar.android.activities;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import com.socialbar.android.R;
 import com.socialbar.android.activities.advance.resources.GenericActivity;
 import com.socialbar.android.activities.advance.resources.GenericActivitySlider;
@@ -10,6 +16,7 @@ import com.socialbar.android.model.Model;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,12 +63,15 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 		if (id != null) {
 			Model model = AbstractModelFactory.getInstance();
 			Establishment e = model.getEstablishment(id);
-
+			
+			
+			SimpleDateFormat dfmt = new SimpleDateFormat("EEEE, d MMMM yyyy");  
+	        Date date= new Date(e.getLastModified()); 
+			
 			((TextView) findViewById(R.id.name)).setText(e.getName());
 			((TextView) findViewById(R.id.people)).setText(String
 					.valueOf(e.getPeople()));
-			((TextView) findViewById(R.id.last_modified)).setText(String
-					.valueOf(e.getLastModified()));
+			((TextView) findViewById(R.id.last_modified)).setText("atualizado em "+dfmt.format(date));
 			((TextView) findViewById(R.id.address)).setText(e.getAddress());
 		}
 	}
