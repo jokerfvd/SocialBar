@@ -1,12 +1,22 @@
 package com.socialbar.android.activities;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import com.socialbar.android.R;
 import com.socialbar.android.activities.advance.resources.GenericActivity;
 import com.socialbar.android.activities.advance.resources.GenericActivitySlider;
+import com.socialbar.android.model.AbstractModelFactory;
+import com.socialbar.android.model.Establishment;
+import com.socialbar.android.model.Model;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,12 +30,13 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 	 * Funcoes genericas utilizadas por um conjunto de activities
 	 */
 	private GenericActivity genericActivity;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_bar_profile);		
-		
+		setContentView(R.layout.activity_bar_profile);
+
 		/**
 		 * barra manipulação
 		 */
@@ -34,17 +45,37 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 		/**
 		 * efeitos da activity
 		 */
-		
+
 		this.genericActivity = new GenericActivitySlider(this);
 		this.genericActivity.resume();
-		
+
 		/**
 		 * Botoes
 		 */
 		Button expandable = (Button) findViewById(R.id.expandable);
 		expandable.setOnClickListener(this);
+
+		this.configuration();
 	}
-	
+
+	private void configuration() {
+		String id = getIntent().getExtras().getString("ID");
+		if (id != null) {
+			Model model = AbstractModelFactory.getInstance();
+			Establishment e = model.getEstablishment(id);
+			
+			
+			SimpleDateFormat dfmt = new SimpleDateFormat("EEEE, d MMMM yyyy");  
+	        Date date= new Date(e.getLastModified()); 
+			
+			((TextView) findViewById(R.id.name)).setText(e.getName());
+			((TextView) findViewById(R.id.people)).setText(String
+					.valueOf(e.getPeople()));
+			((TextView) findViewById(R.id.last_modified)).setText("atualizado em "+dfmt.format(date));
+			((TextView) findViewById(R.id.address)).setText(e.getAddress());
+		}
+	}
+
 	@Override
 	public void onClick(View v) {
 
@@ -60,6 +91,7 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
+
 	/**
 	 * evento voltar
 	 */
@@ -73,6 +105,7 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
 	@Override
 	public void onBackPressed() {
 		this.genericActivity.finish();

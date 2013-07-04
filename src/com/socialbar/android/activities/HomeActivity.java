@@ -5,6 +5,7 @@ import com.socialbar.android.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -23,6 +24,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		this.findViewById(R.id.radar).setOnClickListener(this);
 		this.findViewById(R.id.favorites).setOnClickListener(this);
 		this.findViewById(R.id.search).setOnClickListener(this);
+		
 		
 	}
 

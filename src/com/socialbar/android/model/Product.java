@@ -20,5 +20,6 @@ public interface Product {
 
 	void getPrice(BigDecimal price);
 
-	void setType(Product.Type type);
+	void setType(Product.Type type);	
+	
 }
