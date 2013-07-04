@@ -37,6 +37,7 @@
                     android:src="@drawable/photo" />
 
                 <TextView
+                    android:id="@+id/people"
                     style="@style/app_header_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -87,7 +88,7 @@
                             <!-- nome do estabelecimento -->
 
                             <TextView
-                                android:id="@+id/locinfo"
+                                android:id="@+id/name"
                                 style="@style/app_header_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -105,7 +106,7 @@
                             <!-- data de update -->
 
                             <TextView
-                                android:id="@+id/timestamp"
+                                android:id="@+id/last_modified"
                                 style="@style/app_normal_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
