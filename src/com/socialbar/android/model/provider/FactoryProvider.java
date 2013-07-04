@@ -32,9 +32,7 @@ public class FactoryProvider implements Model {
 
 	@Override
 	public Establishment getEstablishment(String id) {
-		if (id == null)
-			return new EstablishmentProvider();
-		return new DummyEstablishment().getOne(0, 0);
+		return new DummyEstablishment().getById(id, 0, 0);
 	}
 
 	@Override
@@ -53,6 +51,11 @@ public class FactoryProvider implements Model {
 	public User getUser() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Establishment getEstablishment() {
+			return new EstablishmentProvider();
 	}
 
 }

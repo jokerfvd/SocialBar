@@ -6,6 +6,7 @@ public interface Model {
 	/**
 	 * interfaces para todos os objetos - basicas
 	 */
+	Establishment getEstablishment();
 	Establishment getEstablishment(String id);
 
 	List<Establishment> getEstablishment(double latitude, double longitude);
