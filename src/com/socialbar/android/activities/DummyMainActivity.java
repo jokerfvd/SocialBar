@@ -68,11 +68,7 @@ public class DummyMainActivity extends ListActivity {
                 startActivity(intent);      
 			}
 		});
-		
-		//adicionando permissão para atividade network na main
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-	    StrictMode.setThreadPolicy(policy);
-				
+			    				
 	}
 	
 	
@@ -152,36 +148,8 @@ public class DummyMainActivity extends ListActivity {
 	
 	public void listarEstabelecimentos(View view){
 		System.out.println("listarEstabelecimentos");
-		
 		//MANEIRA CERTA
-		requestId = mServiceHelper.getEstabelecimentos();
-		
-		/* MANEIRA ERRADA
-		URI uri = URI.create("http://restserveruff.herokuapp.com/estabelecimentos.json");
-		Request request = new Request(Method.GET, uri, null, null);
-		RestClient client = new RestClient();
-		Response response = client.execute(request);
-		if (response.status == 200)
-		{
-			JSONArray jArray;
-			try {
-				jArray = new JSONArray(new String(response.body));
-				listItems.clear();
-				for(int i=0; i < jArray.length(); i++){
-				      JSONObject jObject = jArray.getJSONObject(i);
-				      String id = jObject.getString("id");
-				      String nome = jObject.getString("nome");
-				      listItems.add(id);
-				 }
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			adapter.notifyDataSetChanged();
-			
-		}
-		//*/	
-		
+		requestId = mServiceHelper.getEstabelecimentos();		
     }
 	
 	public void criarEstabelecimento(View view) {

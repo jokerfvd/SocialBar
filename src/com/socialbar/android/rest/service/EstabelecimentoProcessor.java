@@ -19,9 +19,15 @@ class EstabelecimentoProcessor {
 			.getSimpleName();
 
 	private Context mContext;
+	private byte[] mBody;
 
 	public EstabelecimentoProcessor(Context context) {
 		mContext = context;
+	}
+	
+	public EstabelecimentoProcessor(Context context, byte[] body) {
+		mContext = context;
+		mBody = body;
 	}
 
 	void getEstabelecimento(ProcessorCallback callback) {
@@ -31,6 +37,18 @@ class EstabelecimentoProcessor {
 						EstabelecimentosConstants.CONTENT_URI, Method.GET,
 						null, null);
 		RestMethodResult<Estabelecimento> result = getRestMethod.execute();
+		updateContentProvider(result);
+		callback.send(result.getStatusCode());
+
+	}
+	
+	void addEstabelecimento(ProcessorCallback callback) {
+		@SuppressWarnings("unchecked")
+		RestMethod<Estabelecimento> postRestMethod = RestMethodFactory
+				.getInstance(mContext).getRestMethod(
+						EstabelecimentosConstants.CONTENT_URI, Method.POST,
+						null, mBody);
+		RestMethodResult<Estabelecimento> result = postRestMethod.execute();
 		updateContentProvider(result);
 		callback.send(result.getStatusCode());
 

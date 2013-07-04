@@ -10,12 +10,15 @@ public class Service extends IntentService {
 	public static final String METHOD_EXTRA = "com.jeremyhaberman.restfulandroid.service.METHOD_EXTRA";
 
 	public static final String METHOD_GET = "GET";
+	public static final String METHOD_POST = "POST";
 
 	public static final String RESOURCE_TYPE_EXTRA = "com.jeremyhaberman.restfulandroid.service.RESOURCE_TYPE_EXTRA";
 	
 	public static final String RESOURCE_ID = "com.socialbar.android.rest.service.RESOURCE_ID";
 	
 	public static final String ESTABS_TIPO = "com.socialbar.android.rest.service.ESTABS_TIPO";
+	
+	public static final String RESOURCE_JSON = "com.socialbar.android.rest.service.RESOURCE_JSON";
 
 	public static final int RESOURCE_TYPE_ESTABELECIMENTOS = 1;
 	public static final int RESOURCE_TYPE_ESTABELECIMENTO = 2;
@@ -77,6 +80,11 @@ public class Service extends IntentService {
 			if (method.equalsIgnoreCase(METHOD_GET)) {
 				EstabelecimentoProcessor processor = new EstabelecimentoProcessor(getApplicationContext());
 				processor.getEstabelecimento(makeProcessorCallback());
+			}
+			else if (method.equalsIgnoreCase(METHOD_POST)) {
+				String json = requestIntent.getStringExtra(Service.RESOURCE_JSON);
+				EstabelecimentoProcessor processor = new EstabelecimentoProcessor(getApplicationContext(), json.getBytes());
+				processor.addEstabelecimento(makeProcessorCallback());
 			}
 			break;
 		case RESOURCE_TYPE_USUARIO:

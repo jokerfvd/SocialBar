@@ -19,7 +19,7 @@
         android:text="Nome:" />
 
     <EditText
-        android:id="@+id/EditText04"
+        android:id="@+id/nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView1"
@@ -31,12 +31,12 @@
     </EditText>
 
     <EditText
-        android:id="@+id/EditText01"
+        android:id="@+id/endereco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/TextView01"
         android:layout_alignBottom="@+id/TextView01"
-        android:layout_alignLeft="@+id/EditText04"
+        android:layout_alignLeft="@+id/nome"
         android:ems="10" />
 
     <TextView
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/TextView01"
-        android:layout_below="@+id/EditText01"
+        android:layout_below="@+id/endereco"
         android:layout_marginTop="26dp"
         android:text="Telefone:" />
 
@@ -53,12 +53,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/textView1"
-        android:layout_below="@+id/EditText04"
+        android:layout_below="@+id/nome"
         android:layout_marginTop="31dp"
         android:text="Endereço:" />
 
     <EditText
-        android:id="@+id/EditText03"
+        android:id="@+id/gostei"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/TextView03"
@@ -70,17 +70,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/EditText02"
+        android:layout_below="@+id/telefone"
         android:layout_marginTop="38dp"
-        android:text="Rank:" />
+        android:text="Gostei:" />
 
     <EditText
-        android:id="@+id/EditText02"
+        android:id="@+id/telefone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/TextView02"
         android:layout_alignBottom="@+id/TextView02"
-        android:layout_alignLeft="@+id/EditText01"
+        android:layout_alignLeft="@+id/endereco"
         android:ems="10" />
 
     <Button
@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/TextView02"
-        android:layout_below="@+id/EditText03"
+        android:layout_below="@+id/gostei"
         android:layout_marginTop="66dp"
         android:onClick="EditarEstabelecimento"
         android:text="Editar" />
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/button1"
         android:layout_alignBottom="@+id/button1"
-        android:layout_alignRight="@+id/EditText03"
+        android:layout_alignRight="@+id/gostei"
         android:layout_marginRight="56dp"
         android:onClick="DeletarEstabelecimento"
         android:text="Deletar" />

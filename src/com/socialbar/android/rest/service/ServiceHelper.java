@@ -3,6 +3,11 @@ package com.socialbar.android.rest.service;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import org.json.JSONStringer;
+
+import com.socialbar.android.rest.resource.Estabelecimento;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +32,7 @@ public class ServiceHelper {
 	private static final String estabelecimentosHashkey = "ESTABS";
 	private static final String estabelecimentosPorCoordenadaHashkey = "ESTABSCOORDENADA";
 	private static final String estabelecimentosPorFiltrokey = "ESTABSFILTRO";
+	private static final String insereEstabelecimentoHashkey = "INSEREESTAB";
 	
 	private static Object lock = new Object();
 
@@ -48,6 +54,50 @@ public class ServiceHelper {
 		}
 
 		return instance;		
+	}
+	
+	public long addEstabelecimento(String json) {
+		if(pendingRequests.containsKey(insereEstabelecimentoHashkey)){
+			return pendingRequests.get(insereEstabelecimentoHashkey);
+		}
+
+		long requestId = generateRequestID();
+		pendingRequests.put(insereEstabelecimentoHashkey, requestId);
+
+		ResultReceiver serviceCallback = new ResultReceiver(null){
+			@Override
+			protected void onReceiveResult(int resultCode, Bundle resultData) {
+				handleAddEstabelecimentoResponse(resultCode, resultData);
+			}
+		};
+
+		Intent intent = new Intent(this.ctx, Service.class);
+		intent.putExtra(Service.METHOD_EXTRA, Service.METHOD_POST);
+		intent.putExtra(Service.RESOURCE_TYPE_EXTRA, Service.RESOURCE_TYPE_ESTABELECIMENTO);
+		intent.putExtra(Service.RESOURCE_JSON, json);
+		intent.putExtra(Service.SERVICE_CALLBACK, serviceCallback);
+		intent.putExtra(REQUEST_ID, requestId);
+
+		this.ctx.startService(intent);
+		
+		return requestId;
+	}
+	
+	private void handleAddEstabelecimentoResponse(int resultCode, Bundle resultData){
+
+		Intent origIntent = (Intent)resultData.getParcelable(Service.ORIGINAL_INTENT_EXTRA);
+
+		if(origIntent != null){
+			long requestId = origIntent.getLongExtra(REQUEST_ID, 0);
+
+			pendingRequests.remove(insereEstabelecimentoHashkey);
+
+			Intent resultBroadcast = new Intent(ACTION_REQUEST_RESULT);
+			resultBroadcast.putExtra(EXTRA_REQUEST_ID, requestId);
+			resultBroadcast.putExtra(EXTRA_RESULT_CODE, resultCode);
+
+			ctx.sendBroadcast(resultBroadcast);
+		}
 	}
 	
 	public long getEstabelecimento(String id) {

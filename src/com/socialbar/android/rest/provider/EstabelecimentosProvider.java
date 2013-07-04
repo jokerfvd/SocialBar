@@ -18,6 +18,7 @@ import android.provider.BaseColumns;
 import android.text.TextUtils;
 
 
+// http://developer.android.com/guide/topics/providers/content-provider-creating.html
 public class EstabelecimentosProvider extends ContentProvider {
 
 	private static final String TAG = EstabelecimentosProvider.class.getSimpleName();
@@ -27,6 +28,7 @@ public class EstabelecimentosProvider extends ContentProvider {
 
 	/**
 	 * The MIME type of a directory of events
+	 * http://developer.android.com/guide/topics/providers/content-provider-basics.html#MIMETypeReference
 	 */
 	private static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.socialbar.android.estabelecimentos";
 
