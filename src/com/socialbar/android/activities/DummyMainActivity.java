@@ -43,6 +43,7 @@ public class DummyMainActivity extends ListActivity {
 	
 	//LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
     ArrayList<String> listItems=new ArrayList<String>();
+    ArrayList<Integer> listIds=new ArrayList<Integer>();
 
     //DEFINING STRING ADAPTER WHICH WILL HANDLE DATA OF LISTVIEW
     ArrayAdapter<String> adapter;
@@ -64,7 +65,8 @@ public class DummyMainActivity extends ListActivity {
 	    getListView().setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             	Intent intent = new Intent(DummyMainActivity.this, DummyVerEstabelecimentoActivity.class);
-                intent.putExtra("ID", parent.getItemAtPosition(position).toString());
+            	String num = listIds.get(position).toString();
+                intent.putExtra("ID", num);
                 startActivity(intent);      
 			}
 		});
@@ -129,12 +131,13 @@ public class DummyMainActivity extends ListActivity {
 	
 	private void atualizaEstabelecimentos() {
 		Cursor cursor = getContentResolver().query(EstabelecimentosConstants.CONTENT_URI, null, null, null, null);
-
-		int num = cursor.getCount();
 		while (cursor.moveToNext()) {
 		    int index = cursor.getColumnIndexOrThrow(EstabelecimentosConstants.NOME);
 			String nome = cursor.getString(index);
+			index = cursor.getColumnIndexOrThrow(EstabelecimentosConstants.TID);
+			String id = cursor.getString(index);
 			listItems.add(nome);
+			listIds.add(new Integer(id));
 		}
 		cursor.close();
 		adapter.notifyDataSetChanged();
@@ -149,6 +152,7 @@ public class DummyMainActivity extends ListActivity {
 	
 	public void listarEstabelecimentos(View view){
 		listItems.clear();
+		listIds.clear();
 		adapter.notifyDataSetChanged();
 		requestId = mServiceHelper.getEstabelecimentos();
     }

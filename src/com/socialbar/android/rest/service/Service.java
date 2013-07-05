@@ -1,5 +1,10 @@
 package com.socialbar.android.rest.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
@@ -78,12 +83,17 @@ public class Service extends IntentService {
 			break;
 		case RESOURCE_TYPE_ESTABELECIMENTO:
 			if (method.equalsIgnoreCase(METHOD_GET)) {
-				EstabelecimentoProcessor processor = new EstabelecimentoProcessor(getApplicationContext());
+				String id = requestIntent.getStringExtra(Service.RESOURCE_ID);
+				Map<String, List<String>> header = new HashMap<String, List<String>>();
+				List<String> ids =  new ArrayList<String>();
+				ids.add(id);
+				header.put("ID", ids);
+				EstabelecimentoProcessor processor = new EstabelecimentoProcessor(getApplicationContext(),header,null);
 				processor.getEstabelecimento(makeProcessorCallback());
 			}
 			else if (method.equalsIgnoreCase(METHOD_POST)) {
 				String json = requestIntent.getStringExtra(Service.RESOURCE_JSON);
-				EstabelecimentoProcessor processor = new EstabelecimentoProcessor(getApplicationContext(), json.getBytes());
+				EstabelecimentoProcessor processor = new EstabelecimentoProcessor(getApplicationContext(), null,json.getBytes());
 				processor.addEstabelecimento(makeProcessorCallback());
 			}
 			break;

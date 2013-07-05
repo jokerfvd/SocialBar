@@ -35,6 +35,7 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 	private Long requestId;
 	private BroadcastReceiver requestReceiver;
     private ServiceHelper mServiceHelper;
+    private String mId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +49,10 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 		StrictMode.setThreadPolicy(policy);
 */
 		Intent intent = getIntent();
-		String id = intent.getStringExtra("ID");
+		mId = intent.getStringExtra("ID");
 		
-		//TODO: metodo bugado, quebrando a aplicação
-		requestId = mServiceHelper.getEstabelecimento(id);
+		mServiceHelper = ServiceHelper.getInstance(this.getApplicationContext());
+		requestId = mServiceHelper.getEstabelecimento(mId);
 		
 	}
 	
@@ -95,7 +96,8 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 	}
 	
 	private void preencheDados() {
-		Cursor cursor = getContentResolver().query(EstabelecimentosConstants.CONTENT_URI, null, null, null, null);
+		Cursor cursor = getContentResolver().query(EstabelecimentosConstants.CONTENT_URI, null, 
+				EstabelecimentosConstants.TID+" = "+mId, null, null);
 
 		if (cursor.moveToFirst()) {
 			EditText nome = (EditText) findViewById(R.id.nome);
@@ -180,6 +182,20 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 		} else {
 			((EditText) mensagem)
 					.setText("O estabelecimento não pode ser deletado!");
+		}
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		// Unregister for broadcast
+		if (requestReceiver != null) {
+			try {
+				this.unregisterReceiver(requestReceiver);
+			} catch (IllegalArgumentException e) {
+				Logger.error(TAG, e.getLocalizedMessage(), e);
+			}
 		}
 	}
 
