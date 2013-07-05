@@ -8,13 +8,16 @@ import com.socialbar.android.R;
 import com.socialbar.android.activities.BarProfileActivity;
 import com.socialbar.android.model.Establishment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -54,7 +57,7 @@ public class GenericAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		Log.i("Generic ADAPTER", "getView");
-		Holder holder;
+		final Holder holder;
 		View v = convertView;
 		if (v == null) {
 			LayoutInflater vi = (LayoutInflater) this.context
@@ -64,7 +67,7 @@ public class GenericAdapter extends BaseAdapter {
 			holder.logo = (ImageView) v.findViewById(R.id.img_logo);
 			holder.name = (TextView) v.findViewById(R.id.text_name);
 			holder.address = (TextView) v.findViewById(R.id.text_address);
-			holder.favorite = (ImageButton) v.findViewById(R.id.btn_favorite);
+			holder.favorite = (ImageView) v.findViewById(R.id.img_favorite);
 
 			v.setTag(holder);
 		} else {
@@ -76,22 +79,41 @@ public class GenericAdapter extends BaseAdapter {
 		holder.name.setText(e.getName());
 		holder.address.setText(e.getAddress());
 		
-		holder.favorite.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View vis) {
-				Establishment e = data.get(position);
-				Toast.makeText(context,"favoritar id "+e.getID(),Toast.LENGTH_LONG ).show();
-				Log.i("Click btn favorite", "clicked");
-			}
-		});
 		v.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View vis) {
-
 				Establishment e = data.get(position);
-				Intent intent = new Intent(context, BarProfileActivity.class);
-				intent.putExtra("ID", e.getID());
-				context.startActivity(intent);
+				if(!e.isFavorite()){
+					holder.favorite.setImageResource(R.drawable.rating_important);
+					e.setFavorite(true);
+				}else{
+					holder.favorite.setImageResource(R.drawable.rating_not_important);
+					e.setFavorite(false);
+				}
+				Toast.makeText(context, context.getString(R.string.dialog_favorite_state_saved)+e.getName(), Toast.LENGTH_SHORT).show();
+			}
+		});
+		
+		v.setOnLongClickListener(new OnLongClickListener() {			
+			@Override
+			public boolean onLongClick(View v) {
+				final Establishment e = data.get(position);
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		    	builder
+		    	.setTitle(e.getName())
+		    	.setMessage(R.string.dialog_profile)
+		    	.setIcon(android.R.drawable.ic_dialog_alert)
+		    	.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+		    	    public void onClick(DialogInterface dialog, int which) {			      	
+		    	    	Intent intent = new Intent(context, BarProfileActivity.class);
+						intent.putExtra("ID", e.getID());
+						context.startActivity(intent);
+		    	    }
+		    	})
+		    	.setIcon(android.R.drawable.ic_menu_view)
+		    	.setNegativeButton(R.string.dialog_not, null)
+		    	.show();
+				return false;
 			}
 		});
 
@@ -99,7 +121,7 @@ public class GenericAdapter extends BaseAdapter {
 	}
 
 	static class Holder {
-		public ImageButton favorite;
+		public ImageView favorite;
 		public ImageView logo;
 		public TextView name;
 		public TextView address;

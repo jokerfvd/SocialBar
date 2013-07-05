@@ -14,6 +14,7 @@ public class EstablishmentProvider implements Establishment {
 	private String description;
 	private int people;
 	private long lastModified;
+	private boolean favorite = true;
 
 	public EstablishmentProvider() {
 	}
@@ -178,6 +179,17 @@ public class EstablishmentProvider implements Establishment {
 	@Override
 	public void setLastModified(long miliseconds) {
 		this.lastModified = miliseconds;
+		
+	}
+
+	@Override
+	public boolean isFavorite() {
+		return this.favorite;
+	}
+
+	@Override
+	public void setFavorite(boolean favorite) {
+		this.favorite = favorite;
 		
 	}
 
