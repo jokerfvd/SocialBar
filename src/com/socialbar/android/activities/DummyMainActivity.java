@@ -130,7 +130,8 @@ public class DummyMainActivity extends ListActivity {
 	private void atualizaEstabelecimentos() {
 		Cursor cursor = getContentResolver().query(EstabelecimentosConstants.CONTENT_URI, null, null, null, null);
 
-		if (cursor.moveToFirst()) {
+		int num = cursor.getCount();
+		while (cursor.moveToNext()) {
 		    int index = cursor.getColumnIndexOrThrow(EstabelecimentosConstants.NOME);
 			String nome = cursor.getString(index);
 			listItems.add(nome);
@@ -147,9 +148,9 @@ public class DummyMainActivity extends ListActivity {
 	}
 	
 	public void listarEstabelecimentos(View view){
-		System.out.println("listarEstabelecimentos");
-		//MANEIRA CERTA
-		requestId = mServiceHelper.getEstabelecimentos();		
+		listItems.clear();
+		adapter.notifyDataSetChanged();
+		requestId = mServiceHelper.getEstabelecimentos();
     }
 	
 	public void criarEstabelecimento(View view) {
