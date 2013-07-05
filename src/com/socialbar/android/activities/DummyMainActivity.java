@@ -43,6 +43,7 @@ public class DummyMainActivity extends ListActivity {
 	
 	//LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
     ArrayList<String> listItems=new ArrayList<String>();
+    ArrayList<Integer> listIds=new ArrayList<Integer>();
 
     //DEFINING STRING ADAPTER WHICH WILL HANDLE DATA OF LISTVIEW
     ArrayAdapter<String> adapter;
@@ -64,15 +65,12 @@ public class DummyMainActivity extends ListActivity {
 	    getListView().setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             	Intent intent = new Intent(DummyMainActivity.this, DummyVerEstabelecimentoActivity.class);
-                intent.putExtra("ID", parent.getItemAtPosition(position).toString());
+            	String num = listIds.get(position).toString();
+                intent.putExtra("ID", num);
                 startActivity(intent);      
 			}
 		});
-		
-		//adicionando permissão para atividade network na main
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-	    StrictMode.setThreadPolicy(policy);
-				
+			    				
 	}
 	
 	
@@ -133,11 +131,13 @@ public class DummyMainActivity extends ListActivity {
 	
 	private void atualizaEstabelecimentos() {
 		Cursor cursor = getContentResolver().query(EstabelecimentosConstants.CONTENT_URI, null, null, null, null);
-
-		if (cursor.moveToFirst()) {
+		while (cursor.moveToNext()) {
 		    int index = cursor.getColumnIndexOrThrow(EstabelecimentosConstants.NOME);
 			String nome = cursor.getString(index);
+			index = cursor.getColumnIndexOrThrow(EstabelecimentosConstants.TID);
+			String id = cursor.getString(index);
 			listItems.add(nome);
+			listIds.add(new Integer(id));
 		}
 		cursor.close();
 		adapter.notifyDataSetChanged();
@@ -151,37 +151,10 @@ public class DummyMainActivity extends ListActivity {
 	}
 	
 	public void listarEstabelecimentos(View view){
-		System.out.println("listarEstabelecimentos");
-		
-		//MANEIRA CERTA
+		listItems.clear();
+		listIds.clear();
+		adapter.notifyDataSetChanged();
 		requestId = mServiceHelper.getEstabelecimentos();
-		
-		/* MANEIRA ERRADA
-		URI uri = URI.create("http://restserveruff.herokuapp.com/estabelecimentos.json");
-		Request request = new Request(Method.GET, uri, null, null);
-		RestClient client = new RestClient();
-		Response response = client.execute(request);
-		if (response.status == 200)
-		{
-			JSONArray jArray;
-			try {
-				jArray = new JSONArray(new String(response.body));
-				listItems.clear();
-				for(int i=0; i < jArray.length(); i++){
-				      JSONObject jObject = jArray.getJSONObject(i);
-				      String id = jObject.getString("id");
-				      String nome = jObject.getString("nome");
-				      listItems.add(id);
-				 }
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			adapter.notifyDataSetChanged();
-			
-		}
-		//*/	
-		
     }
 	
 	public void criarEstabelecimento(View view) {

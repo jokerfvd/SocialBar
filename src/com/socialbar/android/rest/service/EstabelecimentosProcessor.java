@@ -63,7 +63,8 @@ class EstabelecimentosProcessor {
 		if (result != null && result.getResource() != null) {
 
 			ArrayList<Estabelecimento> lista = result.getResource().getLista();
-
+			Cursor cursor = mContext.getContentResolver().query(EstabelecimentosConstants.CONTENT_URI,
+					null, null, null, null);
 			for(int i=0; i < lista.size(); i++){
 				Estabelecimento estabelecimento = lista.get(i);		
 
@@ -71,22 +72,21 @@ class EstabelecimentosProcessor {
 				values.put(EstabelecimentosConstants.NOME, estabelecimento.getNome());
 				values.put(EstabelecimentosConstants.ENDERECO, estabelecimento.getEndereco());
 				values.put(EstabelecimentosConstants.TELEFONE, estabelecimento.getTelefone());
-				//values.put(EstabelecimentosConstants.GOSTEI, estabelecimento.getGostei());
-				//values.put(EstabelecimentosConstants.LATITUDE, estabelecimento.getLatitude());
-				//values.put(EstabelecimentosConstants.LONGITUDE, estabelecimento.getLatitude());
-
-				Cursor cursor = mContext.getContentResolver().query(EstabelecimentosConstants.CONTENT_URI,
-						null, null, null, null);
+				values.put(EstabelecimentosConstants.GOSTEI, estabelecimento.getGostei());
+				values.put(EstabelecimentosConstants.LATITUDE, estabelecimento.getLatitude());
+				values.put(EstabelecimentosConstants.LONGITUDE, estabelecimento.getLatitude());
+				values.put(EstabelecimentosConstants.TID, estabelecimento.getId());
 				if (cursor.moveToFirst()) {
 					int id = cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID));
 					mContext.getContentResolver().update(
 							ContentUris.withAppendedId(EstabelecimentosConstants.CONTENT_URI, id), values,
 							null, null);
-				} else {
+				}
+				else{
 					mContext.getContentResolver().insert(EstabelecimentosConstants.CONTENT_URI, values);
 				}
-				cursor.close();
 			}
+			cursor.close();
 		}
 
 	}

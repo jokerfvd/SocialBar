@@ -43,13 +43,24 @@ public class RestMethodFactory {
 		switch (uriMatcher.match(resourceUri)) {
 		case ESTABELECIMENTOS:
 			if (method == Method.GET) {
-				return new GetEstabelecimentosRestMethod(mContext);
+				if (headers != null)
+					return new GetEstabelecimentoRestMethod(mContext, headers);
+				else
+					return new GetEstabelecimentosRestMethod(mContext);
+			}
+			else if (method == Method.POST) {
+				return new PostEstabelecimentoRestMethod(mContext, body);
 			}
 			break;
 		case ESTABELECIMENTO_ID:
 			if (method == Method.GET) {
 				return new GetEstabelecimentoRestMethod(mContext, headers);
 			}
+			/*
+			else if (method == Method.POST) {
+				return new PostEstabelecimentoRestMethod(mContext, body);
+			}
+			*/
 			break;
 		}	
 

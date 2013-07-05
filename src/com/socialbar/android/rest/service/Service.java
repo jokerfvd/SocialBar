@@ -1,5 +1,10 @@
 package com.socialbar.android.rest.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +15,15 @@ public class Service extends IntentService {
 	public static final String METHOD_EXTRA = "com.jeremyhaberman.restfulandroid.service.METHOD_EXTRA";
 
 	public static final String METHOD_GET = "GET";
+	public static final String METHOD_POST = "POST";
 
 	public static final String RESOURCE_TYPE_EXTRA = "com.jeremyhaberman.restfulandroid.service.RESOURCE_TYPE_EXTRA";
 	
 	public static final String RESOURCE_ID = "com.socialbar.android.rest.service.RESOURCE_ID";
 	
 	public static final String ESTABS_TIPO = "com.socialbar.android.rest.service.ESTABS_TIPO";
+	
+	public static final String RESOURCE_JSON = "com.socialbar.android.rest.service.RESOURCE_JSON";
 
 	public static final int RESOURCE_TYPE_ESTABELECIMENTOS = 1;
 	public static final int RESOURCE_TYPE_ESTABELECIMENTO = 2;
@@ -75,8 +83,18 @@ public class Service extends IntentService {
 			break;
 		case RESOURCE_TYPE_ESTABELECIMENTO:
 			if (method.equalsIgnoreCase(METHOD_GET)) {
-				EstabelecimentoProcessor processor = new EstabelecimentoProcessor(getApplicationContext());
+				String id = requestIntent.getStringExtra(Service.RESOURCE_ID);
+				Map<String, List<String>> header = new HashMap<String, List<String>>();
+				List<String> ids =  new ArrayList<String>();
+				ids.add(id);
+				header.put("ID", ids);
+				EstabelecimentoProcessor processor = new EstabelecimentoProcessor(getApplicationContext(),header,null);
 				processor.getEstabelecimento(makeProcessorCallback());
+			}
+			else if (method.equalsIgnoreCase(METHOD_POST)) {
+				String json = requestIntent.getStringExtra(Service.RESOURCE_JSON);
+				EstabelecimentoProcessor processor = new EstabelecimentoProcessor(getApplicationContext(), null,json.getBytes());
+				processor.addEstabelecimento(makeProcessorCallback());
 			}
 			break;
 		case RESOURCE_TYPE_USUARIO:

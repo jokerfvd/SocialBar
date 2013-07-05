@@ -24,5 +24,6 @@ public class EstabelecimentosConstants {
 	public static final String GOSTEI = "gostei";
 	public static final String LATITUDE = "latitude";
 	public static final String LONGITUDE = "longitude";
+	public static final String TID = "tid";
 
 }

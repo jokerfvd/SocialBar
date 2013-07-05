@@ -87,6 +87,7 @@ public final class R {
         public static final int rating_not_important=0x7f020018;
     }
     public static final class id {
+
         public static final int EditText01=0x7f0a0015;
         public static final int EditText02=0x7f0a0019;
         public static final int EditText03=0x7f0a001b;
@@ -120,6 +121,7 @@ public final class R {
         public static final int text_last_modified=0x7f0a0006;
         public static final int text_name=0x7f0a0004;
         public static final int text_people=0x7f0a0002;
+
         public static final int tv_lat=0x7f0a0020;
         public static final int tv_lng=0x7f0a0021;
     }

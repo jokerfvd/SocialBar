@@ -31,62 +31,29 @@ import android.widget.EditText;
 
 public class DummyVerEstabelecimentoActivity extends Activity {
 	private static final String TAG = DummyMainActivity.class.getSimpleName();
-	// "authenticity_token"=>"S9IoNL9/cwzQu3mlE0eGE9nDC6pXsVab2vriREcs0NE="
 	
 	private Long requestId;
 	private BroadcastReceiver requestReceiver;
     private ServiceHelper mServiceHelper;
+    private String mId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dummy_activity_ver_estabelecimento);
 
+/*
 		// adicionando permissão para atividade network na main
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
 				.permitAll().build();
 		StrictMode.setThreadPolicy(policy);
-
+*/
 		Intent intent = getIntent();
-		String id = intent.getStringExtra("ID");
+		mId = intent.getStringExtra("ID");
 		
-		//MANEIRA CERTA
-		//TODO: metodo bugado, quebrando a aplicação
-		requestId = mServiceHelper.getEstabelecimento(id);
-
-		/*
-		URI uri = URI
-				.create("http://restserveruff.herokuapp.com/estabelecimentos/"
-						+ id + ".json");
-		// URI uri =
-		// URI.create("http://localhost:3000/estabelecimentos/"+id+".json");
-		Request request = new Request(Method.GET, uri, null, null);
-
-		RestClient client = new RestClient();
-		Response response = client.execute(request);
-
-		if (response.status == 200) {
-			try {
-				JSONObject jObject = new JSONObject(new String(response.body));
-
-				EditText endereco = (EditText) findViewById(R.id.EditText01);
-				endereco.setText(jObject.getString("endereco"));
-				EditText telefone = (EditText) findViewById(R.id.EditText02);
-				telefone.setText(jObject.getString("telefone"));
-				EditText rank = (EditText) findViewById(R.id.EditText03);
-				rank.setText(jObject.getString("rank"));
-				EditText nome = (EditText) findViewById(R.id.EditText04);
-				nome.setText(jObject.getString("nome"));
-
-				EditText idEstabelecimento = (EditText) findViewById(R.id.idEstabelecimento);
-				idEstabelecimento.setText(id);
-
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		*/
+		mServiceHelper = ServiceHelper.getInstance(this.getApplicationContext());
+		requestId = mServiceHelper.getEstabelecimento(mId);
+		
 	}
 	
 	@Override
@@ -129,25 +96,22 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 	}
 	
 	private void preencheDados() {
-		Cursor cursor = getContentResolver().query(EstabelecimentosConstants.CONTENT_URI, null, null, null, null);
+		Cursor cursor = getContentResolver().query(EstabelecimentosConstants.CONTENT_URI, null, 
+				EstabelecimentosConstants.TID+" = "+mId, null, null);
 
 		if (cursor.moveToFirst()) {
-			EditText nome = (EditText) findViewById(R.id.EditText04);
+			EditText nome = (EditText) findViewById(R.id.nome);
 		    int index = cursor.getColumnIndexOrThrow(EstabelecimentosConstants.NOME);
 			nome.setText(cursor.getString(index));
-			EditText endereco = (EditText) findViewById(R.id.EditText01);
+			EditText endereco = (EditText) findViewById(R.id.endereco);
 			index = cursor.getColumnIndexOrThrow(EstabelecimentosConstants.ENDERECO);
 			endereco.setText(cursor.getString(index));
-			EditText telefone = (EditText) findViewById(R.id.EditText02);
+			EditText telefone = (EditText) findViewById(R.id.telefone);
 			index = cursor.getColumnIndexOrThrow(EstabelecimentosConstants.TELEFONE);
 			telefone.setText(cursor.getString(index));
-			EditText gostei = (EditText) findViewById(R.id.EditText03);
+			EditText gostei = (EditText) findViewById(R.id.gostei);
 			index = cursor.getColumnIndexOrThrow(EstabelecimentosConstants.GOSTEI);
 			gostei.setText(cursor.getString(index));
-
-			//EditText idEstabelecimento = (EditText) findViewById(R.id.idEstabelecimento);
-			//index = cursor.getColumnIndexOrThrow(EstabelecimentosConstants.);
-			//idEstabelecimento.setText(id);
 		}
 		cursor.close();
 	}
@@ -170,13 +134,13 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 
 		JSONStringer json = new JSONStringer().object().key("estabelecimento")
 				.object().key("nome")
-				.value(((EditText) findViewById(R.id.EditText04)).getText())
+				.value(((EditText) findViewById(R.id.nome)).getText())
 				.key("endereco")
-				.value(((EditText) findViewById(R.id.EditText01)).getText())
+				.value(((EditText) findViewById(R.id.endereco)).getText())
 				.key("telefone")
-				.value(((EditText) findViewById(R.id.EditText02)).getText())
-				.key("rank")
-				.value(((EditText) findViewById(R.id.EditText03)).getText())
+				.value(((EditText) findViewById(R.id.telefone)).getText())
+				.key("gostei")
+				.value(((EditText) findViewById(R.id.gostei)).getText())
 				.endObject().endObject();
 
 		Request request = new Request(Method.PUT, uri, null, json.toString()
@@ -206,10 +170,6 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 		URI uri = URI
 				.create("http://restserveruff.herokuapp.com/estabelecimentos/"
 						+ idEstabelecimento.getText());
-		// URI uri =
-		// URI.create("http://localhost:3000/estabelecimentos/"+idEstabelecimento.getText());
-
-		// /*
 		Request request = new Request(Method.DELETE, uri, null, null);
 		RestClient client = new RestClient();
 		Response response = client.execute(request);
@@ -223,26 +183,20 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 			((EditText) mensagem)
 					.setText("O estabelecimento não pode ser deletado!");
 		}
-		// */
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
 
-		/*
-		 * HttpClient client = new DefaultHttpClient(); HttpResponse response;
-		 * try { response = client.execute(new HttpDelete(uri));
-		 * 
-		 * View mensagem = findViewById(R.id.mensagem);
-		 * mensagem.setVisibility(View.VISIBLE);
-		 * 
-		 * //if (response.status == 200) if
-		 * (response.getStatusLine().getStatusCode() == 200) {
-		 * //System.out.println(new String(response.body));
-		 * 
-		 * ((EditText)mensagem).setText("Estabelecimento deletado com sucesso!");
-		 * finish(); } else {
-		 * ((EditText)mensagem).setText("O estabelecimento não pode ser deletado!"
-		 * ); } } catch (ClientProtocolException e) { // TODO Auto-generated
-		 * catch block e.printStackTrace(); } catch (IOException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } //
-		 */
+		// Unregister for broadcast
+		if (requestReceiver != null) {
+			try {
+				this.unregisterReceiver(requestReceiver);
+			} catch (IllegalArgumentException e) {
+				Logger.error(TAG, e.getLocalizedMessage(), e);
+			}
+		}
 	}
 
 }

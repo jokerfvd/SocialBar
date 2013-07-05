@@ -15,7 +15,7 @@ public class ProviderDbHelper extends SQLiteOpenHelper {
 
 	//Name of the database file
 	private static final String DATABASE_NAME = "socialbar.db";
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 
 	public ProviderDbHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,7 +38,8 @@ public class ProviderDbHelper extends SQLiteOpenHelper {
 		sqlBuilder.append(EstabelecimentosConstants.TELEFONE + " TEXT, ");
 		sqlBuilder.append(EstabelecimentosConstants.GOSTEI + " INTEGER, ");
 		sqlBuilder.append(EstabelecimentosConstants.LATITUDE + " TEXT, ");
-		sqlBuilder.append(EstabelecimentosConstants.LONGITUDE + " TEXT ");
+		sqlBuilder.append(EstabelecimentosConstants.LONGITUDE + " TEXT, ");
+		sqlBuilder.append(EstabelecimentosConstants.TID + " INTEGER ");
 		sqlBuilder.append(");");
 		
 		String sql = sqlBuilder.toString();

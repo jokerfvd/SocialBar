@@ -1,5 +1,9 @@
 package com.socialbar.android.rest.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.socialbar.android.rest.provider.EstabelecimentosConstants;
 import com.socialbar.android.rest.resource.Estabelecimento;
 import com.socialbar.android.rest.rest.RestMethod;
@@ -19,9 +23,13 @@ class EstabelecimentoProcessor {
 			.getSimpleName();
 
 	private Context mContext;
+	private byte[] mBody;
+	private Map<String, List<String>>  mHeader;
 
-	public EstabelecimentoProcessor(Context context) {
+	public EstabelecimentoProcessor(Context context, Map<String, List<String>>  header, byte[] body) {
 		mContext = context;
+		mHeader = header;
+		mBody = body;
 	}
 
 	void getEstabelecimento(ProcessorCallback callback) {
@@ -29,8 +37,20 @@ class EstabelecimentoProcessor {
 		RestMethod<Estabelecimento> getRestMethod = RestMethodFactory
 				.getInstance(mContext).getRestMethod(
 						EstabelecimentosConstants.CONTENT_URI, Method.GET,
-						null, null);
+						mHeader, mBody);
 		RestMethodResult<Estabelecimento> result = getRestMethod.execute();
+		updateContentProvider(result);
+		callback.send(result.getStatusCode());
+
+	}
+	
+	void addEstabelecimento(ProcessorCallback callback) {
+		@SuppressWarnings("unchecked")
+		RestMethod<Estabelecimento> postRestMethod = RestMethodFactory
+				.getInstance(mContext).getRestMethod(
+						EstabelecimentosConstants.CONTENT_URI, Method.POST,
+						mHeader, mBody);
+		RestMethodResult<Estabelecimento> result = postRestMethod.execute();
 		updateContentProvider(result);
 		callback.send(result.getStatusCode());
 

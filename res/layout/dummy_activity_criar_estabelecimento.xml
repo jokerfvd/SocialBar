@@ -7,42 +7,40 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".DummyCriarEstabelecimentoActivity" >
+    
+    <EditText
+        android:id="@+id/nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/endereco"
+        android:layout_alignTop="@+id/textView1"
+        android:ems="10">
+        <requestFocus /> 
+     </EditText>
 
     <EditText
-        android:id="@+id/EditText01"
+        android:id="@+id/endereco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/EditText04"
+        android:layout_below="@+id/nome"
         android:ems="10" >
-
-        <requestFocus />
     </EditText>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="46dp"
-        android:onClick="criar"
-        android:text="Criar" />
 
     <TextView
         android:id="@+id/TextView01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/EditText01"
+        android:layout_alignBottom="@+id/endereco"
         android:layout_alignLeft="@+id/textView1"
         android:text="Endereço:" />
 
     <EditText
-        android:id="@+id/EditText02"
+        android:id="@+id/telefone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/EditText01"
+        android:layout_below="@+id/endereco"
         android:layout_marginTop="33dp"
         android:ems="10" />
 
@@ -50,16 +48,16 @@
         android:id="@+id/TextView02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/EditText02"
+        android:layout_alignBottom="@+id/telefone"
         android:layout_alignRight="@+id/TextView01"
         android:text="Telefone:" />
 
     <EditText
-        android:id="@+id/EditText03"
+        android:id="@+id/gostei"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/EditText02"
-        android:layout_below="@+id/EditText02"
+        android:layout_alignLeft="@+id/telefone"
+        android:layout_below="@+id/telefone"
         android:layout_marginTop="22dp"
         android:ems="10" />
 
@@ -67,17 +65,9 @@
         android:id="@+id/TextView03"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/EditText03"
+        android:layout_alignBottom="@+id/gostei"
         android:layout_alignRight="@+id/TextView02"
-        android:text="Rank:" />
-
-    <EditText
-        android:id="@+id/EditText04"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/EditText01"
-        android:layout_alignTop="@+id/textView1"
-        android:ems="10" />
+        android:text="Gostei:" />
 
     <TextView
         android:id="@+id/textView1"
@@ -88,5 +78,50 @@
         android:layout_marginLeft="17dp"
         android:layout_marginTop="31dp"
         android:text="Nome:" />
+
+    <TextView
+        android:id="@+id/TextView05"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_alignRight="@+id/TextView04"
+        android:layout_marginBottom="19dp"
+        android:text="Longitude:" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:onClick="criar"
+        android:text="Criar" />
+
+    <EditText
+        android:id="@+id/longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/TextView05"
+        android:layout_alignRight="@+id/latitude"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/TextView04"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextView01"
+        android:layout_below="@+id/TextView03"
+        android:layout_marginTop="21dp"
+        android:text="Latitude:" />
+
+    <EditText
+        android:id="@+id/latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/TextView04"
+        android:layout_alignBottom="@+id/TextView04"
+        android:layout_alignParentRight="true"
+        android:ems="10" />
 
 </RelativeLayout>
