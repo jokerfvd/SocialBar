@@ -15,6 +15,7 @@ public class Service extends IntentService {
 	public static final String METHOD_EXTRA = "com.jeremyhaberman.restfulandroid.service.METHOD_EXTRA";
 
 	public static final String METHOD_GET = "GET";
+	public static final String METHOD_DELETE = "DELETE";
 	public static final String METHOD_POST = "POST";
 
 	public static final String RESOURCE_TYPE_EXTRA = "com.jeremyhaberman.restfulandroid.service.RESOURCE_TYPE_EXTRA";
@@ -95,6 +96,15 @@ public class Service extends IntentService {
 				String json = requestIntent.getStringExtra(Service.RESOURCE_JSON);
 				EstabelecimentoProcessor processor = new EstabelecimentoProcessor(getApplicationContext(), null,json.getBytes());
 				processor.addEstabelecimento(makeProcessorCallback());
+			}
+			else if (method.equalsIgnoreCase(METHOD_DELETE)) {
+				String id = requestIntent.getStringExtra(Service.RESOURCE_ID);
+				Map<String, List<String>> header = new HashMap<String, List<String>>();
+				List<String> ids =  new ArrayList<String>();
+				ids.add(id);
+				header.put("ID", ids);
+				EstabelecimentoProcessor processor = new EstabelecimentoProcessor(getApplicationContext(),header,null);
+				processor.removeEstabelecimento(makeProcessorCallback());
 			}
 			break;
 		case RESOURCE_TYPE_USUARIO:

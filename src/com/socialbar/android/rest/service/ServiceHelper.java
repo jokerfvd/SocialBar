@@ -33,6 +33,7 @@ public class ServiceHelper {
 	private static final String estabelecimentosPorCoordenadaHashkey = "ESTABSCOORDENADA";
 	private static final String estabelecimentosPorFiltrokey = "ESTABSFILTRO";
 	private static final String insereEstabelecimentoHashkey = "INSEREESTAB";
+	private static final String removeEstabelecimentoHashkey = "REMOVEESTAB";
 	
 	private static Object lock = new Object();
 
@@ -54,6 +55,33 @@ public class ServiceHelper {
 		}
 
 		return instance;		
+	}
+	
+	public long removeEstabelecimento(String id) {
+		if(pendingRequests.containsKey(removeEstabelecimentoHashkey)){
+			return pendingRequests.get(removeEstabelecimentoHashkey);
+		}
+
+		long requestId = generateRequestID();
+		pendingRequests.put(removeEstabelecimentoHashkey, requestId);
+
+		ResultReceiver serviceCallback = new ResultReceiver(null){
+			@Override
+			protected void onReceiveResult(int resultCode, Bundle resultData) {
+				handleAddEstabelecimentoResponse(resultCode, resultData);
+			}
+		};
+
+		Intent intent = new Intent(this.ctx, Service.class);
+		intent.putExtra(Service.METHOD_EXTRA, Service.METHOD_DELETE);
+		intent.putExtra(Service.RESOURCE_TYPE_EXTRA, Service.RESOURCE_TYPE_ESTABELECIMENTO);
+		intent.putExtra(Service.RESOURCE_ID, id);
+		intent.putExtra(Service.SERVICE_CALLBACK, serviceCallback);
+		intent.putExtra(REQUEST_ID, requestId);
+
+		this.ctx.startService(intent);
+		
+		return requestId;
 	}
 	
 	public long addEstabelecimento(String json) {

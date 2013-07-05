@@ -87,33 +87,36 @@ public final class R {
         public static final int rating_not_important=0x7f020018;
     }
     public static final class id {
-
-        public static final int EditText01=0x7f0a0015;
-        public static final int EditText02=0x7f0a0019;
-        public static final int EditText03=0x7f0a001b;
-        public static final int EditText04=0x7f0a0016;
-        public static final int TextView01=0x7f0a0018;
-        public static final int TextView02=0x7f0a001a;
-        public static final int TextView03=0x7f0a001c;
-        public static final int action_settings=0x7f0a0022;
+        public static final int TextView01=0x7f0a0017;
+        public static final int TextView02=0x7f0a0019;
+        public static final int TextView03=0x7f0a001b;
+        public static final int TextView04=0x7f0a001e;
+        public static final int TextView05=0x7f0a001c;
+        public static final int action_settings=0x7f0a0026;
         public static final int btn_checkin=0x7f0a000a;
         public static final int btn_expandable=0x7f0a0009;
         public static final int btn_favorite=0x7f0a0007;
-        public static final int button1=0x7f0a0017;
-        public static final int button2=0x7f0a001d;
+        public static final int button1=0x7f0a001d;
+        public static final int button2=0x7f0a0021;
         public static final int comment1=0x7f0a000c;
         public static final int description_text=0x7f0a0008;
+        public static final int endereco=0x7f0a0016;
         public static final int favorites=0x7f0a0013;
-        public static final int idEstabelecimento=0x7f0a001e;
+        public static final int gostei=0x7f0a001a;
+        public static final int idEstabelecimento=0x7f0a0022;
         public static final int imageView1=0x7f0a000f;
         public static final int img_logo=0x7f0a0003;
         public static final int img_welcome=0x7f0a0001;
+        public static final int latitude=0x7f0a0020;
         public static final int list=0x7f0a000e;
-        public static final int mensagem=0x7f0a001f;
+        public static final int longitude=0x7f0a001f;
+        public static final int mensagem=0x7f0a0023;
         public static final int newbar=0x7f0a0010;
+        public static final int nome=0x7f0a0015;
         public static final int radar=0x7f0a0012;
         public static final int scroll=0x7f0a0000;
         public static final int search=0x7f0a0011;
+        public static final int telefone=0x7f0a0018;
         public static final int textView1=0x7f0a0014;
         public static final int text_address=0x7f0a0005;
         public static final int text_comment2=0x7f0a000d;
@@ -121,9 +124,8 @@ public final class R {
         public static final int text_last_modified=0x7f0a0006;
         public static final int text_name=0x7f0a0004;
         public static final int text_people=0x7f0a0002;
-
-        public static final int tv_lat=0x7f0a0020;
-        public static final int tv_lng=0x7f0a0021;
+        public static final int tv_lat=0x7f0a0024;
+        public static final int tv_lng=0x7f0a0025;
     }
     public static final class layout {
         public static final int activity_bar_profile=0x7f030000;

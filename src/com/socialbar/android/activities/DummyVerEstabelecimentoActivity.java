@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.json.JSONStringer;
 
 import com.socialbar.android.R;
@@ -18,7 +17,6 @@ import com.socialbar.android.rest.service.ServiceHelper;
 import com.socialbar.android.rest.util.Logger;
 
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -32,7 +30,7 @@ import android.widget.EditText;
 public class DummyVerEstabelecimentoActivity extends Activity {
 	private static final String TAG = DummyMainActivity.class.getSimpleName();
 	
-	private Long requestId;
+	private Long requestId, deleteId, editedId;
 	private BroadcastReceiver requestReceiver;
     private ServiceHelper mServiceHelper;
     private String mId;
@@ -42,12 +40,6 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dummy_activity_ver_estabelecimento);
 
-/*
-		// adicionando permissão para atividade network na main
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-				.permitAll().build();
-		StrictMode.setThreadPolicy(policy);
-*/
 		Intent intent = getIntent();
 		mId = intent.getStringExtra("ID");
 		
@@ -66,19 +58,30 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 			@Override
 			public void onReceive(Context context, Intent intent) {
 
-				long resultRequestId = intent
+				long resultId = intent
 						.getLongExtra(ServiceHelper.EXTRA_REQUEST_ID, 0);
+				int resultCode = intent.getIntExtra(ServiceHelper.EXTRA_RESULT_CODE, 0);
 
-				if (resultRequestId == requestId) {
-
-					int resultCode = intent.getIntExtra(ServiceHelper.EXTRA_RESULT_CODE, 0);
+				if (resultId == requestId) {
 
 					if (resultCode == 200) {
 
 						preencheDados();
 					} else {
 					}
-				} else {
+				}else if (deleteId == requestId) {
+					View mensagem = findViewById(R.id.mensagem);
+					mensagem.setVisibility(View.VISIBLE);
+					if (resultCode == 200) {
+						((EditText) mensagem)
+								.setText("Estabelecimento deletado com sucesso!");
+						finish();
+					} else {
+						((EditText) mensagem)
+								.setText("O estabelecimento não pode ser deletado!");
+					}
+				}
+				else {
 					Logger.debug(TAG, "Result is NOT for our request ID");
 				}
 
@@ -111,7 +114,8 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 			telefone.setText(cursor.getString(index));
 			EditText gostei = (EditText) findViewById(R.id.gostei);
 			index = cursor.getColumnIndexOrThrow(EstabelecimentosConstants.GOSTEI);
-			gostei.setText(cursor.getString(index));
+			String aux = cursor.getString(index);
+			gostei.setText(aux);
 		}
 		cursor.close();
 	}
@@ -124,6 +128,7 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 	}
 
 	public void EditarEstabelecimento(View view) throws JSONException {
+/*
 		System.out.println("EditarEstabelecimento");
 
 		EditText idEstabelecimento = (EditText) findViewById(R.id.idEstabelecimento);
@@ -161,28 +166,14 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 			((EditText) mensagem)
 					.setText("O estabelecimento não pode ser editado!");
 		}
+*/		
+		
+		editedId = mServiceHelper.removeEstabelecimento(mId);
 
 	}
 
 	public void DeletarEstabelecimento(View view) {
-		System.out.println("DeletarEstabelecimento");
-		EditText idEstabelecimento = (EditText) findViewById(R.id.idEstabelecimento);
-		URI uri = URI
-				.create("http://restserveruff.herokuapp.com/estabelecimentos/"
-						+ idEstabelecimento.getText());
-		Request request = new Request(Method.DELETE, uri, null, null);
-		RestClient client = new RestClient();
-		Response response = client.execute(request);
-		View mensagem = findViewById(R.id.mensagem);
-		mensagem.setVisibility(View.VISIBLE);
-		if (response.status == 200) {
-			((EditText) mensagem)
-					.setText("Estabelecimento deletado com sucesso!");
-			finish();
-		} else {
-			((EditText) mensagem)
-					.setText("O estabelecimento não pode ser deletado!");
-		}
+		deleteId = mServiceHelper.removeEstabelecimento(mId);
 	}
 	
 	@Override

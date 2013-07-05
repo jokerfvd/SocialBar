@@ -44,6 +44,18 @@ class EstabelecimentoProcessor {
 
 	}
 	
+	void removeEstabelecimento(ProcessorCallback callback) {
+		@SuppressWarnings("unchecked")
+		RestMethod<Estabelecimento> deleteRestMethod = RestMethodFactory
+				.getInstance(mContext).getRestMethod(
+						EstabelecimentosConstants.CONTENT_URI, Method.DELETE,
+						mHeader, mBody);
+		RestMethodResult<Estabelecimento> result = deleteRestMethod.execute();
+		updateContentProvider(result);
+		callback.send(result.getStatusCode());
+
+	}
+	
 	void addEstabelecimento(ProcessorCallback callback) {
 		@SuppressWarnings("unchecked")
 		RestMethod<Estabelecimento> postRestMethod = RestMethodFactory
@@ -73,9 +85,11 @@ class EstabelecimentoProcessor {
 					resource.getLatitude());
 			values.put(EstabelecimentosConstants.LONGITUDE,
 					resource.getLatitude());
+			values.put(EstabelecimentosConstants.TID,
+					resource.getId());
 
 			Cursor cursor = mContext.getContentResolver().query(
-					EstabelecimentosConstants.CONTENT_URI, null, null, null,
+					EstabelecimentosConstants.CONTENT_URI, null, EstabelecimentosConstants.TID+" = "+resource.getId(), null,
 					null);
 			if (cursor.moveToFirst()) {
 				int id = cursor.getInt(cursor

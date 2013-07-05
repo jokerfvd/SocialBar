@@ -18,9 +18,9 @@ public class Estabelecimento implements Resource {
 		this.nome = json.getString("nome");
 		this.endereco = json.getString("endereco");
 		this.telefone = json.getString("telefone");
-		//this.gostei = Integer.parseInt(json.getString("gostei"));
-		//this.latitude = Double.parseDouble(json.getString("latitude"));
-		//this.longitude = Double.parseDouble(json.getString("longitude"));
+		this.gostei = Integer.parseInt(json.getString("gostei"));
+		this.latitude = Double.parseDouble(json.getString("latitude"));
+		this.longitude = Double.parseDouble(json.getString("longitude"));
 		this.id = Integer.parseInt(json.getString("id"));
 	}
 
