@@ -52,7 +52,7 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 		/**
 		 * Botoes
 		 */
-		Button expandable = (Button) findViewById(R.id.expandable);
+		Button expandable = (Button) findViewById(R.id.btn_expandable);
 		expandable.setOnClickListener(this);
 
 		this.configuration();
@@ -68,11 +68,11 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 			SimpleDateFormat dfmt = new SimpleDateFormat("EEEE, d MMMM yyyy");  
 	        Date date= new Date(e.getLastModified()); 
 			
-			((TextView) findViewById(R.id.name)).setText(e.getName());
-			((TextView) findViewById(R.id.people)).setText(String
+			((TextView) findViewById(R.id.text_name)).setText(e.getName());
+			((TextView) findViewById(R.id.text_people)).setText(String
 					.valueOf(e.getPeople()));
-			((TextView) findViewById(R.id.last_modified)).setText("atualizado em "+dfmt.format(date));
-			((TextView) findViewById(R.id.address)).setText(e.getAddress());
+			((TextView) findViewById(R.id.text_last_modified)).setText("atualizado em "+dfmt.format(date));
+			((TextView) findViewById(R.id.text_address)).setText(e.getAddress());
 		}
 	}
 
@@ -80,11 +80,11 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case R.id.checkin:
+		case R.id.btn_checkin:
 			// Intent intent = new Intent(this, Radar.class);
 			// startActivity(intent);
 			break;
-		case R.id.expandable:
+		case R.id.btn_expandable:
 			this.changeDescriptionHeight(v);
 			break;
 		default:

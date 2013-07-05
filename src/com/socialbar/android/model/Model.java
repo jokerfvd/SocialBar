@@ -17,4 +17,6 @@ public interface Model {
 
 	User getUser();
 	
+	List<Establishment> getFavorites();
+	
 }

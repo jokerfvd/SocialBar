@@ -1,15 +1,29 @@
 package com.socialbar.android.activities;
 
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.socialbar.android.R;
 import com.socialbar.android.activities.advance.resources.GenericActivity;
 import com.socialbar.android.activities.advance.resources.GenericActivitySlider;
+import com.socialbar.android.activities.advance.resources.GenericAdapter;
+import com.socialbar.android.model.AbstractModelFactory;
+import com.socialbar.android.model.Establishment;
+import com.socialbar.android.model.Model;
 
 public class FavoritesActivity extends Activity implements OnClickListener {
 	private GenericActivity genericActivity;
@@ -36,7 +50,21 @@ public class FavoritesActivity extends Activity implements OnClickListener {
 		/**
 		 * Botoes
 		 */
+		this.configuration();
+	}
 
+	private void configuration() {
+		final ListView listView = (ListView) findViewById(R.id.list);
+
+		Model model = AbstractModelFactory.getInstance();
+		List<Establishment> es = model.getFavorites();
+		Log.i("FAVORITES", "favoritos configuration");
+		// Assign adapter to ListView
+		
+		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		
+		listView.setAdapter(new GenericAdapter(es, this));
+		
 	}
 
 	@Override

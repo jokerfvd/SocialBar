@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/app_background_base"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center" 
-    style="@style/app_background_base">
+    android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/activity_favorites"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/list"
+            style="@style/app_profile_box"
+            android:layout_width="match_parent"
+           	android:layout_height="match_parent"
+            android:divider="#FFECECEC"
+            android:dividerHeight="1px" />
+
+    </LinearLayout>
 
 </LinearLayout>

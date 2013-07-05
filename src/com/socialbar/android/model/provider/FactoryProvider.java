@@ -58,4 +58,9 @@ public class FactoryProvider implements Model {
 			return new EstablishmentProvider();
 	}
 
+	@Override
+	public List<Establishment> getFavorites() {
+		return this.getEstablishmentObject(0, 0);
+	}
+
 }

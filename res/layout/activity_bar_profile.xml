@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content" >
 
                 <ImageView
+                    android:id="@+id/img_welcome"
                     android:layout_width="fill_parent"
                     android:layout_height="100dp"
                     android:adjustViewBounds="false"
@@ -37,7 +38,7 @@
                     android:src="@drawable/photo" />
 
                 <TextView
-                    android:id="@+id/people"
+                    android:id="@+id/text_people"
                     style="@style/app_header_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -73,6 +74,7 @@
                     <TableRow>
 
                         <ImageView
+                             android:id="@+id/img_logo"
                             android:layout_width="46dp"
                             android:layout_height="46dp"
                             android:layout_marginRight="4dp"
@@ -88,7 +90,7 @@
                             <!-- nome do estabelecimento -->
 
                             <TextView
-                                android:id="@+id/name"
+                                android:id="@+id/text_name"
                                 style="@style/app_header_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -97,7 +99,7 @@
                             <!-- endereco -->
 
                             <TextView
-                                android:id="@+id/address"
+                                android:id="@+id/text_address"
                                 style="@style/app_normal_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -106,7 +108,7 @@
                             <!-- data de update -->
 
                             <TextView
-                                android:id="@+id/last_modified"
+                                android:id="@+id/text_last_modified"
                                 style="@style/app_normal_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -124,6 +126,7 @@
                             android:orientation="horizontal" >
 
                             <ImageButton
+                                 android:id="@+id/btn_favorite"
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:background="#00FFFFFF"
@@ -156,7 +159,7 @@
                         android:text="@string/bar_description_text" />
 
                     <Button
-                        android:id="@+id/expandable"
+                        android:id="@+id/btn_expandable"
                         style="@style/app_normal_text"
                         android:layout_width="fill_parent"
                         android:layout_height="32dp"
@@ -173,7 +176,7 @@
                 <!-- botao laranja -->
 
                 <Button
-                    android:id="@+id/checkin"
+                    android:id="@+id/btn_checkin"
                     style="@style/app_home_buttons"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
@@ -193,7 +196,7 @@
             android:paddingLeft="5dp" >
 
             <TextView
-                android:id="@+id/comment_section"
+                android:id="@+id/text_comment_section"
                 style="@style/app_normal_text"
                 android:textColor="@color/app_text_lightgrey"
                 android:layout_width="match_parent"
@@ -223,7 +226,7 @@
                     android:text="@string/bar_comment" />
 
                 <TextView
-                    android:id="@+id/comment2"
+                    android:id="@+id/text_comment2"
                     style="@style/app_normal_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
