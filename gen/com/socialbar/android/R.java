@@ -93,13 +93,6 @@ public final class R {
         public static final int TextView03=0x7f0a001b;
         public static final int TextView04=0x7f0a001e;
         public static final int TextView05=0x7f0a001c;
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 2aa4f56b1a00b513a39d91051f2421d50d66b83c
-=======
->>>>>>> 2aa4f56b1a00b513a39d91051f2421d50d66b83c
         public static final int action_settings=0x7f0a0027;
         public static final int btn_checkin=0x7f0a000a;
         public static final int btn_expandable=0x7f0a0009;
