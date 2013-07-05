@@ -51,6 +51,9 @@ public class RestMethodFactory {
 			else if (method == Method.POST) {
 				return new PostEstabelecimentoRestMethod(mContext, body);
 			}
+			else if (method == Method.PUT) {
+				return new PutEstabelecimentoRestMethod(mContext, headers, body);
+			}
 			else if (method == Method.DELETE) {
 				return new DeleteEstabelecimentoRestMethod(mContext, headers);
 			}

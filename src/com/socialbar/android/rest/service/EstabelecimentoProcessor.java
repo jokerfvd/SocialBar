@@ -67,6 +67,18 @@ class EstabelecimentoProcessor {
 		callback.send(result.getStatusCode());
 
 	}
+	
+	void editEstabelecimento(ProcessorCallback callback) {
+		@SuppressWarnings("unchecked")
+		RestMethod<Estabelecimento> putRestMethod = RestMethodFactory
+				.getInstance(mContext).getRestMethod(
+						EstabelecimentosConstants.CONTENT_URI, Method.PUT,
+						mHeader, mBody);
+		RestMethodResult<Estabelecimento> result = putRestMethod.execute();
+		updateContentProvider(result);
+		callback.send(result.getStatusCode());
+
+	}
 
 	private void updateContentProvider(RestMethodResult<Estabelecimento> result) {
 

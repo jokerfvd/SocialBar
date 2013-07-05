@@ -34,6 +34,7 @@ public class ServiceHelper {
 	private static final String estabelecimentosPorFiltrokey = "ESTABSFILTRO";
 	private static final String insereEstabelecimentoHashkey = "INSEREESTAB";
 	private static final String removeEstabelecimentoHashkey = "REMOVEESTAB";
+	private static final String editEstabelecimentoHashkey = "EDITESTAB";
 	
 	private static Object lock = new Object();
 
@@ -68,7 +69,7 @@ public class ServiceHelper {
 		ResultReceiver serviceCallback = new ResultReceiver(null){
 			@Override
 			protected void onReceiveResult(int resultCode, Bundle resultData) {
-				handleAddEstabelecimentoResponse(resultCode, resultData);
+				handleRemoveEstabelecimentoResponse(resultCode, resultData);
 			}
 		};
 
@@ -82,6 +83,68 @@ public class ServiceHelper {
 		this.ctx.startService(intent);
 		
 		return requestId;
+	}
+	
+	private void handleRemoveEstabelecimentoResponse(int resultCode, Bundle resultData){
+
+		Intent origIntent = (Intent)resultData.getParcelable(Service.ORIGINAL_INTENT_EXTRA);
+
+		if(origIntent != null){
+			long requestId = origIntent.getLongExtra(REQUEST_ID, 0);
+
+			pendingRequests.remove(removeEstabelecimentoHashkey);
+
+			Intent resultBroadcast = new Intent(ACTION_REQUEST_RESULT);
+			resultBroadcast.putExtra(EXTRA_REQUEST_ID, requestId);
+			resultBroadcast.putExtra(EXTRA_RESULT_CODE, resultCode);
+
+			ctx.sendBroadcast(resultBroadcast);
+		}
+	}
+	
+	public long editEstabelecimento(String json, String id) {
+		if(pendingRequests.containsKey(editEstabelecimentoHashkey)){
+			return pendingRequests.get(editEstabelecimentoHashkey);
+		}
+
+		long requestId = generateRequestID();
+		pendingRequests.put(editEstabelecimentoHashkey, requestId);
+
+		ResultReceiver serviceCallback = new ResultReceiver(null){
+			@Override
+			protected void onReceiveResult(int resultCode, Bundle resultData) {
+				handleEditEstabelecimentoResponse(resultCode, resultData);
+			}
+		};
+
+		Intent intent = new Intent(this.ctx, Service.class);
+		intent.putExtra(Service.METHOD_EXTRA, Service.METHOD_PUT);
+		intent.putExtra(Service.RESOURCE_TYPE_EXTRA, Service.RESOURCE_TYPE_ESTABELECIMENTO);
+		intent.putExtra(Service.RESOURCE_JSON, json);
+		intent.putExtra(Service.RESOURCE_ID, id);
+		intent.putExtra(Service.SERVICE_CALLBACK, serviceCallback);
+		intent.putExtra(REQUEST_ID, requestId);
+
+		this.ctx.startService(intent);
+		
+		return requestId;
+	}
+	
+	private void handleEditEstabelecimentoResponse(int resultCode, Bundle resultData){
+
+		Intent origIntent = (Intent)resultData.getParcelable(Service.ORIGINAL_INTENT_EXTRA);
+
+		if(origIntent != null){
+			long requestId = origIntent.getLongExtra(REQUEST_ID, 0);
+
+			pendingRequests.remove(editEstabelecimentoHashkey);
+
+			Intent resultBroadcast = new Intent(ACTION_REQUEST_RESULT);
+			resultBroadcast.putExtra(EXTRA_REQUEST_ID, requestId);
+			resultBroadcast.putExtra(EXTRA_RESULT_CODE, resultCode);
+
+			ctx.sendBroadcast(resultBroadcast);
+		}
 	}
 	
 	public long addEstabelecimento(String json) {

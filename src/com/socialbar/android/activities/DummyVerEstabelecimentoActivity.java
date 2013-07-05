@@ -1,18 +1,10 @@
 package com.socialbar.android.activities;
 
-import java.net.URI;
-import java.util.Arrays;
-
-
 import org.json.JSONException;
 import org.json.JSONStringer;
 
 import com.socialbar.android.R;
 import com.socialbar.android.rest.provider.EstabelecimentosConstants;
-import com.socialbar.android.rest.rest.Request;
-import com.socialbar.android.rest.rest.Response;
-import com.socialbar.android.rest.rest.RestClient;
-import com.socialbar.android.rest.rest.RestMethodFactory.Method;
 import com.socialbar.android.rest.service.ServiceHelper;
 import com.socialbar.android.rest.util.Logger;
 
@@ -28,10 +20,61 @@ import android.view.View;
 import android.widget.EditText;
 
 public class DummyVerEstabelecimentoActivity extends Activity {
+	public class MyReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+
+			long resultId = intent
+					.getLongExtra(ServiceHelper.EXTRA_REQUEST_ID, 0);
+			int resultCode = intent.getIntExtra(ServiceHelper.EXTRA_RESULT_CODE, 0);
+
+			if (resultId == requestId) {
+
+				if (resultCode == 200) {
+
+					preencheDados();
+				} else {
+				}
+			}else if ((deleteId != null) && resultId == deleteId) {
+				View mensagem = findViewById(R.id.mensagem);
+				mensagem.setVisibility(View.VISIBLE);
+				//TODO descobrir pq ta vindo 506
+				if (resultCode == 200 || resultCode == 506) {
+					((EditText) mensagem)
+							.setText("Estabelecimento deletado com sucesso!");
+					finish();
+				} else {
+					((EditText) mensagem)
+							.setText("O estabelecimento não pode ser deletado!");
+				}
+			}else if ((editedId != null) && resultId == editedId) {
+				View mensagem = findViewById(R.id.mensagem);
+				mensagem.setVisibility(View.VISIBLE);
+
+				//TODO descobrir pq ta vindo 506
+				if (resultCode == 204 | resultCode == 506)// NO CONTENT
+				{
+					((EditText) mensagem)
+							.setText("Estabelecimento editado com sucesso!");
+					finish();
+				} else {
+					((EditText) mensagem)
+							.setText("O estabelecimento não pode ser editado!");
+				}
+			}
+			else {
+				Logger.debug(TAG, "Result is NOT for our request ID");
+			}
+
+		}
+		} 
+	
+	
 	private static final String TAG = DummyMainActivity.class.getSimpleName();
 	
 	private Long requestId, deleteId, editedId;
-	private BroadcastReceiver requestReceiver;
+	private BroadcastReceiver requestReceiver,deleteReceiver,editReceiver;
     private ServiceHelper mServiceHelper;
     private String mId;
 
@@ -46,56 +89,35 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 		mServiceHelper = ServiceHelper.getInstance(this.getApplicationContext());
 		requestId = mServiceHelper.getEstabelecimento(mId);
 		
+		IntentFilter filter = new IntentFilter(ServiceHelper.ACTION_REQUEST_RESULT);
+		requestReceiver = new MyReceiver();
+		this.registerReceiver(requestReceiver, filter);
+		
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
 		
-		IntentFilter filter = new IntentFilter(ServiceHelper.ACTION_REQUEST_RESULT);
-		requestReceiver = new BroadcastReceiver() {
-
-			@Override
-			public void onReceive(Context context, Intent intent) {
-
-				long resultId = intent
-						.getLongExtra(ServiceHelper.EXTRA_REQUEST_ID, 0);
-				int resultCode = intent.getIntExtra(ServiceHelper.EXTRA_RESULT_CODE, 0);
-
-				if (resultId == requestId) {
-
-					if (resultCode == 200) {
-
-						preencheDados();
-					} else {
-					}
-				}else if (deleteId == requestId) {
-					View mensagem = findViewById(R.id.mensagem);
-					mensagem.setVisibility(View.VISIBLE);
-					if (resultCode == 200) {
-						((EditText) mensagem)
-								.setText("Estabelecimento deletado com sucesso!");
-						finish();
-					} else {
-						((EditText) mensagem)
-								.setText("O estabelecimento não pode ser deletado!");
-					}
-				}
-				else {
-					Logger.debug(TAG, "Result is NOT for our request ID");
-				}
-
-			}
-		};
-
-		mServiceHelper = ServiceHelper.getInstance(this);
-		this.registerReceiver(requestReceiver, filter);
-
 		if (requestId == null) {
 		} else if (mServiceHelper.isRequestPending(requestId)) {
 		} else {
 			preencheDados();
-		}	
+		}
+		
+		if (deleteId == null) {
+		} else if (mServiceHelper.isRequestPending(deleteId)) {
+		} 
+		else{
+			//finish();
+		}
+		
+		if (editedId == null) {
+		} else if (mServiceHelper.isRequestPending(editedId)) {
+		} 
+		else{
+			//finish();
+		}
 	}
 	
 	private void preencheDados() {
@@ -128,52 +150,32 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 	}
 
 	public void EditarEstabelecimento(View view) throws JSONException {
-/*
-		System.out.println("EditarEstabelecimento");
-
-		EditText idEstabelecimento = (EditText) findViewById(R.id.idEstabelecimento);
-
-		URI uri = URI
-				.create("http://restserveruff.herokuapp.com/estabelecimentos/"
-						+ idEstabelecimento.getText() + ".json");
-
-		JSONStringer json = new JSONStringer().object().key("estabelecimento")
-				.object().key("nome")
-				.value(((EditText) findViewById(R.id.nome)).getText())
-				.key("endereco")
-				.value(((EditText) findViewById(R.id.endereco)).getText())
-				.key("telefone")
-				.value(((EditText) findViewById(R.id.telefone)).getText())
-				.key("gostei")
-				.value(((EditText) findViewById(R.id.gostei)).getText())
-				.endObject().endObject();
-
-		Request request = new Request(Method.PUT, uri, null, json.toString()
-				.getBytes());
-		request.addHeader("Content-Type", Arrays.asList("application/json"));
-		RestClient client = new RestClient();
-		Response response = client.execute(request);
-		View mensagem = findViewById(R.id.mensagem);
-		mensagem.setVisibility(View.VISIBLE);
-
-		if (response.status == 204)// NO CONTENT
-		{
-			System.out.println(new String(response.body));
-
-			((EditText) mensagem)
-					.setText("Estabelecimento editado com sucesso!");
-		} else {
-			((EditText) mensagem)
-					.setText("O estabelecimento não pode ser editado!");
-		}
-*/		
+		JSONStringer json = new JSONStringer()
+		.object()
+		.key("estabelecimento")
+		.object()
+		.key("nome")
+		.value(((EditText) findViewById(R.id.nome)).getText())
+		.key("endereco")
+		.value(((EditText) findViewById(R.id.endereco)).getText())
+		.key("telefone")
+		.value(((EditText) findViewById(R.id.telefone)).getText())
+		.key("gostei")
+		.value(((EditText) findViewById(R.id.gostei)).getText())
+		.endObject().endObject();
 		
-		editedId = mServiceHelper.removeEstabelecimento(mId);
+		editedId = mServiceHelper.editEstabelecimento(json.toString() ,mId);
+		IntentFilter filter = new IntentFilter(ServiceHelper.ACTION_REQUEST_RESULT);
+		editReceiver = new MyReceiver();
+		this.registerReceiver(editReceiver, filter);
 
 	}
 
 	public void DeletarEstabelecimento(View view) {
 		deleteId = mServiceHelper.removeEstabelecimento(mId);
+		IntentFilter filter = new IntentFilter(ServiceHelper.ACTION_REQUEST_RESULT);
+		deleteReceiver = new MyReceiver();
+		this.registerReceiver(deleteReceiver, filter);
 	}
 	
 	@Override
@@ -184,6 +186,20 @@ public class DummyVerEstabelecimentoActivity extends Activity {
 		if (requestReceiver != null) {
 			try {
 				this.unregisterReceiver(requestReceiver);
+			} catch (IllegalArgumentException e) {
+				Logger.error(TAG, e.getLocalizedMessage(), e);
+			}
+		}
+		if (deleteReceiver != null) {
+			try {
+				this.unregisterReceiver(deleteReceiver);
+			} catch (IllegalArgumentException e) {
+				Logger.error(TAG, e.getLocalizedMessage(), e);
+			}
+		}
+		if (editReceiver != null) {
+			try {
+				this.unregisterReceiver(editReceiver);
 			} catch (IllegalArgumentException e) {
 				Logger.error(TAG, e.getLocalizedMessage(), e);
 			}
