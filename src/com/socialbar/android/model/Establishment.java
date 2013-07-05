@@ -82,4 +82,7 @@ public interface Establishment {
 	boolean addFeature(Feature feature);
 
 	boolean removeFeature(Feature feature);
+	
+	boolean isFavorite();
+	void setFavorite(boolean favorite);
 }

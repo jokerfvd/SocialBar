@@ -5,7 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="bar_population">+1101</string>
     <string name="bar_name">Lorem Ipsum Bar</string>
-    <string name="bar_last_modified">atualizado em 23/06/2013</string>
+    <string name="bar_last_modified">última atualização: </string>
     <string name="bar_address">Av Rio Branco, 9, centro, Rio de Janeiro - RJ</string>
     <string name="bar_header_description">Descrição</string>
     <string name="bar_description_text">    	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et mauris nunc. Integer cursus congue magna, ac aliquam lectus consequat vel. Sed iaculis non diam eget rhoncus. Morbi scelerisque lacus magna, eget feugiat nisi tincidunt ut. Curabitur arcu tellus, tincidunt in iaculis tristique, convallis in felis. Praesent iaculis egestas leo, in vulputate mi pretium quis. Cras porttitor sodales neque, at commodo justo tincidunt non. Donec ullamcorper et diam vitae ultricies. In rutrum, dolor quis fringilla rutrum, nisl arcu porttitor nibh, at ultricies libero mi a justo. Pellentesque ut aliquam ligula.\n
@@ -39,5 +39,14 @@
     <string name="activity_bar_profile">Perfil do bar</string>
     <string name="activity_search">Busca bar</string>
     <string name="activity_favorites">Favoritos</string>
+    
+    <!-- dialogos -->
+    <string name="dialog_favorites">Favoritar?</string>
+    <string name="dialog_profile">Ver Bar?</string>
+    <string name="dialog_yes">Sim</string>
+    <string name="dialog_not">Não</string>
+    <string name="dialog_favorite_state_saved">Salvo: </string>
+    
+    
 
 </resources>

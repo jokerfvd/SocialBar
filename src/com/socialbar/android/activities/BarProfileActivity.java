@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
@@ -30,7 +32,7 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 	 * Funcoes genericas utilizadas por um conjunto de activities
 	 */
 	private GenericActivity genericActivity;
-
+	private Establishment e;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -54,28 +56,55 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 		 */
 		Button expandable = (Button) findViewById(R.id.btn_expandable);
 		expandable.setOnClickListener(this);
-
+		
+		ImageButton favorite = (ImageButton) findViewById(R.id.btn_favorite);
+		favorite.setOnClickListener(this);
+		
 		this.configuration();
 	}
-
+	/**
+	 * metodo basico de configuracao onCreate
+	 */
 	private void configuration() {
 		String id = getIntent().getExtras().getString("ID");
 		if (id != null) {
-			Model model = AbstractModelFactory.getInstance();
-			Establishment e = model.getEstablishment(id);
-			
+			this.setEstablishment(id);			
 			
 			SimpleDateFormat dfmt = new SimpleDateFormat("EEEE, d MMMM yyyy");  
-	        Date date= new Date(e.getLastModified()); 
+	        Date date= new Date(this.e.getLastModified()); 
 			
-			((TextView) findViewById(R.id.text_name)).setText(e.getName());
+			((TextView) findViewById(R.id.text_name)).setText(this.e.getName());
 			((TextView) findViewById(R.id.text_people)).setText(String
-					.valueOf(e.getPeople()));
-			((TextView) findViewById(R.id.text_last_modified)).setText("atualizado em "+dfmt.format(date));
-			((TextView) findViewById(R.id.text_address)).setText(e.getAddress());
+					.valueOf(this.e.getPeople()));
+			((TextView) findViewById(R.id.text_last_modified)).setText(getString(R.string.bar_last_modified)+" "+dfmt.format(date));
+			((TextView) findViewById(R.id.text_address)).setText(this.e.getAddress());
+			
+			//botao
+			ImageButton favorite = (ImageButton) findViewById(R.id.btn_favorite);
+			favorite.setOnClickListener(this);
+			this.setFavoriteImage(favorite);
+			
+			
 		}
 	}
-
+	/**
+	 * metodo para setar o estabelecimento da atividade
+	 * @param id
+	 */
+	private void setEstablishment(String id){
+		Model model = AbstractModelFactory.getInstance();
+		this.e = model.getEstablishment(id);
+	}
+	/**
+	 * metod para setar a estrela do favorito
+	 * @param favorite
+	 */
+	private void setFavoriteImage(ImageButton favorite){
+		if(this.e.isFavorite())
+			favorite.setImageResource(R.drawable.rating_important);
+		else
+			favorite.setImageResource(R.drawable.rating_not_important);
+	}
 	@Override
 	public void onClick(View v) {
 
@@ -87,9 +116,21 @@ public class BarProfileActivity extends Activity implements OnClickListener {
 		case R.id.btn_expandable:
 			this.changeDescriptionHeight(v);
 			break;
+		case R.id.btn_favorite:
+			this.changeFavorite(v);
+			break;
 		default:
 			break;
 		}
+	}
+	/**
+	 * metodo para mudar estado do modelo estabelecimento
+	 * @param v
+	 */
+	private void changeFavorite(View v) {
+		this.e.setFavorite(!this.e.isFavorite());
+		this.setFavoriteImage((ImageButton)v);
+		Toast.makeText(this, getString(R.string.dialog_favorite_state_saved)+this.e.getName(), Toast.LENGTH_SHORT).show();
 	}
 
 	/**
