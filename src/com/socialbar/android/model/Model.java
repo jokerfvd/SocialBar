@@ -2,6 +2,8 @@ package com.socialbar.android.model;
 
 import java.util.List;
 
+import android.content.BroadcastReceiver;
+
 public interface Model {
 	/**
 	 * interfaces para todos os objetos - basicas
@@ -18,5 +20,7 @@ public interface Model {
 	User getUser();
 	
 	List<Establishment> getFavorites();
+	
+	BroadcastReceiver getEstablishmentPrototype(ModelEvent me, String id);
 	
 }

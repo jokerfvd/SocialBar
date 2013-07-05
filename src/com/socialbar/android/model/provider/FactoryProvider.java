@@ -2,11 +2,20 @@ package com.socialbar.android.model.provider;
 
 import java.util.List;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+
+import com.socialbar.android.activities.DummyVerEstabelecimentoActivity.MyReceiver;
 import com.socialbar.android.model.Establishment;
 import com.socialbar.android.model.Feature;
 import com.socialbar.android.model.Model;
+import com.socialbar.android.model.ModelEvent;
 import com.socialbar.android.model.Product;
 import com.socialbar.android.model.User;
+import com.socialbar.android.rest.service.ServiceHelper;
 
 public class FactoryProvider implements Model {
 	private static FactoryProvider instance;
@@ -61,6 +70,12 @@ public class FactoryProvider implements Model {
 	@Override
 	public List<Establishment> getFavorites() {
 		return this.getEstablishmentObject(0, 0);
+	}
+
+	@Override
+	public BroadcastReceiver getEstablishmentPrototype(ModelEvent me, String id) {
+		ProviderActivity pa = new ProviderActivity(me);
+		return pa.getEstablishment(id);
 	}
 
 }
