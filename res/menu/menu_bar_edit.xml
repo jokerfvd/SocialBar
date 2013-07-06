@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/itemAdd"
+        android:icon="@drawable/cancel_dark"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/menu_cancel">
+    </item>
+    <item
+        android:id="@+id/itemRefresh"
+        android:icon="@drawable/done_dark"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/menu_send">
+    </item>
+
+</menu>
