@@ -3,6 +3,8 @@ package com.socialbar.android.activities;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,7 +21,7 @@ public class SearchActivity extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search);
+		setContentView(R.layout.activity_bar_edit);
 
 		/**
 		 * barra manipulação
@@ -64,5 +66,13 @@ public class SearchActivity extends Activity implements OnClickListener {
 		this.genericActivity.finish();
 	}
 
-}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		MenuInflater inflater = getMenuInflater();
+		
+		inflater.inflate(R.menu.menu_bar_edit, menu);
+		return true;
+	}
 
+}

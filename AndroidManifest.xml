@@ -76,6 +76,14 @@
             android:name=".activities.FavoritesActivity"
             android:label="@string/activity_favorites" >
         </activity>
+         <activity
+            android:name=".activities.NewBarActivity"
+            android:label="@string/activity_new_bar" >
+        </activity>
+         <activity
+            android:name=".activities.EditBarActivity"
+            android:label="@string/activity_edit_bar" >
+        </activity>
         
         <!-- dummy activities -->
         <activity

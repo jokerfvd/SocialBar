@@ -28,6 +28,15 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical" >
+            
+            <Button
+                android:id="@+id/rest"
+                style="@style/app_home_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@android:drawable/ic_dialog_map"
+                android:text="REST DUMMY" />
 
             <Button
                 android:id="@+id/newbar"
@@ -53,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/location_place_white"
+                android:drawableLeft="@drawable/radar_white"
                 android:text="@string/button_radar" />
 
             <Button

@@ -39,14 +39,19 @@
     <string name="activity_bar_profile">Perfil do bar</string>
     <string name="activity_search">Busca bar</string>
     <string name="activity_favorites">Favoritos</string>
-    
+    <string name="activity_new_bar">Adicionar novo</string>
+    <string name="activity_edit_bar">Alterar</string>
+
     <!-- dialogos -->
     <string name="dialog_favorites">Favoritar?</string>
     <string name="dialog_profile">Ver Bar?</string>
     <string name="dialog_yes">Sim</string>
     <string name="dialog_not">Não</string>
     <string name="dialog_favorite_state_saved">Salvo: </string>
-    
-    
+
+    <!-- menu -->
+    <string name="menu_cancel">Cancelar</string>
+    <string name="menu_send">Enviar</string>
+    <string name="menu_ok">Confirmar</string>
 
 </resources>
