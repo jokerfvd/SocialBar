@@ -76,7 +76,6 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 		MenuItem searchViewMenuItem = menu.findItem(R.id.menu_search);		
 		SearchView searchView = (SearchView) searchViewMenuItem.getActionView();
 		searchView.setIconifiedByDefault(false);
-		searchView.requestFocus();
 		searchView.setOnQueryTextListener(this);
 		this.configuration("");
 		return true;
@@ -93,16 +92,26 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 		this.configuration(query);
 		return true;
 	}
+	/**
+	 * configuracao apos entrada de busca
+	 * @param str
+	 */
 	private void configuration(String str) {
 		Model model = AbstractModelFactory.getInstance("dummy");
 		List<Establishment> es = model.getEstablishment(str,str);
 		this.onModelReceive(Establishment.class,es);	
 	}
+	/**
+	 * recebimento assincrono
+	 * @param c
+	 * @param data
+	 */
 	public void onModelReceive(Class c, Object data) {
 		final ListView listView = (ListView) findViewById(R.id.list_bar);			
 		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		List<Establishment> es = (List<Establishment>)data;
 		this.adapter = new GenericAdapter(es, this);
+		this.adapter.swapListeners(true);
 		listView.setAdapter(this.adapter);
 	}
 
@@ -112,5 +121,16 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 		// TODO Auto-generated method stub
 		
 	}
+	/**
+	 * fazer o adapter atualizar apos edicao
+	 */
+	@Override
+	protected void onResume() {
+		super.onResume();
+		ListView listView = ((ListView) findViewById(R.id.list_bar));
+		if(listView.getAdapter() != null)
+			((GenericAdapter)listView.getAdapter()).notifyDataSetChanged();
+		
+	};
 
 }

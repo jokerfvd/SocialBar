@@ -35,13 +35,16 @@ public class GenericAdapter extends BaseAdapter {
 
 	private List<Establishment> data;
 	private Context context;
+	private boolean swap;
 
 	public GenericAdapter(List<Establishment> data, Context c) {
 		this.data = data;
 		this.context = c;
 		Log.i("Generic ADAPTER", "constructor " + String.valueOf(data.size()));
 	}
-
+	public void swapListeners(boolean swap){
+		this.swap = swap;
+	}
 	@Override
 	public int getCount() {
 		return data.size();
@@ -83,12 +86,18 @@ public class GenericAdapter extends BaseAdapter {
 		holder.address.setText(e.getAddress());
 
 		setFavorite(holder, e, false);
-
+		
+		
+		
+		
 		v.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View vis) {
 				Establishment e = data.get(position);
-				setFavorite(holder, e, true);
+				if(swap)
+					goToProfile(e);
+				else 
+					setFavorite(holder, e, true);
 			}
 		});
 
@@ -97,17 +106,22 @@ public class GenericAdapter extends BaseAdapter {
 			public boolean onLongClick(View v) {
 				final Establishment e = data.get(position);
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				
+				String dialog = context.getString(R.string.dialog_profile);
+				if(swap)
+					dialog = context.getString(R.string.dialog_favorites);
+				
 				builder.setTitle(e.getName())
-						.setMessage(R.string.dialog_profile)
+						.setMessage(dialog)
 						.setIcon(android.R.drawable.ic_dialog_alert)
 						.setPositiveButton(R.string.dialog_yes,
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int which) {
-										Intent intent = new Intent(context,
-												BarProfileActivity.class);
-										intent.putExtra("ID", e.getID());
-										context.startActivity(intent);
+										if(!swap)
+											goToProfile(e);
+										else
+											setFavorite(holder, e, true);
 									}
 								}).setIcon(android.R.drawable.ic_menu_view)
 						.setNegativeButton(R.string.dialog_not, null).show();
@@ -119,6 +133,11 @@ public class GenericAdapter extends BaseAdapter {
 		return v;
 	}
 
+	private void goToProfile(Establishment e){
+		Intent intent = new Intent(context,	BarProfileActivity.class);
+		intent.putExtra("ID", e.getID());
+		context.startActivity(intent);
+	}
 	private void setFavorite(Holder holder, Establishment e, boolean change) {
 		if (change) {
 			e.setFavorite(!e.isFavorite());
