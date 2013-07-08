@@ -127,6 +127,7 @@ public final class R {
         public static final int menu_cancel=0x7f0a002a;
         public static final int menu_edit=0x7f0a002c;
         public static final int menu_refresh=0x7f0a002d;
+        public static final int menu_search=0x7f0a002e;
         public static final int menu_send=0x7f0a002b;
         public static final int nome=0x7f0a0017;
         public static final int telefone=0x7f0a001b;
@@ -157,6 +158,7 @@ public final class R {
         public static final int dummy_ver_estabelecimento=0x7f090002;
         public static final int menu_bar_edit=0x7f090003;
         public static final int menu_bar_profile=0x7f090004;
+        public static final int menu_bar_search=0x7f090005;
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
@@ -239,5 +241,6 @@ public final class R {
          */
         public static final int app_profile_box=0x7f080006;
         public static final int app_profile_textbox=0x7f080007;
+        public static final int edit_search=0x7f080009;
     }
 }

@@ -25,6 +25,7 @@
 
             <LinearLayout
                 style="@style/app_profile_textbox"
+                android:background="@color/app_base_color"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="35"
@@ -36,6 +37,7 @@
                 <!-- botao laranja -->
 
                 <EditText
+                    style="@style/edit_search"
                     android:id="@+id/edit_name"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"

@@ -59,7 +59,7 @@ public class StorageDummy implements Serializable {
 	public List<DummyEstablishment> getEstablishmentsByName(String name) {
 		List<DummyEstablishment> list = new ArrayList<DummyEstablishment>();
 		for (DummyEstablishment de : establishments)
-			if (de.getName().toLowerCase().equals(name.toLowerCase()))
+			if (de.getName().toLowerCase().contains(name.toLowerCase()))
 				list.add(de);
 		return list;
 	}
@@ -101,7 +101,7 @@ public class StorageDummy implements Serializable {
 	}
 
 	public void save() {
-		if (this.temp != null)
+		if (this.temp != null && this.checkintegrity(this.temp))
 			this.addEstablishment(this.temp);
 		this.temp = null;
 		this.saveStorage();
@@ -230,6 +230,17 @@ public class StorageDummy implements Serializable {
 		e.setLastModified(System.currentTimeMillis());
 
 		return e;
+	}
+	private boolean checkintegrity(DummyEstablishment de){
+		if(de.getName() == null)
+			return false;
+		if(de.getAddress() == null)
+			return false;
+		if(de.getPhoneNumber() == null)
+			return false;
+		if(de.getLongitude() == 0.0)
+			return false;
+		return true;
 	}
 
 }
