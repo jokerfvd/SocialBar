@@ -1,6 +1,4 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scroll"
-    
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbarStyle="outsideOverlay"
@@ -32,10 +30,10 @@
                     android:layout_width="fill_parent"
                     android:layout_height="100dp"
                     android:adjustViewBounds="false"
-                    android:background="#000000"
+                    android:background="@color/app_background"
                     android:contentDescription="@string/image_bar_welcome_photo"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/photo" />
+                    android:src="@drawable/bar_welcome" />
 
                 <TextView
                     android:id="@+id/text_people"
@@ -79,7 +77,7 @@
                             android:layout_height="46dp"
                             android:layout_marginRight="4dp"
                             android:contentDescription="@string/image_bar_logo"
-                            android:src="@drawable/logo" />
+                            android:src="@drawable/bar_logo" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -113,7 +111,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/bar_last_modified"
-                                android:textColor="#B3B3B3" />
+                                android:textColor="@color/app_text_lightgrey" />
                         </LinearLayout>
 
                         <!-- botao favorito -->
@@ -131,7 +129,7 @@
                                 android:layout_height="48dp"
                                 android:background="@drawable/list_item_selector"
                                 android:contentDescription="@string/button_favorite"
-                                android:src="@drawable/rating_not_important" />
+                                android:src="@drawable/icon_rating_not_important" />
                         </LinearLayout>
                     </TableRow>
                 </TableLayout>
@@ -182,57 +180,10 @@
                     android:layout_height="48dp"
                     android:background="@drawable/orange_button_selector"
                     android:text="@string/button_checkin"
-                    android:drawableLeft="@drawable/device_access_location_found_white" />
+                    android:drawableLeft="@drawable/icon_device_access_location_found_white" />
 
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:paddingLeft="5dp" >
-
-            <TextView
-                android:id="@+id/text_comment_section"
-                style="@style/app_normal_text"
-                android:textColor="@color/app_text_lightgrey"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/bar_header_comments" />
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/app_profile_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                style="@style/app_profile_textbox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/comment1"
-                    style="@style/app_normal_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bar_comment" />
-
-                <TextView
-                    android:id="@+id/text_comment2"
-                    style="@style/app_normal_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bar_comment" />
-            </LinearLayout>
-        </LinearLayout>
+        </LinearLayout>       
     </LinearLayout>
 
 </ScrollView>

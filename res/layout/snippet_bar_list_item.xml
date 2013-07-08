@@ -25,7 +25,7 @@
                 android:layout_height="46dp"
                 android:layout_marginRight="10dp"
                 android:contentDescription="@string/image_bar_logo"
-                android:src="@drawable/logo" />
+                android:src="@drawable/bar_logo" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -65,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/button_favorite"
-                    android:src="@drawable/rating_important" />
+                    android:src="@drawable/icon_rating_important" />
             </LinearLayout>
         </TableRow>
     </TableLayout>

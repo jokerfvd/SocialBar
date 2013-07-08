@@ -1,10 +1,12 @@
-package com.socialbar.android.model.provider;
+package com.socialbar.android.model.dummy;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 
 import com.socialbar.android.model.Product;
 
-public class ProductProvider implements Product{
+
+
+public class DummyProduct implements Product,Serializable{
 
 	@Override
 	public String getName() {

@@ -1,5 +1,4 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scroll"
     style="@style/app_background_base"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,9 +28,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="35"
-               
                 android:gravity="top"
                 android:orientation="vertical" >
+
+                <requestFocus />
 
                 <!-- botao laranja -->
 
@@ -42,10 +42,8 @@
                     android:layout_marginBottom="5dp"
                     android:ems="10"
                     android:hint="Nome"
-                    android:inputType="textPersonName" >
-
-                    <requestFocus />
-                </EditText>
+                    android:inputType="textPersonName|textCapWords"
+                    android:nextFocusDown="@+id/edit_address" />
 
                 <EditText
                     android:id="@+id/edit_address"
@@ -54,7 +52,8 @@
                     android:layout_marginBottom="5dp"
                     android:ems="10"
                     android:hint="Endereço"
-                    android:inputType="textPostalAddress" />
+                    android:inputType="textPostalAddress|textCapSentences"
+                    android:nextFocusDown="@+id/edit_phone" />
 
                 <EditText
                     android:id="@+id/edit_phone"
@@ -62,7 +61,31 @@
                     android:layout_height="48dp"
                     android:ems="10"
                     android:hint="Telefone"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:nextFocusDown="@+id/edit_latitude" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:id="@+id/edit_latitude"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:ems="10"
+                        android:hint="Latitude"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:nextFocusDown="@+id/edit_longitude" />
+
+                    <EditText
+                        android:id="@+id/edit_longitude"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:ems="10"
+                        android:hint="Longitude"
+                        android:inputType="numberDecimal|numberSigned" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

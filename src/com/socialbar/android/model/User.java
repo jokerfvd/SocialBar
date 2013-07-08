@@ -15,4 +15,5 @@ public interface User {
 	
 	void setName(String nome);
 	void setPassword(String senha);
+	
 }

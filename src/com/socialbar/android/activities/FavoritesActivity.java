@@ -27,6 +27,7 @@ import com.socialbar.android.model.Model;
 
 public class FavoritesActivity extends Activity implements OnClickListener {
 	private GenericActivity genericActivity;
+	private GenericAdapter adapter;
 
 	/** Called when the activity is first created. */
 
@@ -52,19 +53,24 @@ public class FavoritesActivity extends Activity implements OnClickListener {
 		 */
 		this.configuration();
 	}
-
+	@Override
+	protected void onResume() {
+		super.onResume();
+		((GenericAdapter)((ListView) findViewById(R.id.list_bar)).getAdapter()).notifyDataSetChanged();
+		
+	};
 	private void configuration() {
-		final ListView listView = (ListView) findViewById(R.id.list);
-
-		Model model = AbstractModelFactory.getInstance();
+		Model model = AbstractModelFactory.getInstance("dummy");
 		List<Establishment> es = model.getFavorites();
-		Log.i("FAVORITES", "favoritos configuration");
-		// Assign adapter to ListView
-		
+		this.onModelReceive(Establishment.class,es);	
+	}
+	
+	public void onModelReceive(Class c, Object data) {
+		final ListView listView = (ListView) findViewById(R.id.list_bar);			
 		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		
-		listView.setAdapter(new GenericAdapter(es, this));
-		
+		List<Establishment> es = (List<Establishment>)data;
+		this.adapter = new GenericAdapter(es, this);
+		listView.setAdapter(this.adapter);
 	}
 
 	@Override

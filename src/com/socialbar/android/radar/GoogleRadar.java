@@ -25,7 +25,10 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 
 	private GoogleMap map;
 	private List<Marker> markers = new ArrayList<Marker>();
+	private List<Pointer> pointers;
 	private RadarEvents listener;
+	private String clickedMarker;
+	private boolean savedActiveInfoView;
 
 	/**
 	 * Construtor recebendo o mapa
@@ -68,13 +71,15 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 			this.listener.onRadarLocationChange(location.getLatitude(),
 					location.getLongitude());
 	}
-	
+
 	@Override
 	public void onInfoWindowClick(Marker marker) {
+		this.clickedMarker = marker.getSnippet();
 		if (this.listener != null)
 			this.listener.onRadarInfoWindowClick(marker.getSnippet());
+
 	}
-	
+
 	/**
 	 * Metodos de interface Radar
 	 */
@@ -86,12 +91,18 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 		mark.title(pointer.getTitle());
 		mark.snippet(pointer.getSnippet());
 		mark.icon(BitmapDescriptorFactory.fromResource(pointer.getIconId()));
-		markers.add(map.addMarker(mark));
+		Marker marker = map.addMarker(mark);
+
+		if (pointer.getSnippet().equals(this.clickedMarker))
+			marker.showInfoWindow();
+
+		markers.add(marker);
 	}
 
 	@Override
 	public void addMakers(List<Pointer> pointers) {
-		for (Pointer pointer : pointers)
+		this.pointers = pointers;
+		for (Pointer pointer : this.pointers)
 			this.addMarker(pointer);
 	}
 
@@ -99,7 +110,7 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 	public boolean removeMarker(Pointer pointer) {
 		for (Marker marker : markers) {
 			if (pointer.equals(marker.getSnippet())) {
-				marker.remove();				
+				marker.remove();
 				return markers.remove(marker);
 			}
 		}
@@ -119,6 +130,21 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 	@Override
 	public void setInfoWindow(Object info) {
 		this.map.setInfoWindowAdapter((InfoWindowAdapter) info);
+	}
+
+	@Override
+	public void updateRadarState() {
+		if (this.savedActiveInfoView) {
+			this.clearMap();
+			this.addMakers(this.pointers);
+			this.savedActiveInfoView = false;
+		}
+	}
+
+	@Override
+	public void saveRadarState() {
+		this.savedActiveInfoView = true;
 
 	}
+
 }

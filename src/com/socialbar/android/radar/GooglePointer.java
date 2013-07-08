@@ -6,11 +6,8 @@ import java.util.List;
 import com.socialbar.android.model.Establishment;
 
 public class GooglePointer implements Pointer {
-	private double latitude;
-	private double longitude;
+	private Establishment establishment;
 	private int icon;
-	private String name;
-	private String id;
 
 	public static Pointer getPointer(Establishment e, int icon) {
 		return new GooglePointer(e, icon);
@@ -26,31 +23,28 @@ public class GooglePointer implements Pointer {
 	}
 
 	private GooglePointer(Establishment e, int icon) {
-		this.latitude = e.getLatitude();
-		this.longitude = e.getLongitude();
-		this.name = e.getName();
-		this.id = e.getID();
+		this.establishment = e;
 		this.icon = icon;
 	}
 
 	@Override
 	public double getLatitude() {
-		return this.latitude;
+		return this.establishment.getLatitude();
 	}
 
 	@Override
 	public double getLongitude() {
-		return this.longitude;
+		return this.establishment.getLongitude();
 	}
 
 	@Override
 	public String getSnippet() {
-		return this.id;
+		return this.establishment.getID();
 	}
 
 	@Override
 	public String getTitle() {
-		return this.name;
+		return this.establishment.getName();
 	}
 
 	@Override

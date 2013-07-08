@@ -6,7 +6,9 @@ import java.util.List;
 import com.google.android.gms.plus.model.people.Person.Image;
 import com.socialbar.android.R;
 import com.socialbar.android.activities.BarProfileActivity;
+import com.socialbar.android.model.AbstractModelFactory;
 import com.socialbar.android.model.Establishment;
+import com.socialbar.android.model.Model;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -27,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.socialbar.android.model.Establishment;
+import com.socialbar.android.model.dummy.FactoryDummy;
 
 public class GenericAdapter extends BaseAdapter {
 
@@ -73,51 +76,65 @@ public class GenericAdapter extends BaseAdapter {
 		} else {
 			holder = (Holder) v.getTag();
 		}
-		
+
 		Establishment e = this.data.get(position);
-		holder.logo.setImageResource(R.drawable.logo);
+		holder.logo.setImageResource(R.drawable.bar_logo);
 		holder.name.setText(e.getName());
 		holder.address.setText(e.getAddress());
-		
+
+		setFavorite(holder, e, false);
+
 		v.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View vis) {
 				Establishment e = data.get(position);
-				if(!e.isFavorite()){
-					holder.favorite.setImageResource(R.drawable.rating_important);
-					e.setFavorite(true);
-				}else{
-					holder.favorite.setImageResource(R.drawable.rating_not_important);
-					e.setFavorite(false);
-				}
-				Toast.makeText(context, context.getString(R.string.dialog_favorite_state_saved)+e.getName(), Toast.LENGTH_SHORT).show();
+				setFavorite(holder, e, true);
 			}
 		});
-		
-		v.setOnLongClickListener(new OnLongClickListener() {			
+
+		v.setOnLongClickListener(new OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
 				final Establishment e = data.get(position);
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		    	builder
-		    	.setTitle(e.getName())
-		    	.setMessage(R.string.dialog_profile)
-		    	.setIcon(android.R.drawable.ic_dialog_alert)
-		    	.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
-		    	    public void onClick(DialogInterface dialog, int which) {			      	
-		    	    	Intent intent = new Intent(context, BarProfileActivity.class);
-						intent.putExtra("ID", e.getID());
-						context.startActivity(intent);
-		    	    }
-		    	})
-		    	.setIcon(android.R.drawable.ic_menu_view)
-		    	.setNegativeButton(R.string.dialog_not, null)
-		    	.show();
+				builder.setTitle(e.getName())
+						.setMessage(R.string.dialog_profile)
+						.setIcon(android.R.drawable.ic_dialog_alert)
+						.setPositiveButton(R.string.dialog_yes,
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int which) {
+										Intent intent = new Intent(context,
+												BarProfileActivity.class);
+										intent.putExtra("ID", e.getID());
+										context.startActivity(intent);
+									}
+								}).setIcon(android.R.drawable.ic_menu_view)
+						.setNegativeButton(R.string.dialog_not, null).show();
 				return false;
 			}
+
 		});
 
 		return v;
+	}
+
+	private void setFavorite(Holder holder, Establishment e, boolean change) {
+		if (change) {
+			e.setFavorite(!e.isFavorite());
+			Model model = AbstractModelFactory.getInstance("dummy");
+			((FactoryDummy)model).save();
+			Toast.makeText(
+					context,
+					context.getString(R.string.dialog_favorite_state_saved)
+							+ e.getName(), Toast.LENGTH_SHORT).show();
+		}
+		if (e.isFavorite())
+			holder.favorite.setImageResource(R.drawable.icon_rating_important);
+		else
+			holder.favorite
+					.setImageResource(R.drawable.icon_rating_not_important);
+
 	}
 
 	static class Holder {

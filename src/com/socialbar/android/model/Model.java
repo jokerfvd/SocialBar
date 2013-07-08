@@ -3,6 +3,7 @@ package com.socialbar.android.model;
 import java.util.List;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
 
 public interface Model {
 	/**
@@ -11,16 +12,18 @@ public interface Model {
 	Establishment getEstablishment();
 	Establishment getEstablishment(String id);
 
-	List<Establishment> getEstablishment(double latitude, double longitude);
+	<T extends Establishment>List<T> getEstablishment(double latitude, double longitude);
 
-	List<Establishment> getEstablishment(String... args);
+	<T extends Establishment>List<T> getEstablishment(String... args);
 
 	User getUser(String name, String password);
 
 	User getUser();
 	
-	List<Establishment> getFavorites();
+	<T extends Establishment>List<T> getFavorites();
 	
 	BroadcastReceiver getEstablishmentPrototype(ModelEvent me, String id);
+	
+	void setContext(Context context);
 	
 }

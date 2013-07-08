@@ -4,7 +4,9 @@
     <string name="app_name">SocialBar</string>
     <string name="action_settings">Settings</string>
     <string name="bar_population">+1101</string>
+    <string name="bar_population_symbol">+</string>
     <string name="bar_name">Lorem Ipsum Bar</string>
+    <string name="bar_phone">12457</string>
     <string name="bar_last_modified">última atualização: </string>
     <string name="bar_address">Av Rio Branco, 9, centro, Rio de Janeiro - RJ</string>
     <string name="bar_header_description">Descrição</string>

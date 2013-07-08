@@ -47,7 +47,7 @@
     <style name="app_home_buttons" parent="app_header_text">
         <item name="android:background">@drawable/home_button_selector</item>
         <item name="android:textColor">@color/app_text_white</item>
-        <item name="android:drawableLeft">@drawable/rating_important_white</item>
+        <item name="android:drawableLeft">@drawable/icon_rating_important_white</item>
         <item name="android:drawablePadding">10dp</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:paddingTop">10dp</item>

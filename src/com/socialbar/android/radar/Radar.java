@@ -41,6 +41,9 @@ public interface Radar {
 	 * @param info
 	 */
 	void setInfoWindow(Object info);
+	void saveRadarState();
+	void updateRadarState();
+
 
 	/**
 	 * evento de click a janela de informação

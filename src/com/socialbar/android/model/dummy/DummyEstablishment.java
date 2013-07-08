@@ -1,10 +1,11 @@
-package com.socialbar.android.model.provider;
+package com.socialbar.android.model.dummy;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.socialbar.android.model.*;
 
-public class EstablishmentProvider implements Establishment {
+public class DummyEstablishment implements Establishment,Serializable {
 	private String Id;
 	private double latitude;
 	private double longitude;
@@ -14,15 +15,21 @@ public class EstablishmentProvider implements Establishment {
 	private String description;
 	private int people;
 	private long lastModified;
-	private boolean favorite = true;
+	private long createdAt;
+	private boolean favorite;
 
-	public EstablishmentProvider() {
+	public DummyEstablishment() {
+		this.createdAt = System.currentTimeMillis();
 	}
 
-	public EstablishmentProvider(String id) {
+	public DummyEstablishment(String id) {
 		this.Id = id;
 	}
-	
+
+	public void setId(String id) {
+		this.Id = id;
+	}
+
 	@Override
 	public double getLatitude() {
 		return this.latitude;
@@ -179,7 +186,7 @@ public class EstablishmentProvider implements Establishment {
 	@Override
 	public void setLastModified(long miliseconds) {
 		this.lastModified = miliseconds;
-		
+
 	}
 
 	@Override
@@ -190,13 +197,13 @@ public class EstablishmentProvider implements Establishment {
 	@Override
 	public void setFavorite(boolean favorite) {
 		this.favorite = favorite;
-		
+
 	}
 
 	@Override
 	public long getCreatedAt() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return this.createdAt;
 	}
 
 }

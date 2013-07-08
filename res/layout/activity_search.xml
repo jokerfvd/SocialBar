@@ -1,16 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/app_background_base"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center" 
-    style="@style/app_background_base">
+    android:fillViewport="true"
+    android:scrollbarStyle="outsideOverlay" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_search"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <LinearLayout
+        style="@style/app_background_profile"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="top"
+        android:orientation="vertical" >
 
-</LinearLayout>
+        <!-- bar -->
+
+        <LinearLayout
+            style="@style/app_profile_box"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="top"
+            android:orientation="vertical" >
+
+            <!-- informações com padding -->
+
+            <LinearLayout
+                style="@style/app_profile_textbox"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="35"
+                android:gravity="top"
+                android:orientation="vertical" >
+
+                <requestFocus />
+
+                <!-- botao laranja -->
+
+                <EditText
+                    android:id="@+id/edit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="5dp"
+                    android:ems="10"
+                    android:hint="Nome"
+                    android:inputType="textPersonName"
+                    android:nextFocusDown="@+id/edit_address" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_name"
+                style="@style/app_header_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bar_name" />
+            
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

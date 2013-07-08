@@ -2,17 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:contentDescription="@string/image_bar_logo"
+            android:src="@drawable/bar_logo" 
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:id="@+id/img_favorite"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:contentDescription="@string/button_favorite"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_rating_important" 
+            android:visibility="invisible"/>
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_lat"
+        android:id="@+id/text_name"
+        style="@style/app_header_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/bar_name" />
 
     <TextView
-        android:id="@+id/tv_lng"
+        android:id="@+id/text_phone"
+        style="@style/app_normal_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:text="asdjalksdkl"/>
+        android:layout_height="wrap_content"
+        android:text="@string/bar_phone"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/text_people"
+        style="@style/app_normal_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="@string/bar_population"
+        android:textColor="@color/app_text_lightgrey"
+        android:textSize="12sp" />
 
 </LinearLayout>

@@ -20,11 +20,11 @@ public class HomeActivity extends Activity implements OnClickListener {
 		/**
 		 * botoes
 		 */
-		this.findViewById(R.id.rest).setOnClickListener(this);
-		this.findViewById(R.id.newbar).setOnClickListener(this);
-		this.findViewById(R.id.radar).setOnClickListener(this);
-		this.findViewById(R.id.favorites).setOnClickListener(this);
-		this.findViewById(R.id.search).setOnClickListener(this);
+		this.findViewById(R.id.btn_rest).setOnClickListener(this);
+		this.findViewById(R.id.btn_newbar).setOnClickListener(this);
+		this.findViewById(R.id.btn_radar).setOnClickListener(this);
+		this.findViewById(R.id.btn_favorites).setOnClickListener(this);
+		this.findViewById(R.id.btn_search).setOnClickListener(this);
 		
 		
 	}
@@ -37,23 +37,23 @@ public class HomeActivity extends Activity implements OnClickListener {
 		 * acao dos botoes
 		 */
 		switch (v.getId()) {
-		case R.id.rest:
+		case R.id.btn_rest:
 			intent = new Intent(this, DummyMainActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.newbar:
-			intent = new Intent(this, NewBarActivity.class);
+		case R.id.btn_newbar:
+			intent = new Intent(this, EditBarActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.radar:
+		case R.id.btn_radar:
 			intent = new Intent(this, RadarActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.search:
+		case R.id.btn_search:
 			intent = new Intent(this, SearchActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.favorites:
+		case R.id.btn_favorites:
 			intent = new Intent(this, FavoritesActivity.class);
 			startActivity(intent);
 			break;

@@ -1,10 +1,9 @@
 package com.socialbar.android.activities;
 
 import java.sql.Date;
-import java.sql.Timestamp;
+
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
+
 
 import com.socialbar.android.R;
 import com.socialbar.android.activities.advance.resources.GenericActivity;
@@ -13,20 +12,24 @@ import com.socialbar.android.model.AbstractModelFactory;
 import com.socialbar.android.model.Establishment;
 import com.socialbar.android.model.Model;
 import com.socialbar.android.model.ModelEvent;
-import com.socialbar.android.rest.util.Logger;
+import com.socialbar.android.model.dummy.FactoryDummy;
+
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateFormat;
+
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
@@ -37,8 +40,9 @@ public class BarProfileActivity extends Activity implements OnClickListener, Mod
 	 */
 	private GenericActivity genericActivity;
 	private BroadcastReceiver broadCastReceiver;
-	private Establishment e;
-	/** Called when the activity is first created. */
+	private Establishment establishment;
+	/** Called when the activity is first created.
+	 *  */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -65,17 +69,20 @@ public class BarProfileActivity extends Activity implements OnClickListener, Mod
 		ImageButton favorite = (ImageButton) findViewById(R.id.btn_favorite);
 		favorite.setOnClickListener(this);
 		
-		this.configuration();
+		
 	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		this.configuration();
+	};
 	/**
 	 * metodo basico de configuracao onCreate
 	 */
 	private void configuration() {
 		String id = getIntent().getExtras().getString("ID");
 		if (id != null) {
-			this.setEstablishment(id);			
-	
-			
+			this.setEstablishment(id);		
 		}
 	}
 	/**
@@ -83,18 +90,21 @@ public class BarProfileActivity extends Activity implements OnClickListener, Mod
 	 * @param id
 	 */
 	private void setEstablishment(String id){
-		Model model = AbstractModelFactory.getInstance();
-		broadCastReceiver = model.getEstablishmentPrototype(this, id);
+		//Model model = AbstractModelFactory.getInstance();
+		//broadCastReceiver = model.getEstablishmentPrototype(this, id);
+		Model model = AbstractModelFactory.getInstance("dummy");
+		Establishment es = model.getEstablishment(id);
+		this.onModelReceive(Establishment.class, es);
 	}
 	/**
 	 * metod para setar a estrela do favorito
 	 * @param favorite
 	 */
 	private void setFavoriteImage(ImageButton favorite){
-		if(this.e.isFavorite())
-			favorite.setImageResource(R.drawable.rating_important);
+		if(this.establishment.isFavorite())
+			favorite.setImageResource(R.drawable.icon_rating_important);
 		else
-			favorite.setImageResource(R.drawable.rating_not_important);
+			favorite.setImageResource(R.drawable.icon_rating_not_important);
 	}
 	@Override
 	public void onClick(View v) {
@@ -119,11 +129,23 @@ public class BarProfileActivity extends Activity implements OnClickListener, Mod
 	 * @param v
 	 */
 	private void changeFavorite(View v) {
-		this.e.setFavorite(!this.e.isFavorite());
+		this.establishment.setFavorite(!this.establishment.isFavorite());
 		this.setFavoriteImage((ImageButton)v);
-		Toast.makeText(this, getString(R.string.dialog_favorite_state_saved)+this.e.getName(), Toast.LENGTH_SHORT).show();
+		Model model = AbstractModelFactory.getInstance("dummy");
+		((FactoryDummy)model).save();
+		Toast.makeText(this, getString(R.string.dialog_favorite_state_saved)+this.establishment.getName(), Toast.LENGTH_SHORT).show();
 	}
-
+	/**
+	 * criação de icones da actionbar
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		MenuInflater inflater = getMenuInflater();
+		
+		inflater.inflate(R.menu.menu_bar_profile, menu);
+		return true;
+	}
 	/**
 	 * evento voltar
 	 */
@@ -132,6 +154,14 @@ public class BarProfileActivity extends Activity implements OnClickListener, Mod
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			this.onBackPressed();// encerra a activity
+			return true;
+		case R.id.menu_refresh:
+			Toast.makeText(this, "refresh", Toast.LENGTH_SHORT).show();
+			return true;
+		case R.id.menu_edit:
+			Intent intent = new Intent(this, EditBarActivity.class);
+			intent.putExtra("ID",this.establishment.getID());
+			startActivity(intent);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -187,17 +217,16 @@ public class BarProfileActivity extends Activity implements OnClickListener, Mod
 	}
 	@Override
 	public void onModelReceive(Class c, Object data) {
-		Log.i("onModelReceive","chegou");
 
-			this.e = (Establishment)data;
+			this.establishment = (Establishment)data;
 			SimpleDateFormat dfmt = new SimpleDateFormat("EEEE, d MMMM yyyy");  
-	        Date date= new Date(this.e.getLastModified()); 
+	        Date date= new Date(this.establishment.getLastModified()); 
 			
-			((TextView) findViewById(R.id.text_name)).setText(this.e.getName());
-			((TextView) findViewById(R.id.text_people)).setText(String
-					.valueOf(this.e.getPeople()));
+			((TextView) findViewById(R.id.text_name)).setText(this.establishment.getName());
+			((TextView) findViewById(R.id.text_people)).setText(getString(R.string.bar_population_symbol)+String
+					.valueOf(this.establishment.getPeople()));
 			((TextView) findViewById(R.id.text_last_modified)).setText(getString(R.string.bar_last_modified)+" "+dfmt.format(date));
-			((TextView) findViewById(R.id.text_address)).setText(this.e.getAddress());
+			((TextView) findViewById(R.id.text_address)).setText(this.establishment.getAddress());
 			
 			//botao
 			ImageButton favorite = (ImageButton) findViewById(R.id.btn_favorite);

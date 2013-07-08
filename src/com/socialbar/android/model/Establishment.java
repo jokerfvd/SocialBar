@@ -85,4 +85,5 @@ public interface Establishment {
 	
 	boolean isFavorite();
 	void setFavorite(boolean favorite);
+	long getCreatedAt();
 }

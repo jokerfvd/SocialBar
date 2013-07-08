@@ -1,7 +1,5 @@
 package com.socialbar.android.model;
 
-import java.math.BigDecimal;
-
 /**
  * Interface <code>Product</code>.
  */
@@ -12,13 +10,13 @@ public interface Product {
 
 	String getName();
 
-	BigDecimal getPrice();
+	int getPrice();
 
 	Product.Type getType();
 
 	void setName(String name);
 
-	void getPrice(BigDecimal price);
+	void getPrice(int price);
 
 	void setType(Product.Type type);	
 	

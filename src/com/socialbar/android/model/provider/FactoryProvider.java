@@ -78,4 +78,10 @@ public class FactoryProvider implements Model {
 		return pa.getEstablishment(id);
 	}
 
+	@Override
+	public void setContext(Context context) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
