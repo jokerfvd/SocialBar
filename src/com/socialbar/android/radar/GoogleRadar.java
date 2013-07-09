@@ -18,7 +18,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
- * Class <code>GoogleRadar</code>.
+ * Class <code>GoogleRadar</code> implementacao do Radar.
  */
 public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 		OnInfoWindowClickListener {
@@ -75,6 +75,7 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 	@Override
 	public void onInfoWindowClick(Marker marker) {
 		this.clickedMarker = marker.getSnippet();
+		//avisa o observador sobre o click no infowindow
 		if (this.listener != null)
 			this.listener.onRadarInfoWindowClick(marker.getSnippet());
 

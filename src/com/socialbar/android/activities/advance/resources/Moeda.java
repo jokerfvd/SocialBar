@@ -11,7 +11,7 @@ package com.socialbar.android.activities.advance.resources;
    
  /** 
   * Classe que padroniza a internacionalizacao de valores monetarios 
-  * @author Luiz Cavalcanti 
+  * @author L u i z C a v a l c a n t i 
   * @version 0.1 
   * @see java.util.Locale 
   * @see java.text.DecimalFormat 
@@ -40,7 +40,7 @@ package com.socialbar.android.activities.advance.resources;
       */  
      private static final Locale BRAZIL = new Locale("pt","BR");  
      /** 
-      * S�mbolos especificos do Real Brasileiro 
+      * Simbolos especificos do Real Brasileiro 
       */  
      private static final DecimalFormatSymbols REAL = new DecimalFormatSymbols(BRAZIL);  
      /** 

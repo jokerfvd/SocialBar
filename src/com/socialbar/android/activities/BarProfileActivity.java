@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import com.socialbar.android.R;
 import com.socialbar.android.activities.advance.resources.GenericActivity;
@@ -37,6 +38,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 
+/**
+ * Activity <code>Perfil do estabelecimento</code>.
+ */
 public class BarProfileActivity extends Activity implements OnClickListener,
 		ModelEvent {
 	/**
@@ -107,20 +111,55 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 	}
 
 	/**
-	 * metod para setar a estrela do favorito
-	 * 
-	 * @param favorite
+	 * metodo para recebimento de mensagem para carregamento assincrono
 	 */
-	private void setFavoriteImage(ImageButton favorite) {
-		if (this.establishment.isFavorite())
-			favorite.setImageResource(R.drawable.icon_rating_important);
-		else
-			favorite.setImageResource(R.drawable.icon_rating_not_important);
+	@Override
+	public void onModelReceive(@SuppressWarnings("rawtypes") Class c,
+			Object data) {
+
+		this.establishment = (Establishment) data;
+		this.exec();
 	}
 
+	/**
+	 * execucao dos dados para a interface
+	 */
+	private void exec() {
+		SimpleDateFormat dfmt = new SimpleDateFormat("EEEE, d MMMM yyyy",
+				Locale.getDefault());
+		Date date = new Date(this.establishment.getLastModified());
+
+		((TextView) findViewById(R.id.text_name)).setText(this.establishment
+				.getName());
+		((TextView) findViewById(R.id.text_people))
+				.setText(getString(R.string.bar_population_symbol)
+						+ String.valueOf(this.establishment.getPeople()));
+		((TextView) findViewById(R.id.text_last_modified))
+				.setText(getString(R.string.bar_last_modified) + " "
+						+ dfmt.format(date));
+		((TextView) findViewById(R.id.text_address)).setText(this.establishment
+				.getAddress());
+
+		((TextView) findViewById(R.id.text_address)).setText(this.establishment
+				.getAddress());
+		((TextView) findViewById(R.id.text_phone)).setText(this.establishment
+				.getPhoneNumber());
+		((TextView) findViewById(R.id.text_products_content)).setText(this
+				.compileProducts(this.establishment.getProducts()));
+		((TextView) findViewById(R.id.text_features_content)).setText(this
+				.compileFeatures(this.establishment.getFeatures()));
+
+		// botao
+		ImageButton favorite = (ImageButton) findViewById(R.id.btn_favorite);
+		favorite.setOnClickListener(this);
+		this.setFavoriteImage(favorite);
+	}
+
+	/**
+	 * funcoes dos botoes
+	 */
 	@Override
 	public void onClick(View v) {
-
 		switch (v.getId()) {
 		case R.id.btn_checkin:
 			// Intent intent = new Intent(this, Radar.class);
@@ -138,15 +177,72 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 	}
 
 	/**
-	 * metodo para mudar estado do modelo estabelecimento
+	 * Variavel para armazenar o valor de altura padrao setado no XML
+	 */
+	private int expanded;
+
+	/**
+	 * Metodo para mudar o tamanho do elemento de descrição
+	 * 
+	 * @param v
+	 */
+	private void changeDescriptionHeight(View v) {
+		Button bt = (Button) v;
+		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.box_description);
+
+		int size = linearLayout.getHeight();
+
+		if (expanded == 0)// seta o valor do XML
+			expanded = size;
+
+		Toast.makeText(v.getContext(), String.valueOf(size), Toast.LENGTH_SHORT)
+				.show();
+
+		LayoutParams params;
+
+		if (expanded == size) {
+
+			// Setar novo texto para o botao
+			bt.setText(v.getContext().getResources()
+					.getString(R.string.button_expandable_less));
+
+			// Setar parametros para a aumentar o tamanho
+			params = new LayoutParams(LayoutParams.MATCH_PARENT,
+					LayoutParams.WRAP_CONTENT, 1f);
+
+		} else {
+			bt.setText(v.getContext().getResources()
+					.getString(R.string.button_expandable_more));
+			params = new LayoutParams(LayoutParams.MATCH_PARENT, expanded, 1f);
+		}
+
+		linearLayout.setLayoutParams(params);// aplicar novo tamanho
+	}
+
+	/**
+	 * metodo para setar a estrela do favorito
+	 * 
+	 * @param favorite
+	 */
+	private void setFavoriteImage(ImageButton favorite) {
+		if (this.establishment.isFavorite())
+			favorite.setImageResource(R.drawable.icon_rating_important);
+		else
+			favorite.setImageResource(R.drawable.icon_rating_not_important);
+	}
+
+	/**
+	 * metodo para mudar estado do modelo
 	 * 
 	 * @param v
 	 */
 	private void changeFavorite(View v) {
 		this.establishment.setFavorite(!this.establishment.isFavorite());
 		this.setFavoriteImage((ImageButton) v);
+		//salvar storage
 		Model model = AbstractModelFactory.getInstance("dummy");
 		((FactoryDummy) model).save();
+		//exibir alerta
 		Toast.makeText(
 				this,
 				getString(R.string.dialog_favorite_state_saved)
@@ -159,9 +255,7 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
 		MenuInflater inflater = getMenuInflater();
-
 		inflater.inflate(R.menu.menu_bar_profile, menu);
 		return true;
 	}
@@ -193,93 +287,10 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 		this.genericActivity.finish();
 	}
 
-	/**
-	 * Variavel para armazenar o valor de altura padrao setado no XML
-	 */
-	private int expanded;
-
-	/**
-	 * Metodo para mudar o tamanho do elemento de descrição
-	 * 
-	 * @param v
-	 */
-	private void changeDescriptionHeight(View v) {
-		Button bt = (Button) v;
-		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.box_description);
-
-		int size = linearLayout.getHeight();
-
-		if (expanded == 0)// seta o valor do XML
-			expanded = size;
-
-		Toast.makeText(v.getContext(), String.valueOf(size), Toast.LENGTH_SHORT)
-				.show();
-
-		LayoutParams params;
-
-		if (expanded == size) {
-
-			// Seta novo texto para o botao
-			bt.setText(v.getContext().getResources()
-					.getString(R.string.button_expandable_less));
-
-			// Seta parametros para a aumentar o tamanho
-			params = new LayoutParams(LayoutParams.MATCH_PARENT,
-					LayoutParams.WRAP_CONTENT, 1f);
-
-		} else {
-			bt.setText(v.getContext().getResources()
-					.getString(R.string.button_expandable_more));
-			params = new LayoutParams(LayoutParams.MATCH_PARENT, expanded, 1f);
-		}
-
-		linearLayout.setLayoutParams(params);// aplica novo tamanho
-	}
-
-	@Override
-	public void onModelReceive(Class c, Object data) {
-
-		this.establishment = (Establishment) data;
-		this.exec();
-	}
-	/**
-	 * execucao dos dados para a interface
-	 */
-	private void exec(){
-		SimpleDateFormat dfmt = new SimpleDateFormat("EEEE, d MMMM yyyy");
-		Date date = new Date(this.establishment.getLastModified());
-
-		((TextView) findViewById(R.id.text_name)).setText(this.establishment
-				.getName());
-		((TextView) findViewById(R.id.text_people))
-				.setText(getString(R.string.bar_population_symbol)
-						+ String.valueOf(this.establishment.getPeople()));
-		((TextView) findViewById(R.id.text_last_modified))
-				.setText(getString(R.string.bar_last_modified) + " "
-						+ dfmt.format(date));
-		((TextView) findViewById(R.id.text_address)).setText(this.establishment
-				.getAddress());
-
-		((TextView) findViewById(R.id.text_address)).setText(this.establishment
-				.getAddress());
-		((TextView) findViewById(R.id.text_phone)).setText(this.establishment
-				.getPhoneNumber());
-		((TextView) findViewById(R.id.text_products_content)).setText(this
-				.compileProducts(this.establishment.getProducts()));
-		((TextView) findViewById(R.id.text_features_content)).setText(this
-				.compileFeatures(this.establishment.getFeatures()));
-
-		// botao
-		ImageButton favorite = (ImageButton) findViewById(R.id.btn_favorite);
-		favorite.setOnClickListener(this);
-		this.setFavoriteImage(favorite);
-	}
-
 	@Override
 	protected void onPause() {
 		super.onPause();
-
-		// Unregister for broadcast
+		// remove broadcast
 		if (broadCastReceiver != null) {
 			try {
 				this.unregisterReceiver(broadCastReceiver);
@@ -289,6 +300,12 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 		}
 	}
 
+	/**
+	 * Prepara string de produtos para serem exibidas
+	 * 
+	 * @param products
+	 * @return
+	 */
 	private String compileProducts(List<Product> products) {
 		StringBuilder sb = new StringBuilder();
 		if (products != null) {
@@ -297,12 +314,19 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 					sb.append(System.getProperty("line.separator"));
 				sb.append(p.getName());
 				sb.append(": ");
-				sb.append(Moeda.mascaraDinheiro(p.getPrice(),Moeda.DINHEIRO_REAL));
+				sb.append(Moeda.mascaraDinheiro(p.getPrice(),
+						Moeda.DINHEIRO_REAL));
 			}
 		}
 		return sb.toString();
 	}
 
+	/**
+	 * Prepara string de caracteristicas para serem exibidas
+	 * 
+	 * @param features
+	 * @return
+	 */
 	private String compileFeatures(List<Feature> features) {
 		StringBuilder sb = new StringBuilder();
 		if (features != null) {

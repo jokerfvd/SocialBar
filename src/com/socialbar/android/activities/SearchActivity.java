@@ -10,12 +10,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.socialbar.android.R;
 import com.socialbar.android.activities.advance.resources.GenericActivity;
@@ -24,8 +21,9 @@ import com.socialbar.android.activities.advance.resources.GenericAdapter;
 import com.socialbar.android.model.AbstractModelFactory;
 import com.socialbar.android.model.Establishment;
 import com.socialbar.android.model.Model;
-import com.socialbar.android.model.dummy.FactoryDummy;
-
+/**
+ * Activity <code>tela de busca de estabelecimentos</code>.
+ */
 public class SearchActivity extends Activity implements OnClickListener,OnQueryTextListener {
 	private GenericActivity genericActivity;
 	private GenericAdapter adapter;
@@ -118,8 +116,7 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 	/**
 	 * fazer o adapter atualizar apos edicao

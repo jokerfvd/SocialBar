@@ -25,6 +25,9 @@ import com.socialbar.android.model.AbstractModelFactory;
 import com.socialbar.android.model.Establishment;
 import com.socialbar.android.model.Model;
 
+/**
+ * Activity <code>favoritos</code>.
+ */
 public class FavoritesActivity extends Activity implements OnClickListener {
 	private GenericActivity genericActivity;
 	private GenericAdapter adapter;
@@ -49,7 +52,7 @@ public class FavoritesActivity extends Activity implements OnClickListener {
 		this.genericActivity.resume();
 
 		/**
-		 * Botoes
+		 * configuracao inicial do oncreate
 		 */
 		this.configuration();
 	}
@@ -59,12 +62,20 @@ public class FavoritesActivity extends Activity implements OnClickListener {
 		((GenericAdapter)((ListView) findViewById(R.id.list_bar)).getAdapter()).notifyDataSetChanged();
 		
 	};
+	/**
+	 * metodo de configuracao
+	 * realiza requisicao assincrona
+	 */
 	private void configuration() {
 		Model model = AbstractModelFactory.getInstance("dummy");
 		List<Establishment> es = model.getFavorites();
 		this.onModelReceive(Establishment.class,es);	
 	}
-	
+	/**
+	 * metodo para receber dados assincronos
+	 * @param c
+	 * @param data
+	 */
 	public void onModelReceive(Class c, Object data) {
 		final ListView listView = (ListView) findViewById(R.id.list_bar);			
 		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);

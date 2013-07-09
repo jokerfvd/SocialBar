@@ -1,5 +1,9 @@
 package com.socialbar.android.radar;
 
+/**
+ * Interface <code>Pointer</code>.
+ * Define os dados dos pontos para serem exibidos no radar
+ */
 public interface Pointer {
 	/**
 	 * latitude
@@ -30,7 +34,7 @@ public interface Pointer {
 	String getTitle();
 
 	/**
-	 * icone a ser exibido no mapa
+	 * icone a ser exibido no radar
 	 * 
 	 * @return
 	 */

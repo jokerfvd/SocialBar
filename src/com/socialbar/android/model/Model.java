@@ -4,7 +4,9 @@ import java.util.List;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-
+/**
+ * Interface <code>Model</code>.
+ */
 public interface Model {
 	/**
 	 * interfaces para todos os objetos - basicas

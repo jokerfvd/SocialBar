@@ -5,7 +5,9 @@ import java.io.Serializable;
 import com.socialbar.android.model.Product;
 
 
-
+/**
+ * Class <code>Produto postico - serializavel</code>.
+ */
 public class DummyProduct implements Product,Serializable{	
 
 	private static final long serialVersionUID = 1L;

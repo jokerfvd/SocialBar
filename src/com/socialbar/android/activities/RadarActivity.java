@@ -20,7 +20,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.model.Marker;
 import com.socialbar.android.R;
 import com.socialbar.android.activities.advance.resources.GenericActivity;
@@ -28,12 +27,13 @@ import com.socialbar.android.activities.advance.resources.GenericActivitySlider;
 import com.socialbar.android.model.AbstractModelFactory;
 import com.socialbar.android.model.Establishment;
 import com.socialbar.android.model.Model;
-import com.socialbar.android.model.dummy.FactoryDummy;
 import com.socialbar.android.radar.GooglePointer;
 import com.socialbar.android.radar.GoogleRadar;
 import com.socialbar.android.radar.Radar;
 import com.socialbar.android.radar.RadarEvents;
-
+/**
+ * Activity <code>Exibe o mapa</code>.
+ */
 public class RadarActivity extends Activity implements OnClickListener,
 		RadarEvents {
 
@@ -63,7 +63,7 @@ public class RadarActivity extends Activity implements OnClickListener,
 		this.genericActivity.resume();
 
 		/**
-		 * Botoes
+		 * configuracao do oncreate
 		 */
 		this.configuration();
 
@@ -122,9 +122,9 @@ public class RadarActivity extends Activity implements OnClickListener,
 	 * metodo para execucao, executado no onResume
 	 */
 	private void exec() {
-		// inicia a exebição do mapa
-		int resultCode = GooglePlayServicesUtil
-				.isGooglePlayServicesAvailable(getApplicationContext());
+		//Utility class for verifying that the Google Play services APK is available and up-to-date on this device
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+		//Contains all possible error codes for when a client fails to connect to Google Play services
 		if (resultCode == ConnectionResult.SUCCESS) {
 			if (radar == null) {
 				radar = new GoogleRadar(myMapFragment.getMap());
@@ -159,8 +159,6 @@ public class RadarActivity extends Activity implements OnClickListener,
 				View v = getLayoutInflater().inflate(
 						R.layout.snippet_radar_info_window, null);
 
-				// note.setText(marker.getTitle());
-
 				Model model = AbstractModelFactory.getInstance("dummy");
 				Establishment es = model.getEstablishment(marker.getSnippet());
 
@@ -182,6 +180,11 @@ public class RadarActivity extends Activity implements OnClickListener,
 	}
 
 	// eventos do radar
+	/**
+	 * quando a latitude e longitude do mapa for capturada
+	 * a activity deve requisitar os pontos ao modelo passando as coordenadas
+	 * 
+	 */
 	@Override
 	public void onRadarLocationChange(double latitude, double longitude) {
 		Model model = AbstractModelFactory.getInstance("dummy");
@@ -189,9 +192,9 @@ public class RadarActivity extends Activity implements OnClickListener,
 		Log.i("RADAR", String.valueOf(es.size()));
 		radar.addMakers(GooglePointer.getPointer(es, R.drawable.bar_mark));
 	}
-	
-	private void createMarkers(){}
-
+	/**
+	 * evento para a definição do clique sobre a infowindow no mapa
+	 */	
 	@Override
 	public void onRadarInfoWindowClick(String id) {
 		this.radar.saveRadarState();
@@ -201,6 +204,12 @@ public class RadarActivity extends Activity implements OnClickListener,
 	}
 
 	// extra
+	/**
+	 * apenas um teste para capturar o evento de long click no mapa
+	 * o objetivo seria adicionar criação de pontos direto no mapa
+	 * e a movimentacao de pontos
+	 * @param ev
+	 */
 	public void recieveLongClick(MotionEvent ev) {
 		System.out.println("radar long click");
 		// You can now pull lat/lng from geoPoint

@@ -27,6 +27,9 @@ import com.socialbar.android.model.Establishment;
 import com.socialbar.android.model.Model;
 import com.socialbar.android.model.dummy.FactoryDummy;
 
+/**
+ * Activity <code>Editar ou novo estabelecimento</code>.
+ */
 public class EditBarActivity extends Activity implements OnClickListener,
 		LocationListener {
 	private GenericActivity genericActivity;
@@ -52,7 +55,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 		this.genericActivity.resume();
 
 		/**
-		 * Botoes
+		 * inicializa a configuração do oncreate
 		 */
 
 		this.configuration();
@@ -60,6 +63,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 
 	/**
 	 * metodo basico de configuracao onCreate
+	 * considera parametros passados
 	 */
 	private void configuration() {
 		if (getIntent().hasExtra("ID")) {
@@ -67,7 +71,10 @@ public class EditBarActivity extends Activity implements OnClickListener,
 		} else
 			this.setEstablishment(null);
 	}
-
+	/**
+	 * metodo para requisitar um estabelecimento, seja ele novo ou existente
+	 * @param id
+	 */
 	private void setEstablishment(String id) {
 		// Model model = AbstractModelFactory.getInstance();
 		// broadCastReceiver = model.getEstablishmentPrototype(this, id);
@@ -128,6 +135,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 
 	/**
 	 * preparar novo objeto para ser editado
+	 * caso esteja nulo, lancara NullPointerException 
 	 * 
 	 * @param e
 	 */
@@ -143,7 +151,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 	 * @param c
 	 * @param data
 	 */
-	public void onModelReceive(Class c, Object data) {
+	public void onModelReceive(@SuppressWarnings("rawtypes") Class c, Object data) {
 		Log.i("onModelReceive", "chegou");
 
 		this.establishment = (Establishment) data;

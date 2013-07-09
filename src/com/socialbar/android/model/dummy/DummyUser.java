@@ -3,7 +3,9 @@ package com.socialbar.android.model.dummy;
 import java.io.Serializable;
 
 import com.socialbar.android.model.User;
-
+/**
+ * Class <code>Usuario postico - serializavel</code>.
+ */
 public class DummyUser implements User,Serializable{
 	private static final long serialVersionUID = 1L;
 	@Override
