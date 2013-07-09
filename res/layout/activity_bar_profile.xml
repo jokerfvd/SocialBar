@@ -1,15 +1,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/app_background_base"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbarStyle="outsideOverlay"
-    style="@style/app_background_base" >
+    android:scrollbarStyle="outsideOverlay" >
 
     <LinearLayout
+        style="@style/app_background_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
-       style="@style/app_background_profile">
-
+        android:orientation="vertical" >
 
         <!-- bar -->
 
@@ -41,12 +40,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/border_top_bottom"
                     android:paddingBottom="3dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="7dp"
                     android:paddingTop="3dp"
-                    android:layout_marginTop="10dp"
                     android:text="@string/bar_population" />
             </RelativeLayout>
 
@@ -72,7 +71,7 @@
                     <TableRow>
 
                         <ImageView
-                             android:id="@+id/img_logo"
+                            android:id="@+id/img_logo"
                             android:layout_width="46dp"
                             android:layout_height="46dp"
                             android:layout_marginRight="4dp"
@@ -93,6 +92,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/bar_name" />
+                            
+                            <!-- telefone -->
+                             <TextView
+                                android:id="@+id/text_phone"
+                                style="@style/app_normal_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/bar_phone" />
 
                             <!-- endereco -->
 
@@ -124,7 +131,7 @@
                             android:orientation="horizontal" >
 
                             <ImageButton
-                                 android:id="@+id/btn_favorite"
+                                android:id="@+id/btn_favorite"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
                                 android:background="@drawable/list_item_selector"
@@ -144,17 +151,64 @@
                     android:orientation="vertical"
                     android:paddingTop="5dp" >
 
-                    
                     <!-- texto -->
 
-                    <TextView
-                        android:id="@+id/description_text"
-                        style="@style/app_normal_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:paddingLeft="1dp"
-                        android:paddingRight="1dp"
-                        android:text="@string/bar_description_text" />
+                    <TableLayout
+                        android:id="@+id/box_description"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginBottom="10dp"
+                        android:collapseColumns="*"
+                        android:shrinkColumns="*"
+                        android:stretchColumns="1" >
+
+                        <TableRow>
+
+                            <TextView
+                                android:id="@+id/text_features"
+                                style="@style/app_header_text"
+                                android:layout_width="0dp"
+                                android:layout_weight="1" 
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="1dp"
+                                android:paddingRight="1dp"
+                                android:text="@string/bar_features"
+                                
+                                android:textSize="16sp"/>
+
+                            <TextView
+                                android:textSize="16sp"
+                                android:id="@+id/text_products"
+                                style="@style/app_header_text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="1dp"
+                                android:paddingRight="1dp"
+                                android:layout_weight="1"
+                                android:text="@string/bar_products" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/text_features_content"
+                                style="@style/app_normal_text"
+                                android:layout_width="0dp"
+                                android:layout_weight="1" 
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:text="@string/bar_description_text" />
+
+                            <TextView
+                                android:id="@+id/text_products_content"
+                                style="@style/app_normal_text"
+                                android:layout_width="0dp"
+                                android:layout_weight="1" 
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:text="@string/bar_description_text" />
+                        </TableRow>
+                    </TableLayout>
 
                     <Button
                         android:id="@+id/btn_expandable"
@@ -179,11 +233,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:background="@drawable/orange_button_selector"
-                    android:text="@string/button_checkin"
-                    android:drawableLeft="@drawable/icon_device_access_location_found_white" />
-
+                    android:drawableLeft="@drawable/icon_device_access_location_found_white"
+                    android:text="@string/button_checkin" />
             </LinearLayout>
-        </LinearLayout>       
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

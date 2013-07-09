@@ -12,7 +12,7 @@ public interface Feature {
 
 	Feature.Type getType();
 	
-	void setNome(String nome);
+	void setName(String name);
 
 	void setType(Feature.Type type);
 

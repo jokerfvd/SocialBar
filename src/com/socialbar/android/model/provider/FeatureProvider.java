@@ -17,7 +17,7 @@ public class FeatureProvider implements Feature{
 	}
 
 	@Override
-	public void setNome(String nome) {
+	public void setName(String name) {
 		// TODO Auto-generated method stub
 		
 	}

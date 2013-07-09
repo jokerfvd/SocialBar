@@ -10,13 +10,13 @@ public interface Product {
 
 	String getName();
 
-	int getPrice();
+	double getPrice();
 
 	Product.Type getType();
 
 	void setName(String name);
 
-	void getPrice(int price);
+	void setPrice(double price);
 
 	void setType(Product.Type type);	
 	

@@ -3,31 +3,36 @@ package com.socialbar.android.model.dummy;
 import java.io.Serializable;
 
 import com.socialbar.android.model.Feature;
+import com.socialbar.android.model.Product.Type;
 
 public class DummyFeature implements Feature,Serializable{
 
+	private static final long serialVersionUID = 1L;
+	private String name;
+	private Type type;
+	
+	public DummyFeature(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.name;
 	}
 
 	@Override
 	public Type getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.type;
 	}
 
 	@Override
-	public void setNome(String nome) {
-		// TODO Auto-generated method stub
-		
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public void setType(Type type) {
-		// TODO Auto-generated method stub
-		
+		this.type = type;
 	}
 
 }

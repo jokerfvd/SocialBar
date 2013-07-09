@@ -13,7 +13,7 @@ public class ProductProvider implements Product{
 	}
 
 	@Override
-	public int getPrice() {
+	public double getPrice() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -31,7 +31,7 @@ public class ProductProvider implements Product{
 	}
 
 	@Override
-	public void getPrice(int price) {
+	public void setPrice(double price) {
 		// TODO Auto-generated method stub
 		
 	}

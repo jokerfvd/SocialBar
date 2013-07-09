@@ -3,17 +3,19 @@ package com.socialbar.android.activities;
 import java.sql.Date;
 
 import java.text.SimpleDateFormat;
-
+import java.util.List;
 
 import com.socialbar.android.R;
 import com.socialbar.android.activities.advance.resources.GenericActivity;
 import com.socialbar.android.activities.advance.resources.GenericActivitySlider;
+import com.socialbar.android.activities.advance.resources.Moeda;
 import com.socialbar.android.model.AbstractModelFactory;
 import com.socialbar.android.model.Establishment;
+import com.socialbar.android.model.Feature;
 import com.socialbar.android.model.Model;
 import com.socialbar.android.model.ModelEvent;
+import com.socialbar.android.model.Product;
 import com.socialbar.android.model.dummy.FactoryDummy;
-
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -30,19 +32,23 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 
-public class BarProfileActivity extends Activity implements OnClickListener, ModelEvent {
+public class BarProfileActivity extends Activity implements OnClickListener,
+		ModelEvent {
 	/**
 	 * Funcoes genericas utilizadas por um conjunto de activities
 	 */
 	private GenericActivity genericActivity;
 	private BroadcastReceiver broadCastReceiver;
 	private Establishment establishment;
-	/** Called when the activity is first created.
-	 *  */
+
+	/**
+	 * Called when the activity is first created.
+	 * */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -65,47 +71,53 @@ public class BarProfileActivity extends Activity implements OnClickListener, Mod
 		 */
 		Button expandable = (Button) findViewById(R.id.btn_expandable);
 		expandable.setOnClickListener(this);
-		
+
 		ImageButton favorite = (ImageButton) findViewById(R.id.btn_favorite);
 		favorite.setOnClickListener(this);
-		
-		
+
 	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		this.configuration();
 	};
+
 	/**
 	 * metodo basico de configuracao onCreate
 	 */
 	private void configuration() {
 		String id = getIntent().getExtras().getString("ID");
 		if (id != null) {
-			this.setEstablishment(id);		
+			this.setEstablishment(id);
 		}
 	}
+
 	/**
 	 * metodo para setar o estabelecimento da atividade
+	 * 
 	 * @param id
 	 */
-	private void setEstablishment(String id){
-		//Model model = AbstractModelFactory.getInstance();
-		//broadCastReceiver = model.getEstablishmentPrototype(this, id);
+	private void setEstablishment(String id) {
+		// Model model = AbstractModelFactory.getInstance();
+		// broadCastReceiver = model.getEstablishmentPrototype(this, id);
 		Model model = AbstractModelFactory.getInstance("dummy");
 		Establishment es = model.getEstablishment(id);
 		this.onModelReceive(Establishment.class, es);
 	}
+
 	/**
 	 * metod para setar a estrela do favorito
+	 * 
 	 * @param favorite
 	 */
-	private void setFavoriteImage(ImageButton favorite){
-		if(this.establishment.isFavorite())
+	private void setFavoriteImage(ImageButton favorite) {
+		if (this.establishment.isFavorite())
 			favorite.setImageResource(R.drawable.icon_rating_important);
 		else
 			favorite.setImageResource(R.drawable.icon_rating_not_important);
 	}
+
 	@Override
 	public void onClick(View v) {
 
@@ -124,17 +136,24 @@ public class BarProfileActivity extends Activity implements OnClickListener, Mod
 			break;
 		}
 	}
+
 	/**
 	 * metodo para mudar estado do modelo estabelecimento
+	 * 
 	 * @param v
 	 */
 	private void changeFavorite(View v) {
 		this.establishment.setFavorite(!this.establishment.isFavorite());
-		this.setFavoriteImage((ImageButton)v);
+		this.setFavoriteImage((ImageButton) v);
 		Model model = AbstractModelFactory.getInstance("dummy");
-		((FactoryDummy)model).save();
-		Toast.makeText(this, getString(R.string.dialog_favorite_state_saved)+this.establishment.getName(), Toast.LENGTH_SHORT).show();
+		((FactoryDummy) model).save();
+		Toast.makeText(
+				this,
+				getString(R.string.dialog_favorite_state_saved)
+						+ this.establishment.getName(), Toast.LENGTH_SHORT)
+				.show();
 	}
+
 	/**
 	 * criação de icones da actionbar
 	 */
@@ -142,10 +161,11 @@ public class BarProfileActivity extends Activity implements OnClickListener, Mod
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
 		MenuInflater inflater = getMenuInflater();
-		
+
 		inflater.inflate(R.menu.menu_bar_profile, menu);
 		return true;
 	}
+
 	/**
 	 * evento voltar
 	 */
@@ -156,11 +176,11 @@ public class BarProfileActivity extends Activity implements OnClickListener, Mod
 			this.onBackPressed();// encerra a activity
 			return true;
 		case R.id.menu_refresh:
-			Toast.makeText(this, "refresh", Toast.LENGTH_SHORT).show();
+			this.exec();
 			return true;
 		case R.id.menu_edit:
 			Intent intent = new Intent(this, EditBarActivity.class);
-			intent.putExtra("ID",this.establishment.getID());
+			intent.putExtra("ID", this.establishment.getID());
 			startActivity(intent);
 			return true;
 		default:
@@ -185,9 +205,9 @@ public class BarProfileActivity extends Activity implements OnClickListener, Mod
 	 */
 	private void changeDescriptionHeight(View v) {
 		Button bt = (Button) v;
-		TextView textview = (TextView) findViewById(R.id.description_text);
+		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.box_description);
 
-		int size = textview.getHeight();
+		int size = linearLayout.getHeight();
 
 		if (expanded == 0)// seta o valor do XML
 			expanded = size;
@@ -213,28 +233,48 @@ public class BarProfileActivity extends Activity implements OnClickListener, Mod
 			params = new LayoutParams(LayoutParams.MATCH_PARENT, expanded, 1f);
 		}
 
-		textview.setLayoutParams(params);// aplica novo tamanho
+		linearLayout.setLayoutParams(params);// aplica novo tamanho
 	}
+
 	@Override
 	public void onModelReceive(Class c, Object data) {
 
-			this.establishment = (Establishment)data;
-			SimpleDateFormat dfmt = new SimpleDateFormat("EEEE, d MMMM yyyy");  
-	        Date date= new Date(this.establishment.getLastModified()); 
-			
-			((TextView) findViewById(R.id.text_name)).setText(this.establishment.getName());
-			((TextView) findViewById(R.id.text_people)).setText(getString(R.string.bar_population_symbol)+String
-					.valueOf(this.establishment.getPeople()));
-			((TextView) findViewById(R.id.text_last_modified)).setText(getString(R.string.bar_last_modified)+" "+dfmt.format(date));
-			((TextView) findViewById(R.id.text_address)).setText(this.establishment.getAddress());
-			
-			//botao
-			ImageButton favorite = (ImageButton) findViewById(R.id.btn_favorite);
-			favorite.setOnClickListener(this);
-			this.setFavoriteImage(favorite);
-		
+		this.establishment = (Establishment) data;
+		this.exec();
 	}
-	
+	/**
+	 * execucao dos dados para a interface
+	 */
+	private void exec(){
+		SimpleDateFormat dfmt = new SimpleDateFormat("EEEE, d MMMM yyyy");
+		Date date = new Date(this.establishment.getLastModified());
+
+		((TextView) findViewById(R.id.text_name)).setText(this.establishment
+				.getName());
+		((TextView) findViewById(R.id.text_people))
+				.setText(getString(R.string.bar_population_symbol)
+						+ String.valueOf(this.establishment.getPeople()));
+		((TextView) findViewById(R.id.text_last_modified))
+				.setText(getString(R.string.bar_last_modified) + " "
+						+ dfmt.format(date));
+		((TextView) findViewById(R.id.text_address)).setText(this.establishment
+				.getAddress());
+
+		((TextView) findViewById(R.id.text_address)).setText(this.establishment
+				.getAddress());
+		((TextView) findViewById(R.id.text_phone)).setText(this.establishment
+				.getPhoneNumber());
+		((TextView) findViewById(R.id.text_products_content)).setText(this
+				.compileProducts(this.establishment.getProducts()));
+		((TextView) findViewById(R.id.text_features_content)).setText(this
+				.compileFeatures(this.establishment.getFeatures()));
+
+		// botao
+		ImageButton favorite = (ImageButton) findViewById(R.id.btn_favorite);
+		favorite.setOnClickListener(this);
+		this.setFavoriteImage(favorite);
+	}
+
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -247,6 +287,34 @@ public class BarProfileActivity extends Activity implements OnClickListener, Mod
 				Log.i("onPause", e.getLocalizedMessage(), e);
 			}
 		}
+	}
+
+	private String compileProducts(List<Product> products) {
+		StringBuilder sb = new StringBuilder();
+		if (products != null) {
+			for (Product p : products) {
+				if (sb.length() > 0)
+					sb.append(System.getProperty("line.separator"));
+				sb.append(p.getName());
+				sb.append(": ");
+				sb.append(Moeda.mascaraDinheiro(p.getPrice(),Moeda.DINHEIRO_REAL));
+			}
+		}
+		return sb.toString();
+	}
+
+	private String compileFeatures(List<Feature> features) {
+		StringBuilder sb = new StringBuilder();
+		if (features != null) {
+			for (Feature f : features) {
+				if (sb.length() > 0)
+					sb.append(System.getProperty("line.separator"));
+				sb.append(f.getName());
+
+			}
+		}
+
+		return sb.toString();
 	}
 
 }

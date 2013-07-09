@@ -13,30 +13,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.socialbar.android.model.Product;
+
 
 import android.os.Environment;
 import android.util.Log;
 
 public class StorageDummy implements Serializable {
+	/*variaveis serializveis*/
 	private static final long serialVersionUID = 1L;
-
 	private List<DummyEstablishment> establishments;
 	private DummyUser user;
-
+	
+	/*variaveis nao serializveis*/
 	private transient DummyEstablishment temp;
 	private transient final String FILE = "socialbar.txt";
 
 	public StorageDummy() {
-		this.checkStorage();
+		this.checkStorageState();
 	}
 
 	public DummyEstablishment addEstablishment(DummyEstablishment de) {
 		int id = this.establishments.size();
 		de.setId(String.valueOf(id));
 		this.establishments.add(de);
-
-		Log.i("StorageDummy",
-				"adicionando: " + String.valueOf(this.establishments.size()));
 		return de;
 	}
 
@@ -99,42 +99,45 @@ public class StorageDummy implements Serializable {
 	public DummyUser getUser() {
 		return this.user;
 	}
-
+	/**
+	 * salvar estados das variaveis, incluindo a temp, para arquivo
+	 */
 	public void save() {
-		if (this.temp != null && this.checkintegrity(this.temp))
+		if (this.temp != null && this.isValidEstablishment(this.temp))
 			this.addEstablishment(this.temp);
 		this.temp = null;
-		this.saveStorage();
+		this.saveStorageStateToFile();
 	}
-
-	private void initialize() {
+	/**
+	 * inicializar storage
+	 */
+	private void initializeStorage() {
 		this.user = new DummyUser();
 		this.user.setName("SocialBar User");
-
 		this.establishments = new ArrayList<DummyEstablishment>();
 	}
 
 	/**
 	 * Verifica se o arquivo existe
 	 */
-	private void checkStorage() {
+	private void checkStorageState() {
 		File file = new File(Environment.getExternalStorageDirectory(), FILE);
 		if (file != null && file.exists()) {
-			this.loadStorage();
-			this.checkIds();
+			this.loadStorageStateFromFile();
+			this.checkEstablishmentsID();
 			if (this.establishments == null) {
-				this.initialize();
+				this.initializeStorage();
 			}
 		} else {
-			this.initialize();
-			this.saveStorage();
+			this.initializeStorage();
+			this.saveStorageStateToFile();
 		}
 	}
 
 	/**
 	 * salva objeto em arquivo
 	 */
-	private void saveStorage() {
+	private void saveStorageStateToFile() {
 		File file;
 		ObjectOutputStream os;
 		try {
@@ -147,13 +150,12 @@ public class StorageDummy implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
 	 * carrega arquivo para objeto
 	 */
-	private void loadStorage() {
+	private void loadStorageStateFromFile() {
 		File file;
 		ObjectInputStream is;
 		try {
@@ -172,54 +174,52 @@ public class StorageDummy implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Log.i("StorageDummy",
-				"carregado: " + String.valueOf(this.establishments));
-
-	}
+	}	
 
 	/**
-	 * Checar por ids corrompidas
-	 */
-	private void checkIds() {
-		int i = 0;
-		if (this.establishments != null)
-			for (DummyEstablishment de : this.establishments) {
-				if (de.getID() == null)
-					de.setId(String.valueOf(i));
-				i++;
-			}
-	}
-
-	/**
-	 * criação de pontos
+	 * criação de estabelecimentos por latitude e longitude
 	 * 
 	 */
-	public List<DummyEstablishment> generateEstablishmentByLatLong(double lat,
+	private List<DummyEstablishment> generateEstablishmentByLatLong(double lat,
 			double lon) {
 		List<DummyEstablishment> list = new ArrayList<DummyEstablishment>();
-		list.add(this.multiCreate("1", lat + 3 / 1000.0, lon));
-		list.add(this.multiCreate("2", lat, lon + 3 / 1000.0));
-		list.add(this.multiCreate("3", lat, lon - 3 / 1000.0));
-		list.add(this.multiCreate("4", lat - 3 / 1000.0, lon));
+		list.add(this.createEstablishmentByLatLong("1", lat + 3 / 1000.0, lon));
+		list.add(this.createEstablishmentByLatLong("2", lat, lon + 3 / 1000.0));
+		list.add(this.createEstablishmentByLatLong("3", lat, lon - 3 / 1000.0));
+		list.add(this.createEstablishmentByLatLong("4", lat - 3 / 1000.0, lon));
 		// diagonais
-		list.add(this.multiCreate("5", lat + 3 / 1000.0, lon + 3 / 1000.0));// cima-direita
-		list.add(this.multiCreate("6", lat + 3 / 1000.0, lon - 3 / 1000.0));// cima-esquerda
-		list.add(this.multiCreate("7", lat - 3 / 1000.0, lon + 3 / 1000.0));// baixo-direita
-		list.add(this.multiCreate("8", lat - 3 / 1000.0, lon - 3 / 1000.0));// baixo-esquerda
+		list.add(this.createEstablishmentByLatLong("5", lat + 3 / 1000.0, lon + 3 / 1000.0));// cima-direita
+		list.add(this.createEstablishmentByLatLong("6", lat + 3 / 1000.0, lon - 3 / 1000.0));// cima-esquerda
+		list.add(this.createEstablishmentByLatLong("7", lat - 3 / 1000.0, lon + 3 / 1000.0));// baixo-direita
+		list.add(this.createEstablishmentByLatLong("8", lat - 3 / 1000.0, lon - 3 / 1000.0));// baixo-esquerda
 
-		this.saveStorage();// salva alteracoes para o arquivo
+		this.saveStorageStateToFile();// salva alteracoes para o arquivo
 		return list;
 	}
+	/**
+	 * Preparacao para a criacao de estabelecimentos
+	 * @param i
+	 * @param lat
+	 * @param lon
+	 * @return
+	 */
+	private DummyEstablishment createEstablishmentByLatLong(String i, double lat, double lon) {
 
-	private DummyEstablishment multiCreate(String i, double lat, double lon) {
-
-		DummyEstablishment de = this.create("Bar " + i, i + "1234-5678",
+		DummyEstablishment de = this.createEstablishment("Bar " + i, i + "134-5678",
 				"Rua multi " + i, lat, lon);
 		this.addEstablishment(de);
 		return de;
 	}
-
-	private DummyEstablishment create(String name, String phone,
+	/**
+	 * criacao do estabelecimento
+	 * @param name
+	 * @param phone
+	 * @param address
+	 * @param lat
+	 * @param lon
+	 * @return
+	 */
+	private DummyEstablishment createEstablishment(String name, String phone,
 			String address, double lat, double lon) {
 		DummyEstablishment e = new DummyEstablishment();
 		e.setName(name);
@@ -228,10 +228,28 @@ public class StorageDummy implements Serializable {
 		e.setLatitude(lat);
 		e.setLongitude(lon);
 		e.setLastModified(System.currentTimeMillis());
-
+		this.addFeatures(e);
+		this.addProducts(e);
 		return e;
 	}
-	private boolean checkintegrity(DummyEstablishment de){
+	/**
+	 * Checar por ids corrompidas
+	 */
+	private void checkEstablishmentsID() {
+		int i = 0;
+		if (this.establishments != null)
+			for (DummyEstablishment de : this.establishments) {
+				if (de.getID() == null)
+					de.setId(String.valueOf(i));
+				i++;
+			}
+	}
+	/**
+	 * Verificar se o temp estabelecimento é valido para salvar
+	 * @param de
+	 * @return
+	 */
+	private boolean isValidEstablishment(DummyEstablishment de){
 		if(de.getName() == null)
 			return false;
 		if(de.getAddress() == null)
@@ -241,6 +259,27 @@ public class StorageDummy implements Serializable {
 		if(de.getLongitude() == 0.0)
 			return false;
 		return true;
+	}
+	/**
+	 * gerar produtos
+	 * @return
+	 */
+	private void addProducts(DummyEstablishment e){
+		e.addProduct(new DummyProduct("Batata", 5.5));
+		e.addProduct(new DummyProduct("Cerveja", 3.0));
+		e.addProduct(new DummyProduct("Chope", 6.2));
+		e.addProduct(new DummyProduct("Refrigerante", 2.5));
+		e.addProduct(new DummyProduct("Bala Juquinha", 0.10));
+	}
+	/**
+	 * gerar caracteristicas
+	 * @return
+	 */
+	private void addFeatures(DummyEstablishment e){
+		e.addFeature(new DummyFeature("Pub Ingles"));
+		e.addFeature(new DummyFeature("Choperia"));
+		e.addFeature(new DummyFeature("Telao de jogos"));
+		e.addFeature(new DummyFeature("Sinuca"));
 	}
 
 }

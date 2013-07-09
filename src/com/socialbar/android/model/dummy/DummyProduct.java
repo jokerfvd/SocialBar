@@ -6,42 +6,45 @@ import com.socialbar.android.model.Product;
 
 
 
-public class DummyProduct implements Product,Serializable{
+public class DummyProduct implements Product,Serializable{	
 
+	private static final long serialVersionUID = 1L;
+	private String name;
+	private double price;
+	private Type type;
+	
+	public DummyProduct(String name, double price) {
+		this.name = name;
+		this.price = price;
+	}
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.name;
 	}
 
 	@Override
-	public int getPrice() {
-		// TODO Auto-generated method stub
-		return 0;
+	public double getPrice() {
+		return this.price;
 	}
 
 	@Override
 	public Type getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.type;
 	}
 
 	@Override
 	public void setName(String name) {
-		// TODO Auto-generated method stub
-		
+		this.name = name;		
 	}
 
 	@Override
-	public void getPrice(int price) {
-		// TODO Auto-generated method stub
-		
+	public void setPrice(double price) {
+		this.price = price;		
 	}
 
 	@Override
 	public void setType(Type type) {
-		// TODO Auto-generated method stub
-		
+		this.type = type;		
 	}
 
 }

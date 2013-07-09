@@ -91,53 +91,57 @@ public final class R {
         public static final int orange_button_selector=0x7f02001c;
     }
     public static final class id {
-        public static final int TextView01=0x7f0a001a;
-        public static final int TextView02=0x7f0a001c;
-        public static final int TextView03=0x7f0a001e;
-        public static final int TextView04=0x7f0a0021;
-        public static final int TextView05=0x7f0a001f;
-        public static final int action_settings=0x7f0a0029;
-        public static final int btn_checkin=0x7f0a000e;
-        public static final int btn_expandable=0x7f0a000d;
-        public static final int btn_favorite=0x7f0a000b;
-        public static final int btn_favorites=0x7f0a0015;
-        public static final int btn_newbar=0x7f0a0012;
-        public static final int btn_radar=0x7f0a0014;
-        public static final int btn_rest=0x7f0a0011;
-        public static final int btn_search=0x7f0a0013;
-        public static final int button1=0x7f0a0020;
-        public static final int button2=0x7f0a0024;
-        public static final int description_text=0x7f0a000c;
+        public static final int TextView01=0x7f0a001f;
+        public static final int TextView02=0x7f0a0021;
+        public static final int TextView03=0x7f0a0023;
+        public static final int TextView04=0x7f0a0026;
+        public static final int TextView05=0x7f0a0024;
+        public static final int action_settings=0x7f0a002d;
+        public static final int box_description=0x7f0a000d;
+        public static final int btn_checkin=0x7f0a0013;
+        public static final int btn_expandable=0x7f0a0012;
+        public static final int btn_favorite=0x7f0a000c;
+        public static final int btn_favorites=0x7f0a001a;
+        public static final int btn_newbar=0x7f0a0017;
+        public static final int btn_radar=0x7f0a0019;
+        public static final int btn_rest=0x7f0a0016;
+        public static final int btn_search=0x7f0a0018;
+        public static final int button1=0x7f0a0025;
+        public static final int button2=0x7f0a0029;
         public static final int edit_address=0x7f0a0001;
         public static final int edit_latitude=0x7f0a0003;
         public static final int edit_longitude=0x7f0a0004;
         public static final int edit_name=0x7f0a0000;
         public static final int edit_phone=0x7f0a0002;
-        public static final int endereco=0x7f0a0018;
-        public static final int gostei=0x7f0a001d;
-        public static final int idEstabelecimento=0x7f0a0025;
-        public static final int img_app_logo=0x7f0a0010;
-        public static final int img_favorite=0x7f0a0027;
+        public static final int endereco=0x7f0a001d;
+        public static final int gostei=0x7f0a0022;
+        public static final int idEstabelecimento=0x7f0a002a;
+        public static final int img_app_logo=0x7f0a0015;
+        public static final int img_favorite=0x7f0a002c;
         public static final int img_logo=0x7f0a0007;
         public static final int img_welcome=0x7f0a0005;
-        public static final int latitude=0x7f0a0023;
-        public static final int list_bar=0x7f0a000f;
-        public static final int longitude=0x7f0a0022;
-        public static final int mensagem=0x7f0a0026;
-        public static final int menu_cancel=0x7f0a002a;
-        public static final int menu_edit=0x7f0a002c;
-        public static final int menu_refresh=0x7f0a002d;
-        public static final int menu_search=0x7f0a002e;
-        public static final int menu_send=0x7f0a002b;
-        public static final int nome=0x7f0a0017;
-        public static final int telefone=0x7f0a001b;
-        public static final int textView1=0x7f0a0019;
-        public static final int text_address=0x7f0a0009;
-        public static final int text_last_modified=0x7f0a000a;
+        public static final int latitude=0x7f0a0028;
+        public static final int list_bar=0x7f0a0014;
+        public static final int longitude=0x7f0a0027;
+        public static final int mensagem=0x7f0a002b;
+        public static final int menu_cancel=0x7f0a002e;
+        public static final int menu_edit=0x7f0a0030;
+        public static final int menu_refresh=0x7f0a0031;
+        public static final int menu_search=0x7f0a0032;
+        public static final int menu_send=0x7f0a002f;
+        public static final int nome=0x7f0a001c;
+        public static final int telefone=0x7f0a0020;
+        public static final int textView1=0x7f0a001e;
+        public static final int text_address=0x7f0a000a;
+        public static final int text_features=0x7f0a000e;
+        public static final int text_features_content=0x7f0a0010;
+        public static final int text_last_modified=0x7f0a000b;
         public static final int text_name=0x7f0a0008;
         public static final int text_people=0x7f0a0006;
-        public static final int text_phone=0x7f0a0028;
-        public static final int text_textView1=0x7f0a0016;
+        public static final int text_phone=0x7f0a0009;
+        public static final int text_products=0x7f0a000f;
+        public static final int text_products_content=0x7f0a0011;
+        public static final int text_textView1=0x7f0a001b;
     }
     public static final class layout {
         public static final int activity_bar_edit=0x7f030000;
@@ -162,53 +166,55 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
-        public static final int activity_bar_list=0x7f070018;
-        public static final int activity_bar_profile=0x7f070019;
-        public static final int activity_edit_bar=0x7f07001d;
-        public static final int activity_favorites=0x7f07001b;
-        public static final int activity_new_bar=0x7f07001c;
+        public static final int activity_bar_list=0x7f07001a;
+        public static final int activity_bar_profile=0x7f07001b;
+        public static final int activity_edit_bar=0x7f07001f;
+        public static final int activity_favorites=0x7f07001d;
+        public static final int activity_new_bar=0x7f07001e;
         /**  label das activities 
          */
-        public static final int activity_radar=0x7f070017;
-        public static final int activity_search=0x7f07001a;
+        public static final int activity_radar=0x7f070019;
+        public static final int activity_search=0x7f07001c;
         public static final int app_name=0x7f070000;
-        public static final int bar_address=0x7f070007;
-        public static final int bar_comment=0x7f07000a;
-        public static final int bar_description_text=0x7f070009;
-        public static final int bar_header_comments=0x7f07000b;
-        public static final int bar_header_description=0x7f070008;
-        public static final int bar_last_modified=0x7f070006;
-        public static final int bar_name=0x7f070004;
-        public static final int bar_phone=0x7f070005;
+        public static final int bar_address=0x7f070009;
+        public static final int bar_comment=0x7f07000c;
+        public static final int bar_description_text=0x7f07000b;
+        public static final int bar_features=0x7f070004;
+        public static final int bar_header_comments=0x7f07000d;
+        public static final int bar_header_description=0x7f07000a;
+        public static final int bar_last_modified=0x7f070008;
+        public static final int bar_name=0x7f070006;
+        public static final int bar_phone=0x7f070007;
         public static final int bar_population=0x7f070002;
         public static final int bar_population_symbol=0x7f070003;
-        public static final int button_checkin=0x7f07000e;
-        public static final int button_expandable_less=0x7f070011;
-        public static final int button_expandable_more=0x7f070010;
-        public static final int button_favorite=0x7f07000f;
+        public static final int bar_products=0x7f070005;
+        public static final int button_checkin=0x7f070010;
+        public static final int button_expandable_less=0x7f070013;
+        public static final int button_expandable_more=0x7f070012;
+        public static final int button_favorite=0x7f070011;
         /**  botoes tela inicial 
          */
-        public static final int button_favorites=0x7f070013;
-        public static final int button_new_bar=0x7f070014;
-        public static final int button_radar=0x7f070016;
-        public static final int button_search=0x7f070015;
-        public static final int dialog_favorite_state_saved=0x7f070022;
+        public static final int button_favorites=0x7f070015;
+        public static final int button_new_bar=0x7f070016;
+        public static final int button_radar=0x7f070018;
+        public static final int button_search=0x7f070017;
+        public static final int dialog_favorite_state_saved=0x7f070024;
         /**  dialogos 
          */
-        public static final int dialog_favorites=0x7f07001e;
-        public static final int dialog_not=0x7f070021;
-        public static final int dialog_profile=0x7f07001f;
-        public static final int dialog_yes=0x7f070020;
-        public static final int image_bar_logo=0x7f07000d;
-        public static final int image_bar_welcome_photo=0x7f07000c;
+        public static final int dialog_favorites=0x7f070020;
+        public static final int dialog_not=0x7f070023;
+        public static final int dialog_profile=0x7f070021;
+        public static final int dialog_yes=0x7f070022;
+        public static final int image_bar_logo=0x7f07000f;
+        public static final int image_bar_welcome_photo=0x7f07000e;
         /**  image descriptions 
          */
-        public static final int image_description_applogo=0x7f070012;
+        public static final int image_description_applogo=0x7f070014;
         /**  menu 
          */
-        public static final int menu_cancel=0x7f070023;
-        public static final int menu_ok=0x7f070025;
-        public static final int menu_send=0x7f070024;
+        public static final int menu_cancel=0x7f070025;
+        public static final int menu_ok=0x7f070027;
+        public static final int menu_send=0x7f070026;
     }
     public static final class style {
         /**   

@@ -1,11 +1,13 @@
 package com.socialbar.android.model.dummy;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.socialbar.android.model.*;
 
 public class DummyEstablishment implements Establishment,Serializable {
+	private static final long serialVersionUID = 1L;
 	private String Id;
 	private double latitude;
 	private double longitude;
@@ -17,6 +19,8 @@ public class DummyEstablishment implements Establishment,Serializable {
 	private long lastModified;
 	private long createdAt;
 	private boolean favorite;
+	private List<Product> products;
+	private List<Feature> features;
 
 	public DummyEstablishment() {
 		this.createdAt = System.currentTimeMillis();
@@ -52,7 +56,7 @@ public class DummyEstablishment implements Establishment,Serializable {
 
 	@Override
 	public int getPeople() {
-		return this.people;
+		return (int)(Math.random()*10000.0);
 	}
 
 	@Override
@@ -66,17 +70,15 @@ public class DummyEstablishment implements Establishment,Serializable {
 	}
 
 	@Override
-	public List<Feature> getFeatures() {
-		// TODO Auto-generated method stub
-		return null;
+	public <T extends Feature>List<T> getFeatures() {
+		return (List<T>) this.features;
 	}
 
 	@Override
-	public List<Product> getProducts() {
-		// TODO Auto-generated method stub
-		return null;
+	public <T extends Product>List<T> getProducts() {
+		return (List<T>) this.products;
 	}
-
+	
 	@Override
 	public byte[] getIconImage() {
 		// TODO Auto-generated method stub
@@ -151,26 +153,30 @@ public class DummyEstablishment implements Establishment,Serializable {
 
 	@Override
 	public boolean addProduct(Product product) {
-		// TODO Auto-generated method stub
-		return false;
+		if(this.products == null)
+			this.products = new ArrayList<Product>();		
+		return this.products.add(product);
 	}
 
 	@Override
-	public boolean removeProduct(Product product) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean removeProduct(Product product) {	
+		if(this.products == null)
+			return false;
+		return this.products.remove(product);
 	}
 
 	@Override
 	public boolean addFeature(Feature feature) {
-		// TODO Auto-generated method stub
-		return false;
+		if(this.features == null)
+			this.features = new ArrayList<Feature>();
+		return this.features.add(feature);
 	}
 
 	@Override
 	public boolean removeFeature(Feature feature) {
-		// TODO Auto-generated method stub
-		return false;
+		if(this.features == null)
+			return false;
+		return this.features.remove(feature);
 	}
 
 	@Override

@@ -37,10 +37,10 @@ public interface Establishment {
 	String getPhoneNumber();
 
 	/** Getter for all establishment's <b>features</b> */
-	List<Feature> getFeatures();
+	<T extends Feature>List<T> getFeatures();
 
 	/** Getter for all establishment's announced <b>products</b> */
-	List<Product> getProducts();
+	<T extends Product>List<T> getProducts();
 
 	// customizações do assinante
 	/** Getter for custom establishment's <b>logo or icon image</b> */
