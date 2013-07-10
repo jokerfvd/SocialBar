@@ -19,6 +19,9 @@ import com.socialbar.android.model.Product;
 import android.os.Environment;
 import android.util.Log;
 
+/**
+ * Class <code>Armazenador de dados posticos - serializavel</code>.
+ */
 public class StorageDummy implements Serializable {
 	/*variaveis serializveis*/
 	private static final long serialVersionUID = 1L;

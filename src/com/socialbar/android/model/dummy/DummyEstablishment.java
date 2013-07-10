@@ -6,6 +6,9 @@ import java.util.List;
 
 import com.socialbar.android.model.*;
 
+/**
+ * Class <code>Estabelecimento postico - serializavel</code>.
+ */
 public class DummyEstablishment implements Establishment,Serializable {
 	private static final long serialVersionUID = 1L;
 	private String Id;

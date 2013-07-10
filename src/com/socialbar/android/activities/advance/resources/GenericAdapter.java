@@ -1,9 +1,7 @@
 package com.socialbar.android.activities.advance.resources;
 
-import java.nio.Buffer;
 import java.util.List;
 
-import com.google.android.gms.plus.model.people.Person.Image;
 import com.socialbar.android.R;
 import com.socialbar.android.activities.BarProfileActivity;
 import com.socialbar.android.model.AbstractModelFactory;
@@ -14,7 +12,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,29 +19,37 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.socialbar.android.model.Establishment;
 import com.socialbar.android.model.dummy.FactoryDummy;
-
+/**
+ * Class <code>Adaptador generico para listview</code>.
+ */
 public class GenericAdapter extends BaseAdapter {
 
 	private List<Establishment> data;
 	private Context context;
 	private boolean swap;
-
+	
+	/**
+	 * construtor que recebe dados e o contexto da aplicacao
+	 * @param data
+	 * @param c
+	 */
 	public GenericAdapter(List<Establishment> data, Context c) {
 		this.data = data;
 		this.context = c;
 		Log.i("Generic ADAPTER", "constructor " + String.valueOf(data.size()));
 	}
+	/**
+	 * metodo para alternar acoes entre eventos
+	 * @param swap
+	 */
 	public void swapListeners(boolean swap){
 		this.swap = swap;
 	}
+	//metodos da inface BaseAdapter
 	@Override
 	public int getCount() {
 		return data.size();
@@ -59,7 +64,10 @@ public class GenericAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
-
+	/**
+	 * metodo que contem a organizacao da exibicao dos dados na tela
+	 * eh uma exibicao personalizada
+	 */
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		Log.i("Generic ADAPTER", "getView");
@@ -85,22 +93,19 @@ public class GenericAdapter extends BaseAdapter {
 		holder.name.setText(e.getName());
 		holder.address.setText(e.getAddress());
 
-		setFavorite(holder, e, false);
-		
-		
-		
-		
+		setFavorite(holder, e, false);	
+		//evento de click no item
 		v.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View vis) {
 				Establishment e = data.get(position);
-				if(swap)
+				if(swap)//alternador execucao
 					goToProfile(e);
 				else 
 					setFavorite(holder, e, true);
 			}
 		});
-
+		//evento de longclick no item
 		v.setOnLongClickListener(new OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
@@ -108,7 +113,7 @@ public class GenericAdapter extends BaseAdapter {
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
 				
 				String dialog = context.getString(R.string.dialog_profile);
-				if(swap)
+				if(swap)//alternador de texto
 					dialog = context.getString(R.string.dialog_favorites);
 				
 				builder.setTitle(e.getName())
@@ -118,7 +123,7 @@ public class GenericAdapter extends BaseAdapter {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int which) {
-										if(!swap)
+										if(!swap)//alternador de execucao
 											goToProfile(e);
 										else
 											setFavorite(holder, e, true);
@@ -127,17 +132,25 @@ public class GenericAdapter extends BaseAdapter {
 						.setNegativeButton(R.string.dialog_not, null).show();
 				return false;
 			}
-
 		});
-
 		return v;
 	}
-
+	
+	/**
+	 * metodo para ir para a tela do perfil do bar
+	 * @param e
+	 */
 	private void goToProfile(Establishment e){
 		Intent intent = new Intent(context,	BarProfileActivity.class);
 		intent.putExtra("ID", e.getID());
 		context.startActivity(intent);
 	}
+	/**
+	 * metodo para realizar a mudanca de favorito
+	 * @param holder
+	 * @param e
+	 * @param change
+	 */
 	private void setFavorite(Holder holder, Establishment e, boolean change) {
 		if (change) {
 			e.setFavorite(!e.isFavorite());
@@ -155,7 +168,12 @@ public class GenericAdapter extends BaseAdapter {
 					.setImageResource(R.drawable.icon_rating_not_important);
 
 	}
-
+	/**
+	 * class static para manter elementos da view
+	 * metodo de atribuicao de melhor desempenho
+	 * @author Felipe
+	 *
+	 */
 	static class Holder {
 		public ImageView favorite;
 		public ImageView logo;

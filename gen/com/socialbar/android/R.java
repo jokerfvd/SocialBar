@@ -123,6 +123,7 @@ public final class R {
         public static final int latitude=0x7f0a0028;
         public static final int list_bar=0x7f0a0014;
         public static final int longitude=0x7f0a0027;
+        public static final int map=0x7f0a001b;
         public static final int mensagem=0x7f0a002b;
         public static final int menu_cancel=0x7f0a002e;
         public static final int menu_edit=0x7f0a0030;
@@ -141,7 +142,6 @@ public final class R {
         public static final int text_phone=0x7f0a0009;
         public static final int text_products=0x7f0a000f;
         public static final int text_products_content=0x7f0a0011;
-        public static final int text_textView1=0x7f0a001b;
     }
     public static final class layout {
         public static final int activity_bar_edit=0x7f030000;

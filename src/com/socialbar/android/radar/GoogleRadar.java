@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.location.Location;
 
+import com.google.android.gms.internal.p;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,16 +19,16 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
- * Class <code>GoogleRadar</code>.
+ * Class <code>GoogleRadar</code> implementacao do Radar.
  */
 public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 		OnInfoWindowClickListener {
 
 	private GoogleMap map;
-	private List<Marker> markers = new ArrayList<Marker>();
+	private List<Marker> markers;
 	private List<Pointer> pointers;
 	private RadarEvents listener;
-	private String clickedMarker;
+	private String clickedMarkerID;
 	private boolean savedActiveInfoView;
 
 	/**
@@ -44,10 +45,18 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 	 * Inicializa propriedades do mapa
 	 */
 	private void initilize() {
+		this.initializePointersAndMarkers();
 		this.map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		this.map.setMyLocationEnabled(true);
 		this.map.setOnMyLocationChangeListener(this);
-		this.map.setOnInfoWindowClickListener(this);
+		this.map.setOnInfoWindowClickListener(this);		
+	}
+	/**
+	 * inicializa as colecoes pontos e marcas
+	 */
+	private void initializePointersAndMarkers(){
+		this.markers = new ArrayList<Marker>();
+		this.pointers = new ArrayList<Pointer>();
 	}
 
 	/**
@@ -74,7 +83,8 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 
 	@Override
 	public void onInfoWindowClick(Marker marker) {
-		this.clickedMarker = marker.getSnippet();
+		this.clickedMarkerID = marker.getSnippet();
+		//avisa o observador sobre o click no infowindow
 		if (this.listener != null)
 			this.listener.onRadarInfoWindowClick(marker.getSnippet());
 
@@ -93,16 +103,16 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 		mark.icon(BitmapDescriptorFactory.fromResource(pointer.getIconId()));
 		Marker marker = map.addMarker(mark);
 
-		if (pointer.getSnippet().equals(this.clickedMarker))
+		if (pointer.getSnippet().equals(this.clickedMarkerID))
 			marker.showInfoWindow();
-
+		
+		pointers.add(pointer);
 		markers.add(marker);
 	}
 
 	@Override
 	public void addMakers(List<Pointer> pointers) {
-		this.pointers = pointers;
-		for (Pointer pointer : this.pointers)
+		for (Pointer pointer : pointers)
 			this.addMarker(pointer);
 	}
 
@@ -114,6 +124,7 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 				return markers.remove(marker);
 			}
 		}
+		this.pointers.remove(pointer);
 		return false;
 	}
 
@@ -136,7 +147,9 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 	public void updateRadarState() {
 		if (this.savedActiveInfoView) {
 			this.clearMap();
-			this.addMakers(this.pointers);
+			List<Pointer> list = this.pointers;
+			this.initializePointersAndMarkers();
+			this.addMakers(list);
 			this.savedActiveInfoView = false;
 		}
 	}

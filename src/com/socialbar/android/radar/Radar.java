@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Interface <code>Radar</code>.
+ * Define metodos para a manipulação do radar
  */
 public interface Radar {
 	/**
@@ -41,10 +42,14 @@ public interface Radar {
 	 * @param info
 	 */
 	void setInfoWindow(Object info);
+	/**
+	 * salvar estado de visualizacao do mapa
+	 */
 	void saveRadarState();
+	/**
+	 * disparar a atualizacao do visual do mapa
+	 */
 	void updateRadarState();
-
-
 	/**
 	 * evento de click a janela de informação
 	 * 

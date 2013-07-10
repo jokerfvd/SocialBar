@@ -18,7 +18,6 @@ import android.os.IBinder;
 /**
  * Servico para simular um content provider
  * 
- * @author Felipe
  * 
  */
 public class ServiceDummy {

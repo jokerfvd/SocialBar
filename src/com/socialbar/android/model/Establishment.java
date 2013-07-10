@@ -6,7 +6,12 @@ import java.util.List;
  * Interface <code>Establishment</code>.
  */
 public interface Establishment {
-
+	/**
+	 * tipo de estalecimento
+	 * 
+	 * @author Felipe
+	 * 
+	 */
 	enum Type {
 		COMIDA, BEBIDA, SORVETE, RODIZIO
 	};
@@ -19,43 +24,113 @@ public interface Establishment {
 	double getLongitude();
 
 	// informações
+	/**
+	 * pegar id
+	 * 
+	 * @return
+	 */
 	String getID();
 
+	/**
+	 * pegar nome
+	 * 
+	 * @return
+	 */
 	String getName();
 
+	/**
+	 * pegar texto de descricao
+	 * 
+	 * @return
+	 */
 	String getDescription();
 
+	/**
+	 * pegar setar data da ultima modificacao
+	 * 
+	 * @param miliseconds
+	 */
 	void setLastModified(long miliseconds);
 
+	/**
+	 * pegar data da ultima modificacao
+	 * 
+	 * @return
+	 */
 	long getLastModified();
 
-	/** Getter for property <b>number of people</b> on establishment */
+	/** pegar o numero de pessoas no estabelecimento */
 	int getPeople();
 
+	/**
+	 * pegar endereco
+	 * 
+	 * @return
+	 */
 	String getAddress();
 
+	/**
+	 * pegar telefone
+	 * 
+	 * @return
+	 */
 	String getPhoneNumber();
 
-	/** Getter for all establishment's <b>features</b> */
-	<T extends Feature>List<T> getFeatures();
+	/**
+	 * pegar todas as caracteristicas do estabelecimento
+	 * 
+	 * @return
+	 */
+	<T extends Feature> List<T> getFeatures();
 
-	/** Getter for all establishment's announced <b>products</b> */
-	<T extends Product>List<T> getProducts();
+	/**
+	 * pegar todos os produtos com preco do estabelecimento
+	 * 
+	 * @return
+	 */
+	<T extends Product> List<T> getProducts();
 
 	// customizações do assinante
-	/** Getter for custom establishment's <b>logo or icon image</b> */
+	/**
+	 * pegar icone/logotipo cusmizacao do assinante
+	 * 
+	 * @return
+	 */
 	byte[] getIconImage();
 
-	/** Getter for custom establishment's <b>welcome image</b> */
+	/**
+	 * pegar a imagem de bemvindo do estabelecimento
+	 * 
+	 * @return
+	 */
 	byte[] getWelcomeImage();
 
-	// escrita
+	/**
+	 * adicionar gostei pelo usuario
+	 * 
+	 * @param user
+	 */
 	void addLikeIt(Object user);
 
+	/**
+	 * remover gostei pelo usuario
+	 * 
+	 * @param user
+	 */
 	void removeLikeIt(Object user);
 
+	/**
+	 * adicionar comentario
+	 * 
+	 * @param user
+	 */
 	void addComment(Object user);
 
+	/**
+	 * remover comentario
+	 * 
+	 * @param user
+	 */
 	void removeComment(Object user);
 
 	/*
@@ -65,25 +140,91 @@ public interface Establishment {
 	/** Setter for establishment's <b>number of people</b>. */
 	boolean checkIn();
 
+	/**
+	 * setar nome para o estabelecimento
+	 * 
+	 * @param name
+	 */
 	void setName(String name);
 
+	/**
+	 * setar endereco
+	 * 
+	 * @param address
+	 */
 	void setAddress(String address);
 
+	/**
+	 * setar telefone
+	 * 
+	 * @param phoneNumber
+	 */
 	void setPhoneNumber(String phoneNumber);
 
+	/**
+	 * setar latitude do estabelecimento
+	 * 
+	 * @param latitude
+	 */
 	void setLatitude(double latitude);
 
+	/**
+	 * setar longitude do estabelecimento
+	 * 
+	 * @param longitude
+	 */
 	void setLongitude(double longitude);
 
+	/**
+	 * vincular produto ao estabelecimeto
+	 * 
+	 * @param product
+	 * @return
+	 */
 	boolean addProduct(Product product);
 
+	/**
+	 * desvincular um produto ao estabelecimento
+	 * 
+	 * @param product
+	 * @return
+	 */
 	boolean removeProduct(Product product);
 
+	/**
+	 * adicionar uma caracteristica ao estabelecimento
+	 * 
+	 * @param feature
+	 * @return
+	 */
 	boolean addFeature(Feature feature);
 
+	/**
+	 * remover uma caracteristica do estabelecimento
+	 * 
+	 * @param feature
+	 * @return
+	 */
 	boolean removeFeature(Feature feature);
-	
+
+	/**
+	 * verificar se o estabelecimento esta setado como favorito
+	 * 
+	 * @return
+	 */
 	boolean isFavorite();
+
+	/**
+	 * setar o estabelecimento como favorito
+	 * 
+	 * @param favorite
+	 */
 	void setFavorite(boolean favorite);
+
+	/**
+	 * pegar data de criacao do estabelecimento no sistema
+	 * 
+	 * @return
+	 */
 	long getCreatedAt();
 }

@@ -5,10 +5,11 @@ import com.socialbar.android.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-
+/**
+ * Activity <code>Tela inicial do APP</code>.
+ */
 public class HomeActivity extends Activity implements OnClickListener {
 
 	/** Called when the activity is first created. */
@@ -24,8 +25,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		this.findViewById(R.id.btn_newbar).setOnClickListener(this);
 		this.findViewById(R.id.btn_radar).setOnClickListener(this);
 		this.findViewById(R.id.btn_favorites).setOnClickListener(this);
-		this.findViewById(R.id.btn_search).setOnClickListener(this);
-		
+		this.findViewById(R.id.btn_search).setOnClickListener(this);		
 		
 	}
 

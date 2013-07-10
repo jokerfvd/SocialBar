@@ -11,6 +11,9 @@ import com.socialbar.android.model.Model;
 import com.socialbar.android.model.ModelEvent;
 import com.socialbar.android.model.User;
 
+/**
+ * Class <code>Fabrica/Modelo de itens posticos</code>.
+ */
 public class FactoryDummy implements Model {
 	private StorageDummy storage;
 	private static FactoryDummy instance;

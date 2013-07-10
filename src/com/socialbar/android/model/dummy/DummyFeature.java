@@ -5,6 +5,9 @@ import java.io.Serializable;
 import com.socialbar.android.model.Feature;
 import com.socialbar.android.model.Product.Type;
 
+/**
+ * Class <code>Caracteristica postico - serializavel</code>.
+ */
 public class DummyFeature implements Feature,Serializable{
 
 	private static final long serialVersionUID = 1L;
