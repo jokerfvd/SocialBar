@@ -13,10 +13,14 @@ public class PostEstabelecimentoRestMethod extends
 		AbstractRestMethod<Estabelecimento> {
 
 	private Context mContext;
-	private byte[] mBody;
+	public byte[] mBody;
 
 	private static final URI ESTABELECIMENTO_URI = URI.create("http://restserveruff.herokuapp.com/estabelecimentos");
 
+	public PostEstabelecimentoRestMethod(){
+		
+	}
+	
 	public PostEstabelecimentoRestMethod(Context context,  byte[] body) {
 		mContext = context.getApplicationContext();
 		mBody = body;
@@ -32,26 +36,6 @@ public class PostEstabelecimentoRestMethod extends
 		request.addHeader("Content-Type", Arrays.asList("application/json"));
 		return request;
 	}
-
-	/*
-	@Override
-	protected void buildResult(Response response) {
-
-		int status = response.status;
-		String statusMsg = "";
-		String responseBody = new String(response.body);
-		Estabelecimento resource = null;
-		try {
-			resource = new Estabelecimento(new JSONObject(responseBody));
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return new RestMethodResult<Estabelecimento>(status, statusMsg,
-				resource);
-	}
-*/	
 
 	@Override
 	protected Estabelecimento parseResponseBody(String responseBody)

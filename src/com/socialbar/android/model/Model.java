@@ -9,6 +9,12 @@ import android.content.Context;
  * Interface <code>Model</code>. Interface para todos os objetos - basicas
  */
 public interface Model {
+	
+	/**
+	 * Adicionar um novo estabelecimento
+	 */
+	public void addEstablishment(Establishment establishment);
+
 	/**
 	 * Pegar estabelecimento novo
 	 */

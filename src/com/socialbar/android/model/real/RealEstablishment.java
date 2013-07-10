@@ -14,6 +14,11 @@ public class RealEstablishment extends DummyEstablishment{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	public RealEstablishment(){
+		super();
+	}
+	
+	
 	public RealEstablishment(JSONObject json) throws JSONException {	
 		setName(json.getString("nome"));
 		setAddress(json.getString("endereco"));

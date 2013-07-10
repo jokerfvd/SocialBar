@@ -16,6 +16,7 @@ import com.socialbar.android.rest.syncronous.GetEstabelecimentoRestMethodSync;
 import com.socialbar.android.rest.syncronous.GetEstabelecimentosRestMethodSync;
 import com.socialbar.android.rest.syncronous.GetFavoritosRestMethodSync;
 import com.socialbar.android.rest.syncronous.GetUsuarioRestMethodSync;
+import com.socialbar.android.rest.syncronous.PostEstabelecimentoRestMethodSync;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -35,9 +36,8 @@ public class RealModel implements Model{
 	}
 	
 	@Override
-	public Establishment getEstablishment() {
-		// TODO Auto-generated method stub
-		return null;
+	public Establishment getEstablishment() {		
+		return new RealEstablishment();
 	}
 
 	@Override
@@ -114,5 +114,15 @@ public class RealModel implements Model{
 	private Establishment setFavorite(String id){
 		return null;
 	}
+
+
+	@Override
+	public void addEstablishment(Establishment establishment) {
+		PostEstabelecimentoRestMethodSync rest = new PostEstabelecimentoRestMethodSync(establishment);
+		Request request = rest.buildRequest();
+		Response response = rest.doRequest(request);		
+	}
+
+
 
 }
