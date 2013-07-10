@@ -154,8 +154,7 @@ public class GenericAdapter extends BaseAdapter {
 	private void setFavorite(Holder holder, Establishment e, boolean change) {
 		if (change) {
 			e.setFavorite(!e.isFavorite());
-			Model model = AbstractModelFactory.getInstance("dummy");
-			((FactoryDummy)model).save();
+			Model model = AbstractModelFactory.getInstance("real");
 			Toast.makeText(
 					context,
 					context.getString(R.string.dialog_favorite_state_saved)

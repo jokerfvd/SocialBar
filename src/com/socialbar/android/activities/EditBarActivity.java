@@ -53,6 +53,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 
 		this.genericActivity = new GenericActivitySlider(this);
 		this.genericActivity.resume();
+		this.genericActivity.strictMode();
 
 		/**
 		 * inicializa a configuração do oncreate
@@ -78,7 +79,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 	private void setEstablishment(String id) {
 		// Model model = AbstractModelFactory.getInstance();
 		// broadCastReceiver = model.getEstablishmentPrototype(this, id);
-		Model model = AbstractModelFactory.getInstance("dummy");
+		Model model = AbstractModelFactory.getInstance("real");
 		Establishment es;
 
 		if (id != null)

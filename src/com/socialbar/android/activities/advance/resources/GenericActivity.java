@@ -1,6 +1,7 @@
 package com.socialbar.android.activities.advance.resources;
 
 import android.app.Activity;
+import android.os.StrictMode;
 /**
  * Abstract Class <code>GenericActivity</code>.
  */
@@ -27,6 +28,10 @@ public abstract class GenericActivity {
 	Activity getActivity() {
 		return this.activity;
 	}
+	/**
+	 * metodo temporario para ativar o strict mode
+	 */
+	public abstract void strictMode();
 }
 
 

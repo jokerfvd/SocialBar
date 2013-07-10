@@ -8,6 +8,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -42,6 +43,9 @@ public class RadarActivity extends Activity implements OnClickListener,
 	private static final String TAG_MYMAPFRAGMENT = "TAG_MyMapFragment";
 	private final int RQS_GooglePlayServices = 1;
 	private Radar radar;
+	
+	//armazenamento temporario
+	private List<Establishment> establishments;
 
 	/** Called when the activity is first created. */
 	/** configuração basica */
@@ -61,6 +65,7 @@ public class RadarActivity extends Activity implements OnClickListener,
 
 		this.genericActivity = new GenericActivitySlider(this);
 		this.genericActivity.resume();
+		this.genericActivity.strictMode();
 
 		/**
 		 * configuracao do oncreate
@@ -158,9 +163,9 @@ public class RadarActivity extends Activity implements OnClickListener,
 
 				View v = getLayoutInflater().inflate(
 						R.layout.snippet_radar_info_window, null);
-
-				Model model = AbstractModelFactory.getInstance("dummy");
-				Establishment es = model.getEstablishment(marker.getSnippet());
+				
+				
+				Establishment es = findEstablishmentById(marker.getSnippet());
 
 				((TextView) v.findViewById(R.id.text_name)).setText(es
 						.getName());
@@ -178,6 +183,15 @@ public class RadarActivity extends Activity implements OnClickListener,
 			}
 		};
 	}
+	
+	//tempo findEstablichmentById
+	private Establishment findEstablishmentById(String id){
+		if(this.establishments != null)
+		for(Establishment e: this.establishments)
+			if(id.equals(e.getID()))
+				return e;
+		return null;
+	} 
 
 	// eventos do radar
 	/**
@@ -187,10 +201,10 @@ public class RadarActivity extends Activity implements OnClickListener,
 	 */
 	@Override
 	public void onRadarLocationChange(double latitude, double longitude) {
-		Model model = AbstractModelFactory.getInstance("dummy");
-		List<Establishment> es = model.getEstablishment(latitude, longitude);
-		Log.i("RADAR", String.valueOf(es.size()));
-		radar.addMakers(GooglePointer.getPointer(es, R.drawable.bar_mark));
+		Model model = AbstractModelFactory.getInstance("real");
+		this.establishments = model.getEstablishment(latitude, longitude);
+		Log.i("RADAR", String.valueOf(this.establishments.size()));
+		radar.addMakers(GooglePointer.getPointer(this.establishments, R.drawable.bar_mark));
 	}
 	/**
 	 * evento para a definição do clique sobre a infowindow no mapa

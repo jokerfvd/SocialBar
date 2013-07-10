@@ -69,6 +69,7 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 
 		this.genericActivity = new GenericActivitySlider(this);
 		this.genericActivity.resume();
+		this.genericActivity.strictMode();		
 
 		/**
 		 * Botoes
@@ -105,7 +106,7 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 	private void setEstablishment(String id) {
 		// Model model = AbstractModelFactory.getInstance();
 		// broadCastReceiver = model.getEstablishmentPrototype(this, id);
-		Model model = AbstractModelFactory.getInstance("dummy");
+		Model model = AbstractModelFactory.getInstance("real");
 		Establishment es = model.getEstablishment(id);
 		this.onModelReceive(Establishment.class, es);
 	}
