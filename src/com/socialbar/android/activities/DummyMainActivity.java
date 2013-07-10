@@ -130,6 +130,8 @@ public class DummyMainActivity extends ListActivity {
 	
 	
 	private void atualizaEstabelecimentos() {
+		listItems.clear();
+		listIds.clear();
 		Cursor cursor = getContentResolver().query(EstabelecimentosConstants.CONTENT_URI, null, null, null, null);
 		while (cursor.moveToNext()) {
 		    int index = cursor.getColumnIndexOrThrow(EstabelecimentosConstants.NOME);

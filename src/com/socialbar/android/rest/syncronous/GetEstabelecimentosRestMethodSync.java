@@ -26,10 +26,12 @@ public class GetEstabelecimentosRestMethodSync extends GetEstabelecimentosRestMe
 	
 	public GetEstabelecimentosRestMethodSync(String... args) {
 		if(args.length > 0){
-			String caracteristica = args[0];
-			ESTABELECIMENTO_URI = URI
+			String tipo = args[0];
+			String arg1 = args[1];
+				ESTABELECIMENTO_URI = URI
 					.create("http://restserveruff.herokuapp.com/estabelecimentos/busca.json?"
-							+"caracteristica="+caracteristica);
+							+"tipo="+tipo+"&"+tipo+"="+arg1);
+			
 		}
 	}
 	

@@ -1,8 +1,11 @@
 package com.socialbar.android.rest.service;
 
+import static com.socialbar.android.rest.provider.EstabelecimentosConstants.AUTHORITY;
+
 import java.util.ArrayList;
 
 import com.socialbar.android.rest.provider.EstabelecimentosConstants;
+import com.socialbar.android.rest.provider.EstabelecimentosProvider;
 import com.socialbar.android.rest.resource.Estabelecimento;
 import com.socialbar.android.rest.resource.Estabelecimentos;
 import com.socialbar.android.rest.rest.RestMethod;
@@ -10,9 +13,12 @@ import com.socialbar.android.rest.rest.RestMethodFactory;
 import com.socialbar.android.rest.rest.RestMethodResult;
 import com.socialbar.android.rest.rest.RestMethodFactory.Method;
 
+import android.content.ContentProviderClient;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.provider.BaseColumns;
 
@@ -49,12 +55,21 @@ class EstabelecimentosProcessor {
 		 * the content provider
 		 */
 
+		resetContentProvider(); // ??
 		updateContentProvider(result);
 
 		// (9) Operation complete callback to Service
 
 		callback.send(result.getStatusCode());
 
+	}
+	
+	private void resetContentProvider(){
+		ContentResolver resolver = mContext.getContentResolver();
+		ContentProviderClient client = resolver.acquireContentProviderClient(EstabelecimentosConstants.CONTENT_URI);
+		EstabelecimentosProvider provider = (EstabelecimentosProvider) client.getLocalContentProvider();
+		provider.resetDatabase();
+		client.release();
 	}
 
 	

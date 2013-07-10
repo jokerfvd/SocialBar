@@ -222,7 +222,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 
 		Location location = mgr.getLastKnownLocation(best);
 
-		this.onLocationChanged(location);
+		//this.onLocationChanged(location);
 
 		mgr.removeUpdates(this);
 	}

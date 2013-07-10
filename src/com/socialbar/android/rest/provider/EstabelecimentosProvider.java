@@ -141,5 +141,10 @@ public class EstabelecimentosProvider extends ContentProvider {
 				+ (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')'
 						: "");
 	}
+	
+	public void resetDatabase() {
+		dbHelper.close();
+		dbHelper = new ProviderDbHelper(this.getContext());
+	}
 
 }
