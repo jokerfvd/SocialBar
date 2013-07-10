@@ -14,6 +14,11 @@ public interface Model {
 	 * Adicionar um novo estabelecimento
 	 */
 	public void addEstablishment(Establishment establishment);
+	
+	/**
+	 * Atualiza
+	 */
+	public void updateEstablishment(Establishment establishment);
 
 	/**
 	 * Pegar estabelecimento novo

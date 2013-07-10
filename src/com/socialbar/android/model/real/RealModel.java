@@ -17,6 +17,7 @@ import com.socialbar.android.rest.syncronous.GetEstabelecimentosRestMethodSync;
 import com.socialbar.android.rest.syncronous.GetFavoritosRestMethodSync;
 import com.socialbar.android.rest.syncronous.GetUsuarioRestMethodSync;
 import com.socialbar.android.rest.syncronous.PostEstabelecimentoRestMethodSync;
+import com.socialbar.android.rest.syncronous.PutEstabelecimentoRestMethodSync;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -115,6 +116,12 @@ public class RealModel implements Model{
 		return null;
 	}
 
+	@Override
+	public void updateEstablishment(Establishment establishment) {
+		PutEstabelecimentoRestMethodSync rest = new PutEstabelecimentoRestMethodSync(establishment);
+		Request request = rest.buildRequest();
+		Response response = rest.doRequest(request);		
+	}
 
 	@Override
 	public void addEstablishment(Establishment establishment) {

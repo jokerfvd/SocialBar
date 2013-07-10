@@ -17,10 +17,14 @@ public class PutEstabelecimentoRestMethod extends
 		AbstractRestMethod<Estabelecimento> {
 
 	private Context mContext;
-	private byte[] mBody;
+	public byte[] mBody;
 
-	private URI ESTABELECIMENTO_URI;
+	public URI ESTABELECIMENTO_URI;
 
+	public PutEstabelecimentoRestMethod(){
+		
+	}
+	
 	public PutEstabelecimentoRestMethod(Context context, Map<String, List<String>> header, byte[] body) {
 		mContext = context.getApplicationContext();
 		mBody = body;
