@@ -6,6 +6,8 @@ import com.socialbar.android.model.Establishment;
 import com.socialbar.android.model.Model;
 import com.socialbar.android.model.ModelEvent;
 import com.socialbar.android.model.User;
+import com.socialbar.android.model.dummy.FactoryDummy;
+import com.socialbar.android.model.dummy.StorageDummy;
 import com.socialbar.android.rest.resource.Estabelecimento;
 import com.socialbar.android.rest.rest.Request;
 import com.socialbar.android.rest.rest.Response;
@@ -20,6 +22,18 @@ import android.content.Context;
 
 public class RealModel implements Model{
 
+	private static RealModel instance;
+
+	public RealModel() {
+	}
+	
+	
+	public static Model getInstance() {
+		if (instance == null)
+			instance = new RealModel();
+		return instance;
+	}
+	
 	@Override
 	public Establishment getEstablishment() {
 		// TODO Auto-generated method stub
@@ -74,10 +88,11 @@ public class RealModel implements Model{
 	//esta setado para o primeiro usuário de id 132, mas não é pra ser assim
 	public List<RealEstablishment> getFavorites() {
 		User user = getUser();
-		GetFavoritosRestMethodSync rest = new GetFavoritosRestMethodSync("132");
+		GetFavoritosRestMethodSync rest = new GetFavoritosRestMethodSync("22");
 		Request request = rest.buildRequest();
 		Response response = rest.doRequest(request);
 		List<RealEstablishment> establishments = rest.buildResult1(response);
+		this.setFavoriteEstablishment(establishments);
 		return establishments;
 	}
 
@@ -91,6 +106,13 @@ public class RealModel implements Model{
 	public void setContext(Context context) {
 		// TODO Auto-generated method stub
 		
+	}
+	private void setFavoriteEstablishment(List<RealEstablishment> es){
+		for (Establishment e : es) 
+			e.setFavorite(true);
+	}
+	private Establishment setFavorite(String id){
+		return null;
 	}
 
 }

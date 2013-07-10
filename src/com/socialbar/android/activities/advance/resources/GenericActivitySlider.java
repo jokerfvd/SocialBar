@@ -1,6 +1,7 @@
 package com.socialbar.android.activities.advance.resources;
 
 import android.app.Activity;
+import android.os.StrictMode;
 
 import com.socialbar.android.R;
 /**
@@ -25,5 +26,10 @@ public class GenericActivitySlider extends GenericActivity {
 		this.getActivity().overridePendingTransition(R.anim.in_enter,
 				R.anim.in_leave);
 
+	}
+	@Override 
+	public void strictMode(){
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
 	}
 }

@@ -19,7 +19,7 @@ public class RealProduct extends DummyProduct{
 		//String type = json.getString("tipo");
 		JSONObject product = json.getJSONObject("produto");
 		String name = product.getString("nome");
-		double price = Double.parseDouble(valor.substring(2));
+		double price = Double.parseDouble(valor.substring(2).replace(",", "."));
 		setName(name);
 		setPrice(price);
 		//setType(type);

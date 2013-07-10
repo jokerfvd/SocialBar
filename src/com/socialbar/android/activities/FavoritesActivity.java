@@ -50,6 +50,7 @@ public class FavoritesActivity extends Activity implements OnClickListener {
 
 		this.genericActivity = new GenericActivitySlider(this);
 		this.genericActivity.resume();
+		this.genericActivity.strictMode();
 
 		/**
 		 * configuracao inicial do oncreate
@@ -67,7 +68,7 @@ public class FavoritesActivity extends Activity implements OnClickListener {
 	 * realiza requisicao assincrona
 	 */
 	private void configuration() {
-		Model model = AbstractModelFactory.getInstance("dummy");
+		Model model = AbstractModelFactory.getInstance("real");
 		List<Establishment> es = model.getFavorites();
 		this.onModelReceive(Establishment.class,es);	
 	}
