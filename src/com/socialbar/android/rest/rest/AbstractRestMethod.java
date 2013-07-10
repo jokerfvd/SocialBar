@@ -60,7 +60,7 @@ public abstract class AbstractRestMethod<T extends Resource> implements RestMeth
 
 	protected abstract T parseResponseBody(String responseBody) throws Exception;
 
-	private Response doRequest(Request request) {
+	protected Response doRequest(Request request) {
 
 		RestClient client = new RestClient();
 		return client.execute(request);

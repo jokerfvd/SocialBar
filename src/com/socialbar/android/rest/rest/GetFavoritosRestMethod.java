@@ -1,6 +1,8 @@
 package com.socialbar.android.rest.rest;
 
 import java.net.URI;
+import java.util.List;
+import java.util.Map;
 
 
 import org.json.JSONArray;
@@ -11,24 +13,31 @@ import com.socialbar.android.rest.rest.RestMethodFactory.Method;
 
 import android.content.Context;
 
-public class GetEstabelecimentosRestMethod extends AbstractRestMethod<Estabelecimentos> {
+public class GetFavoritosRestMethod extends AbstractRestMethod<Estabelecimentos> {
 	
 	private Context mContext;
 
-	protected URI ESTABELECIMENTO_URI = URI
-			.create("http://restserveruff.herokuapp.com/estabelecimentos.json");
+	protected URI FAVORITOS_URI;
 	
-	public GetEstabelecimentosRestMethod(Context context) {
+	public GetFavoritosRestMethod(Context context) {
 		mContext = context.getApplicationContext();
 	}
 	
-	public GetEstabelecimentosRestMethod() {
+	public GetFavoritosRestMethod(Context context, Map<String, List<String>> header) {
+		mContext = context.getApplicationContext();
+		int id = Integer.parseInt(header.get("ID").get(0));
+		FAVORITOS_URI = URI
+				.create("http://restserveruff.herokuapp.com/usuarios/"
+						+ Integer.toString(id) + "/favoritos.json");
+	}
+	
+	public GetFavoritosRestMethod() {
 	}
 
 	@Override
 	protected Request buildRequest() {
 
-		return new Request(Method.GET, ESTABELECIMENTO_URI, null, null);
+		return new Request(Method.GET, FAVORITOS_URI, null, null);
 	}
 	
 	@Override

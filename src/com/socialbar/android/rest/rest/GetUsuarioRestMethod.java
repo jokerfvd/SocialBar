@@ -7,57 +7,57 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.socialbar.android.rest.resource.Estabelecimento;
+import com.socialbar.android.rest.resource.Usuario;
 import com.socialbar.android.rest.rest.RestMethodFactory.Method;
 
 import android.content.Context;
 
-public class GetEstabelecimentoRestMethod extends
-		AbstractRestMethod<Estabelecimento> {
+public class GetUsuarioRestMethod extends
+		AbstractRestMethod<Usuario> {
 
 	private Context mContext;
 
-	protected URI ESTABELECIMENTO_URI;
+	protected URI USUARIO_URI;
 
-	public GetEstabelecimentoRestMethod() {
+	public GetUsuarioRestMethod() {
 	}
 	
-	public GetEstabelecimentoRestMethod(Context context, Map<String, List<String>> header) {
+	public GetUsuarioRestMethod(Context context, Map<String, List<String>> header) {
 		mContext = context.getApplicationContext();
 		int id = Integer.parseInt(header.get("ID").get(0));
-		ESTABELECIMENTO_URI = URI
-				.create("http://restserveruff.herokuapp.com/estabelecimentos/"
+		USUARIO_URI = URI
+				.create("http://restserveruff.herokuapp.com/usuarios/"
 						+ Integer.toString(id) + ".json");
 	}
 
 	@Override
 	protected Request buildRequest() {
-		return new Request(Method.GET, ESTABELECIMENTO_URI, null, null);
+		return new Request(Method.GET, USUARIO_URI, null, null);
 	}
 
 	@Override
-	protected RestMethodResult<Estabelecimento> buildResult(Response response) {
+	protected RestMethodResult<Usuario> buildResult(Response response) {
 
 		int status = response.status;
 		String statusMsg = "";
 		String responseBody = new String(response.body);
-		Estabelecimento resource = null;
+		Usuario resource = null;
 		try {
-			resource = new Estabelecimento(new JSONObject(responseBody));
+			resource = new Usuario(new JSONObject(responseBody));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return new RestMethodResult<Estabelecimento>(status, statusMsg,
+		return new RestMethodResult<Usuario>(status, statusMsg,
 				resource);
 	}
 
 	@Override
-	protected Estabelecimento parseResponseBody(String responseBody)
+	protected Usuario parseResponseBody(String responseBody)
 			throws Exception {
 		JSONObject json = new JSONObject(new String(responseBody));
-		return new Estabelecimento(json);
+		return new Usuario(json);
 	}
 
 	@Override
