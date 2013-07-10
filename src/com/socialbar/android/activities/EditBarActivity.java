@@ -203,8 +203,9 @@ public class EditBarActivity extends Activity implements OnClickListener,
 			this.establishment.setPhoneNumber(phone);
 			this.establishment.setLastModified(System.currentTimeMillis());
 
-			Model model = AbstractModelFactory.getInstance("dummy");
-			((FactoryDummy) model).save();// grava dados no arquivo
+			Model model = AbstractModelFactory.getInstance("real");
+			model.addEstablishment(this.establishment);
+			
 			return true;
 		}
 		return false;
@@ -223,7 +224,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 
 		Location location = mgr.getLastKnownLocation(best);
 
-		//this.onLocationChanged(location);
+		this.onLocationChanged(location);
 
 		mgr.removeUpdates(this);
 	}

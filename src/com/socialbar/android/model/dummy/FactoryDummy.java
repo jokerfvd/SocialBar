@@ -82,4 +82,10 @@ public class FactoryDummy implements Model {
 	public void setContext(Context context) {	
 	}
 
+
+	@Override
+	public void addEstablishment(Establishment establishment) {
+		// TODO Auto-generated method stub
+		
+	}
 }

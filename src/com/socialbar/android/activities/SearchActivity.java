@@ -27,6 +27,7 @@ import com.socialbar.android.model.Model;
 public class SearchActivity extends Activity implements OnClickListener,OnQueryTextListener {
 	private GenericActivity genericActivity;
 	private GenericAdapter adapter;
+	private SearchView searchView;
 
 	/** Called when the activity is first created. */
 
@@ -46,6 +47,7 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 
 		this.genericActivity = new GenericActivitySlider(this);
 		this.genericActivity.resume();
+		this.genericActivity.strictMode();
 	}
 	
 
@@ -72,22 +74,22 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu_bar_search, menu);		
 		MenuItem searchViewMenuItem = menu.findItem(R.id.menu_search);		
-		SearchView searchView = (SearchView) searchViewMenuItem.getActionView();
-		searchView.setIconifiedByDefault(false);
-		searchView.setOnQueryTextListener(this);
-		this.configuration("");
+		this.searchView = (SearchView) searchViewMenuItem.getActionView();
+		this.searchView.setIconifiedByDefault(false);
+		this.searchView.setOnQueryTextListener(this);
+		this.searchView.requestFocus();
 		return true;
 	}
 	
 	@Override
 	public boolean onQueryTextChange(String newText) {
-		this.configuration(newText);
 		return true;
 	}
 
 	@Override
 	public boolean onQueryTextSubmit(String query) {
 		this.configuration(query);
+		this.searchView.clearFocus();
 		return true;
 	}
 	/**
@@ -95,8 +97,8 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 	 * @param str
 	 */
 	private void configuration(String str) {
-		Model model = AbstractModelFactory.getInstance("dummy");
-		List<Establishment> es = model.getEstablishment(str,str);
+		Model model = AbstractModelFactory.getInstance("real");
+		List<Establishment> es = model.getEstablishment("nome",str);
 		this.onModelReceive(Establishment.class,es);	
 	}
 	/**

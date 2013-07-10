@@ -84,4 +84,9 @@ public class FactoryProvider implements Model {
 		
 	}
 
+	@Override
+	public void addEstablishment(Establishment establishment) {
+		// TODO Auto-generated method stub
+		
+	}
 }
