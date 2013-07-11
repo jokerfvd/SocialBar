@@ -75,15 +75,11 @@ public class EditBarActivity extends Activity implements OnClickListener,
 	 * @param id
 	 */
 	private void setEstablishment(String id) {
-		// Model model = AbstractModelFactory.getInstance();
-		// broadCastReceiver = model.getEstablishmentPrototype(this, id);
-		Model model = AbstractModelFactory.getInstance("real");
 		Establishment es;
-
 		if (id != null)
-			es = model.getEstablishment(id);
+			es = this.getModelInstance().getEstablishment(id);
 		else {
-			es = model.getEstablishment();
+			es = this.getModelInstance().getEstablishment();
 			this.prepareNewObject(es);
 			this.getLocation();
 		}
@@ -125,9 +121,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
 		MenuInflater inflater = getMenuInflater();
-
 		inflater.inflate(R.menu.menu_bar_edit, menu);
 		return true;
 	}
@@ -179,7 +173,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 	 * @return
 	 */
 	private boolean sendData() {
-		if (establishment != null) {
+		if (this.establishment != null) {
 
 			String name = ((EditText) findViewById(R.id.edit_name)).getText()
 					.toString();
@@ -202,11 +196,10 @@ public class EditBarActivity extends Activity implements OnClickListener,
 			this.establishment.setPhoneNumber(phone);
 			this.establishment.setLastModified(System.currentTimeMillis());
 
-			Model model = AbstractModelFactory.getInstance("real");
 			if (getIntent().hasExtra("ID"))
-				model.updateEstablishment(this.establishment);
+				this.getModelInstance().updateEstablishment(this.establishment);
 			else
-				model.addEstablishment(this.establishment);
+				this.getModelInstance().addEstablishment(this.establishment);
 
 			return true;
 		}
@@ -217,17 +210,11 @@ public class EditBarActivity extends Activity implements OnClickListener,
 	 * metodo para setar para pegar a localização
 	 */
 	public void getLocation() {
-		Log.i("LOCATION", "inscrito");
 		LocationManager mgr = (LocationManager) getSystemService(LOCATION_SERVICE);
-
 		Criteria criteria = new Criteria();
-
 		String best = mgr.getBestProvider(criteria, true);
-
 		Location location = mgr.getLastKnownLocation(best);
-
 		this.onLocationChanged(location);
-
 		mgr.removeUpdates(this);
 	}
 
@@ -237,7 +224,6 @@ public class EditBarActivity extends Activity implements OnClickListener,
 	// metodo da interface location
 	@Override
 	public void onLocationChanged(Location location) {
-		Log.i("LOCATION", "sobrescrevendo");
 		((EditText) findViewById(R.id.edit_latitude)).setText(String
 				.valueOf(location.getLatitude()));
 		((EditText) findViewById(R.id.edit_longitude)).setText(String
@@ -264,6 +250,13 @@ public class EditBarActivity extends Activity implements OnClickListener,
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		// TODO Auto-generated method stub
 
+	}
+	/**
+	 * configuração de obtencao do modelo localizada
+	 * @return
+	 */
+	private Model getModelInstance(){
+		return AbstractModelFactory.getInstance("real");
 	}
 
 }

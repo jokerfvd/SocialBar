@@ -178,4 +178,8 @@ public class GenericAdapter extends BaseAdapter {
 		public TextView address;
 
 	}
+	/**
+	 * configuração de obtencao do modelo localizada
+	 * @return
+	 */
 }

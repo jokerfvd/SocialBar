@@ -104,10 +104,7 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 	 * @param id
 	 */
 	private void setEstablishment(String id) {
-		// Model model = AbstractModelFactory.getInstance();
-		// broadCastReceiver = model.getEstablishmentPrototype(this, id);
-		Model model = AbstractModelFactory.getInstance("real");
-		Establishment es = model.getEstablishment(id);
+		Establishment es = this.getModelInstance().getEstablishment(id);
 		this.onModelReceive(Establishment.class, es);
 	}
 
@@ -149,11 +146,15 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 				.compileProducts(this.establishment.getProducts()));
 		((TextView) findViewById(R.id.text_features_content)).setText(this
 				.compileFeatures(this.establishment.getFeatures()));
-
-		// botao
+		
 		ImageButton favorite = (ImageButton) findViewById(R.id.btn_favorite);
 		favorite.setOnClickListener(this);
-		this.setFavoriteImage(favorite);
+		
+		if (this.establishment.isFavorite())
+			favorite.setImageResource(R.drawable.icon_rating_important);
+		else
+			favorite.setImageResource(R.drawable.icon_rating_not_important);
+
 	}
 
 	/**
@@ -221,28 +222,12 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 	}
 
 	/**
-	 * metodo para setar a estrela do favorito
-	 * 
-	 * @param favorite
-	 */
-	private void setFavoriteImage(ImageButton favorite) {
-		if (this.establishment.isFavorite())
-			favorite.setImageResource(R.drawable.icon_rating_important);
-		else
-			favorite.setImageResource(R.drawable.icon_rating_not_important);
-	}
-
-	/**
-	 * metodo para mudar estado do modelo
+	 * metodo para mudar estado do favorito
 	 * 
 	 * @param v
 	 */
 	private void changeFavorite(View v) {
-		this.establishment.setFavorite(!this.establishment.isFavorite());
-		this.setFavoriteImage((ImageButton) v);
-		//salvar storage
-		Model model = AbstractModelFactory.getInstance("dummy");
-		((FactoryDummy) model).save();
+		
 		//exibir alerta
 		Toast.makeText(
 				this,
@@ -340,6 +325,14 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 		}
 
 		return sb.toString();
+	}
+	
+	/**
+	 * configuração de obtencao do modelo localizada
+	 * @return
+	 */
+	private Model getModelInstance(){
+		return AbstractModelFactory.getInstance("real");
 	}
 
 }
