@@ -95,5 +95,10 @@ public class FactoryProvider implements Model {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void setEstablishmentFavorite(Establishment establishment) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -45,6 +45,4 @@ public class RealEstablishment extends DummyEstablishment{
 			addFeature(feature);
 		}
 	}
-	
-
 }
