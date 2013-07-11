@@ -21,7 +21,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		/**
 		 * botoes
 		 */
-		this.findViewById(R.id.btn_rest).setOnClickListener(this);
+		
 		this.findViewById(R.id.btn_newbar).setOnClickListener(this);
 		this.findViewById(R.id.btn_radar).setOnClickListener(this);
 		this.findViewById(R.id.btn_favorites).setOnClickListener(this);
@@ -37,10 +37,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		 * acao dos botoes
 		 */
 		switch (v.getId()) {
-		case R.id.btn_rest:
-			intent = new Intent(this, DummyMainActivity.class);
-			startActivity(intent);
-			break;
+		
 		case R.id.btn_newbar:
 			intent = new Intent(this, EditBarActivity.class);
 			startActivity(intent);

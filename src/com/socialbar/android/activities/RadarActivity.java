@@ -43,6 +43,9 @@ public class RadarActivity extends Activity implements OnClickListener,
 	private static final String TAG_MYMAPFRAGMENT = "TAG_MyMapFragment";
 	private final int RQS_GooglePlayServices = 1;
 	private Radar radar;
+	private double latitude;
+	private double longitude;
+	
 	
 	//armazenamento temporario
 	private List<Establishment> establishments;
@@ -138,7 +141,8 @@ public class RadarActivity extends Activity implements OnClickListener,
 					this.radar.setInfoWindow(this.createInfoWindowAdapter());
 				}
 			} else {
-				this.radar.updateRadarState();
+				//this.radar.updateRadarState();
+				this.onRadarLocationChange(this.latitude, this.longitude);
 			}
 		} else {
 			GooglePlayServicesUtil.getErrorDialog(resultCode, this,
@@ -199,10 +203,13 @@ public class RadarActivity extends Activity implements OnClickListener,
 	 * 
 	 */
 	@Override
-	public void onRadarLocationChange(double latitude, double longitude) {		
+	public void onRadarLocationChange(double latitude, double longitude) {
+		this.latitude = latitude;
+		this.longitude = longitude;
 		this.establishments = this.getModelInstance().getEstablishment(latitude, longitude);
 		radar.addMakers(GooglePointer.getPointer(this.establishments, R.drawable.bar_mark));
 	}
+	
 	/**
 	 * evento para a definição do clique sobre a infowindow no mapa
 	 */	
