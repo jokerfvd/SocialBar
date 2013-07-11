@@ -31,7 +31,6 @@ public class GenericAdapter extends BaseAdapter {
 
 	private List<Establishment> data;
 	private Context context;
-	private boolean swap;
 	
 	/**
 	 * construtor que recebe dados e o contexto da aplicacao
@@ -47,9 +46,6 @@ public class GenericAdapter extends BaseAdapter {
 	 * metodo para alternar acoes entre eventos
 	 * @param swap
 	 */
-	public void swapListeners(boolean swap){
-		this.swap = swap;
-	}
 	//metodos da inface BaseAdapter
 	@Override
 	public int getCount() {
@@ -104,11 +100,8 @@ public class GenericAdapter extends BaseAdapter {
 		v.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View vis) {
-				Establishment e = data.get(position);
-				if(swap)//alternador execucao
-					goToProfile(e);
-				else 
-					setFavorite(e);
+				Establishment e = data.get(position);				
+				goToProfile(e);
 			}
 		});
 		//evento de longclick no item
@@ -118,9 +111,7 @@ public class GenericAdapter extends BaseAdapter {
 				final Establishment e = data.get(position);
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
 				
-				String dialog = context.getString(R.string.dialog_profile);
-				if(swap)//alternador de texto
-					dialog = context.getString(R.string.dialog_favorites);
+				String dialog = context.getString(R.string.dialog_favorites);
 				
 				builder.setTitle(e.getName())
 						.setMessage(dialog)
@@ -129,9 +120,6 @@ public class GenericAdapter extends BaseAdapter {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int which) {
-										if(!swap)//alternador de execucao
-											goToProfile(e);
-										else
 											setFavorite(e);
 									}
 								}).setIcon(android.R.drawable.ic_menu_view)

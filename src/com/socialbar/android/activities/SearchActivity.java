@@ -111,7 +111,6 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		List<Establishment> es = (List<Establishment>)data;
 		this.adapter = new GenericAdapter(es, this);
-		this.adapter.swapListeners(true);
 		listView.setAdapter(this.adapter);
 	}
 
