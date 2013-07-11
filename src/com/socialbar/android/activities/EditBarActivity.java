@@ -66,8 +66,10 @@ public class EditBarActivity extends Activity implements OnClickListener,
 	private void configuration() {
 		if (getIntent().hasExtra("ID")) {
 			this.setEstablishment(getIntent().getExtras().getString("ID"));
-		} else
+		} else {
+			this.setTitle(getResources().getString(R.string.activity_new_bar));
 			this.setEstablishment(null);
+		}
 	}
 
 	/**
@@ -217,7 +219,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 		Location location = this.locationManager.getLastKnownLocation(best);
 		if (location != null)
 			this.onLocationChanged(location);
-			
+
 	}
 
 	/**
