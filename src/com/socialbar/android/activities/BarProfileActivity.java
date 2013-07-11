@@ -153,7 +153,7 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 		// botao
 		ImageButton favorite = (ImageButton) findViewById(R.id.btn_favorite);
 		favorite.setOnClickListener(this);
-		this.setFavoriteImage(favorite);
+		//this.setFavoriteImage(favorite);
 	}
 
 	/**
