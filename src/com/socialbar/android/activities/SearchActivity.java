@@ -98,9 +98,8 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 	 * configuracao apos entrada de busca
 	 * @param str
 	 */
-	private void configuration(String str) {
-		Model model = AbstractModelFactory.getInstance("real");
-		List<Establishment> es = model.getEstablishment("nome",str);
+	private void configuration(String str) {		
+		List<Establishment> es = this.getModelInstance().getEstablishment("nome",str);
 		this.onModelReceive(Establishment.class,es);	
 	}
 	/**
@@ -135,5 +134,13 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 			((GenericAdapter)listView.getAdapter()).notifyDataSetChanged();
 		
 	};
+	
+	/**
+	 * configuração de obtencao do modelo localizada
+	 * @return
+	 */
+	private Model getModelInstance(){
+		return AbstractModelFactory.getInstance("real");
+	}
 
 }

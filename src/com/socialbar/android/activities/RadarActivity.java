@@ -131,11 +131,11 @@ public class RadarActivity extends Activity implements OnClickListener,
 		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
 		//Contains all possible error codes for when a client fails to connect to Google Play services
 		if (resultCode == ConnectionResult.SUCCESS) {
-			if (radar == null) {
-				radar = new GoogleRadar(myMapFragment.getMap());
-				if (radar != null) {
-					radar.setRadarEventListener(this);
-					radar.setInfoWindow(this.createInfoWindowAdapter());
+			if (this.radar == null) {
+				this.radar = new GoogleRadar(myMapFragment.getMap());
+				if (this.radar != null) {
+					this.radar.setRadarEventListener(this);
+					this.radar.setInfoWindow(this.createInfoWindowAdapter());
 				}
 			} else {
 				this.radar.updateRadarState();
@@ -162,8 +162,7 @@ public class RadarActivity extends Activity implements OnClickListener,
 			public View getInfoContents(Marker marker) {
 
 				View v = getLayoutInflater().inflate(
-						R.layout.snippet_radar_info_window, null);
-				
+						R.layout.snippet_radar_info_window, null);				
 				
 				Establishment es = findEstablishmentById(marker.getSnippet());
 
@@ -200,10 +199,8 @@ public class RadarActivity extends Activity implements OnClickListener,
 	 * 
 	 */
 	@Override
-	public void onRadarLocationChange(double latitude, double longitude) {
-		Model model = AbstractModelFactory.getInstance("real");
-		this.establishments = model.getEstablishment(latitude, longitude);
-		Log.i("RADAR", String.valueOf(this.establishments.size()));
+	public void onRadarLocationChange(double latitude, double longitude) {		
+		this.establishments = this.getModelInstance().getEstablishment(latitude, longitude);
 		radar.addMakers(GooglePointer.getPointer(this.establishments, R.drawable.bar_mark));
 	}
 	/**
@@ -216,16 +213,11 @@ public class RadarActivity extends Activity implements OnClickListener,
 		intent.putExtra("ID", id);
 		startActivity(intent);
 	}
-
-	// extra
 	/**
-	 * apenas um teste para capturar o evento de long click no mapa
-	 * o objetivo seria adicionar criação de pontos direto no mapa
-	 * e a movimentacao de pontos
-	 * @param ev
+	 * configuração de obtencao do modelo localizada
+	 * @return
 	 */
-	public void recieveLongClick(MotionEvent ev) {
-		System.out.println("radar long click");
-		// You can now pull lat/lng from geoPoint
+	private Model getModelInstance(){
+		return AbstractModelFactory.getInstance("real");
 	}
 }

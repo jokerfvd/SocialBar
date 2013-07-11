@@ -68,8 +68,7 @@ public class FavoritesActivity extends Activity implements OnClickListener {
 	 * realiza requisicao assincrona
 	 */
 	private void configuration() {
-		Model model = AbstractModelFactory.getInstance("real");
-		List<Establishment> es = model.getFavorites();
+		List<Establishment> es = this.getModelInstance().getFavorites();
 		this.onModelReceive(Establishment.class,es);	
 	}
 	/**
@@ -108,6 +107,14 @@ public class FavoritesActivity extends Activity implements OnClickListener {
 	@Override
 	public void onBackPressed() {
 		this.genericActivity.finish();
+	}
+	
+	/**
+	 * configuração de obtencao do modelo localizada
+	 * @return
+	 */
+	private Model getModelInstance(){
+		return AbstractModelFactory.getInstance("real");
 	}
 
 }
