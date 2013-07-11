@@ -25,8 +25,10 @@ import android.content.Context;
 public class RealModel implements Model{
 
 	private static RealModel instance;
+	private RealUser user;
 
 	public RealModel() {
+		this.user = new RealUser("Duval","user");
 	}
 	
 	

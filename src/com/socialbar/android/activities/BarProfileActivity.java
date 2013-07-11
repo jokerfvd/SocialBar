@@ -271,7 +271,7 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 			this.onBackPressed();// encerra a activity
 			return true;
 		case R.id.menu_refresh:
-			this.exec();
+			this.configuration();
 			return true;
 		case R.id.menu_edit:
 			Intent intent = new Intent(this, EditBarActivity.class);

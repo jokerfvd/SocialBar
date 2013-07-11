@@ -48,5 +48,7 @@ public interface User {
 	 * @param senha
 	 */
 	void setPassword(String senha);
+	
+	String getId();
 
 }

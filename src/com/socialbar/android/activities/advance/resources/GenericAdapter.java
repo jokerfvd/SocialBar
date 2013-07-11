@@ -70,7 +70,6 @@ public class GenericAdapter extends BaseAdapter {
 	 */
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		Log.i("Generic ADAPTER", "getView");
 		final Holder holder;
 		View v = convertView;
 		if (v == null) {

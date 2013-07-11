@@ -4,7 +4,9 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,13 +23,16 @@ import com.socialbar.android.activities.advance.resources.GenericAdapter;
 import com.socialbar.android.model.AbstractModelFactory;
 import com.socialbar.android.model.Establishment;
 import com.socialbar.android.model.Model;
+
 /**
  * Activity <code>tela de busca de estabelecimentos</code>.
  */
-public class SearchActivity extends Activity implements OnClickListener,OnQueryTextListener {
+public class SearchActivity extends Activity implements OnClickListener,
+		OnQueryTextListener {
 	private GenericActivity genericActivity;
 	private GenericAdapter adapter;
 	private SearchView searchView;
+	private String query = "m";
 
 	/** Called when the activity is first created. */
 
@@ -49,7 +54,6 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 		this.genericActivity.resume();
 		this.genericActivity.strictMode();
 	}
-	
 
 	/**
 	 * evento voltar
@@ -64,6 +68,7 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
 	@Override
 	public void onBackPressed() {
 		this.genericActivity.finish();
@@ -72,64 +77,76 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu_bar_search, menu);		
-		MenuItem searchViewMenuItem = menu.findItem(R.id.menu_search);		
+		inflater.inflate(R.menu.menu_bar_search, menu);
+		MenuItem searchViewMenuItem = menu.findItem(R.id.menu_search);
 		this.searchView = (SearchView) searchViewMenuItem.getActionView();
 		this.searchView.setIconifiedByDefault(false);
 		this.searchView.setOnQueryTextListener(this);
 		this.searchView.requestFocus();
 		return true;
 	}
-	
+
 	@Override
 	public boolean onQueryTextChange(String newText) {
 		return true;
 	}
 
 	@Override
-	public boolean onQueryTextSubmit(String query) {
+	public boolean onQueryTextSubmit(String query) {		
 		this.configuration(query);
 		this.searchView.clearFocus();
 		return true;
 	}
+
 	/**
 	 * configuracao apos entrada de busca
+	 * 
 	 * @param str
 	 */
 	private void configuration(String str) {
+		this.query = str;
+		Log.i("QUERY1", this.query);
+		Log.i("QUERY2", str);
 		Model model = AbstractModelFactory.getInstance("real");
-		List<Establishment> es = model.getEstablishment("nome",str);
-		this.onModelReceive(Establishment.class,es);	
+		List<Establishment> es = model.getEstablishment("nome", str);
+		this.onModelReceive(Establishment.class, es);
 	}
+
 	/**
 	 * recebimento assincrono
+	 * 
 	 * @param c
 	 * @param data
 	 */
 	public void onModelReceive(Class c, Object data) {
-		final ListView listView = (ListView) findViewById(R.id.list_bar);			
+		final ListView listView = (ListView) findViewById(R.id.list_bar);
 		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		List<Establishment> es = (List<Establishment>)data;
+		List<Establishment> es = (List<Establishment>) data;
 		this.adapter = new GenericAdapter(es, this);
 		this.adapter.swapListeners(true);
 		listView.setAdapter(this.adapter);
 	}
 
-
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
 	}
+
 	/**
 	 * fazer o adapter atualizar apos edicao
 	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
-		ListView listView = ((ListView) findViewById(R.id.list_bar));
-		if(listView.getAdapter() != null)
-			((GenericAdapter)listView.getAdapter()).notifyDataSetChanged();
-		
-	};
+		if (this.query != null)
+			this.configuration(this.query);
 
+	};
+	@Override
+	public  void onConfigurationChanged (Configuration newConfig){
+		Log.i("CONFIGURATION", "mudou");
+		super.onConfigurationChanged(newConfig);
+		if (this.query != null)
+			this.configuration(this.query);
+	}
 }

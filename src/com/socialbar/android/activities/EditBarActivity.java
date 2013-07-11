@@ -1,7 +1,5 @@
 package com.socialbar.android.activities;
 
-
-
 import android.app.ActionBar;
 import android.app.Activity;
 
@@ -17,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-
 
 import com.socialbar.android.R;
 import com.socialbar.android.activities.advance.resources.GenericActivity;
@@ -63,8 +60,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 	}
 
 	/**
-	 * metodo basico de configuracao onCreate
-	 * considera parametros passados
+	 * metodo basico de configuracao onCreate considera parametros passados
 	 */
 	private void configuration() {
 		if (getIntent().hasExtra("ID")) {
@@ -72,8 +68,10 @@ public class EditBarActivity extends Activity implements OnClickListener,
 		} else
 			this.setEstablishment(null);
 	}
+
 	/**
 	 * metodo para requisitar um estabelecimento, seja ele novo ou existente
+	 * 
 	 * @param id
 	 */
 	private void setEstablishment(String id) {
@@ -135,8 +133,8 @@ public class EditBarActivity extends Activity implements OnClickListener,
 	}
 
 	/**
-	 * preparar novo objeto para ser editado
-	 * caso esteja nulo, lancara NullPointerException 
+	 * preparar novo objeto para ser editado caso esteja nulo, lancara
+	 * NullPointerException
 	 * 
 	 * @param e
 	 */
@@ -152,7 +150,8 @@ public class EditBarActivity extends Activity implements OnClickListener,
 	 * @param c
 	 * @param data
 	 */
-	public void onModelReceive(@SuppressWarnings("rawtypes") Class c, Object data) {
+	public void onModelReceive(@SuppressWarnings("rawtypes") Class c,
+			Object data) {
 		Log.i("onModelReceive", "chegou");
 
 		this.establishment = (Establishment) data;
@@ -204,8 +203,11 @@ public class EditBarActivity extends Activity implements OnClickListener,
 			this.establishment.setLastModified(System.currentTimeMillis());
 
 			Model model = AbstractModelFactory.getInstance("real");
-			model.addEstablishment(this.establishment);
-			
+			if (getIntent().hasExtra("ID"))
+				model.updateEstablishment(this.establishment);
+			else
+				model.addEstablishment(this.establishment);
+
 			return true;
 		}
 		return false;

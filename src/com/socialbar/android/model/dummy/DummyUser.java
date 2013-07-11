@@ -1,23 +1,34 @@
 package com.socialbar.android.model.dummy;
 
 import java.io.Serializable;
-
 import com.socialbar.android.model.User;
 /**
  * Class <code>Usuario postico - serializavel</code>.
  */
 public class DummyUser implements User,Serializable{
 	private static final long serialVersionUID = 1L;
+	private String username;
+	private String token;
+	private String id;
+	
+	
+	public DummyUser() {
+	}
+
+	public DummyUser(String username, String pass) {
+		this.username = username;		
+		this.token =  username+pass;
+		}
+		
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.username;
 	}
 
 	@Override
 	public String getToken() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.token;
 	}
 
 	@Override
@@ -48,6 +59,16 @@ public class DummyUser implements User,Serializable{
 	public void setPassword(String senha) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String getId() {
+		
+		return this.getId();
+	}
+	
+	public void setId(String id){
+		this.id = id;
 	}
 	
 }

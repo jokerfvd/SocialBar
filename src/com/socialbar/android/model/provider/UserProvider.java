@@ -46,4 +46,10 @@ public class UserProvider implements User{
 		
 	}
 
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

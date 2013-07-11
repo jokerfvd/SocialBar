@@ -11,6 +11,14 @@ public class RealUser extends DummyUser{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
+	
+	public RealUser(String name, String senha) {
+		super(name, senha);
+	}
+
+
 
 	public RealUser(JSONObject json) throws JSONException {	
 		setName(json.getString("nome"));
