@@ -8,12 +8,11 @@ import com.socialbar.android.rest.rest.Response;
 
 public class PostFavoritoRestMethodSync extends PostFavoritoRestMethod{
 
-	public PostFavoritoRestMethodSync(String token, String login, String establishmentId) {
+	public PostFavoritoRestMethodSync(String login, byte[] body) {
 		FAVORITOS_URI = URI
 				.create("http://restserveruff.herokuapp.com/usuarios/"
-						+ login + "/favoritos.json"
-						+"?estabelecimento_id="+establishmentId
-						+"&token="+token);
+						+ login + "/favoritos.json");
+		mBody = body;
 	}
 	
 	public Request buildRequest() {

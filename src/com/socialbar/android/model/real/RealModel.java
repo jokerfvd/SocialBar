@@ -2,6 +2,10 @@ package com.socialbar.android.model.real;
 
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONStringer;
+
+import com.socialbar.android.R;
 import com.socialbar.android.model.Establishment;
 import com.socialbar.android.model.Model;
 import com.socialbar.android.model.ModelEvent;
@@ -24,6 +28,7 @@ import com.socialbar.android.rest.syncronous.PutEstabelecimentoRestMethodSync;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.widget.EditText;
 
 public class RealModel implements Model{
 
@@ -128,9 +133,21 @@ public class RealModel implements Model{
 	@Override
 	public void setEstablishmentFavorite(Establishment establishment) {
 		if (establishment.isFavorite()){
-			PostFavoritoRestMethodSync rest = new PostFavoritoRestMethodSync(user.getToken() ,user.getLogin(), establishment.getID());
-			Request request = rest.buildRequest();
-			Response response = rest.doRequest(request);
+			JSONStringer json;
+			try {
+				json = new JSONStringer()
+				.object()
+				.key("estabelecimento_id").value(establishment.getID())
+				.key("token").value(user.getToken())
+				.endObject();
+				
+				PostFavoritoRestMethodSync rest = new PostFavoritoRestMethodSync(user.getLogin(), json.toString().getBytes());
+				Request request = rest.buildRequest();
+				Response response = rest.doRequest(request);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else{
 			DeleteFavoritoRestMethodSync rest = new DeleteFavoritoRestMethodSync(user.getToken(), user.getLogin(), establishment.getID());
