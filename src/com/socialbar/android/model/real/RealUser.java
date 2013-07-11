@@ -24,5 +24,6 @@ public class RealUser extends DummyUser{
 	public RealUser(JSONObject json) throws JSONException {	
 		setName(json.getString("nome"));
 		setPassword(json.getString("senha"));
+		setLogin(json.getString("login"));
 	}
 }

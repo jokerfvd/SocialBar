@@ -93,7 +93,6 @@ public class RealModel implements Model{
 	//favoritos de quem ?
 	//esta setado para o primeiro usuário de id 132, mas não é pra ser assim
 	public List<RealEstablishment> getFavorites() {
-		User user = getUser();
 		GetFavoritosRestMethodSync rest = new GetFavoritosRestMethodSync(user.getLogin());
 		Request request = rest.buildRequest();
 		Response response = rest.doRequest(request);
