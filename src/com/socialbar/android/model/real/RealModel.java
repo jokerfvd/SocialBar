@@ -11,12 +11,15 @@ import com.socialbar.android.model.dummy.StorageDummy;
 import com.socialbar.android.rest.resource.Estabelecimento;
 import com.socialbar.android.rest.rest.Request;
 import com.socialbar.android.rest.rest.Response;
+import com.socialbar.android.rest.rest.RestMethod;
 import com.socialbar.android.rest.rest.RestMethodResult;
+import com.socialbar.android.rest.syncronous.DeleteFavoritoRestMethodSync;
 import com.socialbar.android.rest.syncronous.GetEstabelecimentoRestMethodSync;
 import com.socialbar.android.rest.syncronous.GetEstabelecimentosRestMethodSync;
 import com.socialbar.android.rest.syncronous.GetFavoritosRestMethodSync;
 import com.socialbar.android.rest.syncronous.GetUsuarioRestMethodSync;
 import com.socialbar.android.rest.syncronous.PostEstabelecimentoRestMethodSync;
+import com.socialbar.android.rest.syncronous.PostFavoritoRestMethodSync;
 import com.socialbar.android.rest.syncronous.PutEstabelecimentoRestMethodSync;
 
 import android.content.BroadcastReceiver;
@@ -28,7 +31,7 @@ public class RealModel implements Model{
 	private RealUser user;
 
 	public RealModel() {
-		this.user = new RealUser("duval","user");
+		this.user = new RealUser("jokerfvd","duvaluser");
 	}
 	
 	
@@ -122,6 +125,19 @@ public class RealModel implements Model{
 		PostEstabelecimentoRestMethodSync rest = new PostEstabelecimentoRestMethodSync(establishment);
 		Request request = rest.buildRequest();
 		Response response = rest.doRequest(request);		
+	}
+	
+	public void setFavorite(boolean isFavorite, int establishment_id) {
+		if (isFavorite){
+			PostFavoritoRestMethodSync rest = new PostFavoritoRestMethodSync(user.getToken() ,user.getLogin(), establishment_id);
+			Request request = rest.buildRequest();
+			Response response = rest.doRequest(request);
+		}
+		else{
+			DeleteFavoritoRestMethodSync rest = new DeleteFavoritoRestMethodSync(user.getToken(), user.getLogin(), establishment_id);
+			Request request = rest.buildRequest();
+			Response response = rest.doRequest(request);
+		}		
 	}
 
 

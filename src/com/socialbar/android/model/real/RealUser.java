@@ -14,8 +14,9 @@ public class RealUser extends DummyUser{
 	
 	
 	
-	public RealUser(String name, String senha) {
-		super(name, senha);
+	public RealUser(String login, String token) {
+		setLogin(login);
+		setToken(token);
 	}
 
 

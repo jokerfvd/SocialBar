@@ -52,4 +52,22 @@ public class UserProvider implements User{
 		return null;
 	}
 
+	@Override
+	public String getLogin() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setToken(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setLogin(String login) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

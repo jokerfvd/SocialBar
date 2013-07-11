@@ -10,6 +10,8 @@ public interface User {
 	 * @return
 	 */
 	String getName();
+	
+	String getLogin();
 
 	/**
 	 * pegar o token de autenticacao do usuario
@@ -17,6 +19,13 @@ public interface User {
 	 * @return
 	 */
 	String getToken();// token de sessao
+	
+	/**
+	 * setar token de autenticacao do usuario
+	 * 
+	 * @param token
+	 */
+	void setToken(String token);
 
 	/**
 	 * verificar se o usuario esta autenticado
@@ -38,9 +47,11 @@ public interface User {
 	/**
 	 * setar nome para o usuario
 	 * 
-	 * @param nome
+	 * @param name
 	 */
-	void setName(String nome);
+	void setName(String name);
+	
+	void setLogin(String login);
 
 	/**
 	 * setar senha para o usuario

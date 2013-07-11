@@ -8,17 +8,13 @@ import com.socialbar.android.model.User;
 public class DummyUser implements User,Serializable{
 	private static final long serialVersionUID = 1L;
 	private String username;
+	private String login;
 	private String token;
 	private String id;
 	
 	
 	public DummyUser() {
 	}
-
-	public DummyUser(String username, String pass) {
-		this.username = username;		
-		this.token =  username+pass;
-		}
 		
 	@Override
 	public String getName() {
@@ -69,6 +65,23 @@ public class DummyUser implements User,Serializable{
 	
 	public void setId(String id){
 		this.id = id;
+	}
+
+	@Override
+	public void setToken(String token) {
+		this.token = token;
+		
+	}
+
+	@Override
+	public String getLogin() {
+		return this.login;
+	}
+
+	@Override
+	public void setLogin(String login) {
+		this.login = login;
+		
 	}
 	
 }

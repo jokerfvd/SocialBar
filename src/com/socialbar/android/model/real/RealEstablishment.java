@@ -1,6 +1,9 @@
 package com.socialbar.android.model.real;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +27,7 @@ public class RealEstablishment extends DummyEstablishment{
 		setAddress(json.getString("endereco"));
 		setPhoneNumber(json.getString("telefone"));
 		setFavorite(json.getBoolean("favorito"));
+		setLastModified(0);
 		//this.gostei = Integer.parseInt(json.getString("gostei"));
 		setLatitude(Double.parseDouble(json.getString("latitude")));
 		setLongitude(Double.parseDouble(json.getString("longitude")));
