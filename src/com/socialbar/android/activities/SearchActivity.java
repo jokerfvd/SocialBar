@@ -18,13 +18,14 @@ import com.socialbar.android.R;
 import com.socialbar.android.activities.advance.resources.GenericActivity;
 import com.socialbar.android.activities.advance.resources.GenericActivitySlider;
 import com.socialbar.android.activities.advance.resources.GenericAdapter;
+import com.socialbar.android.activities.advance.resources.GenericAdapterEvent;
 import com.socialbar.android.model.AbstractModelFactory;
 import com.socialbar.android.model.Establishment;
 import com.socialbar.android.model.Model;
 /**
  * Activity <code>tela de busca de estabelecimentos</code>.
  */
-public class SearchActivity extends Activity implements OnClickListener,OnQueryTextListener {
+public class SearchActivity extends Activity implements OnClickListener,OnQueryTextListener,GenericAdapterEvent {
 	private GenericActivity genericActivity;
 	private GenericAdapter adapter;
 	private SearchView searchView;
@@ -50,8 +51,6 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 		this.genericActivity.resume();
 		this.genericActivity.strictMode();
 	}
-	
-
 	/**
 	 * evento voltar
 	 */
@@ -90,7 +89,7 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 	@Override
 	public boolean onQueryTextSubmit(String query) {
 		this.keyword = query;
-		this.configuration(query);
+		this.configuration(this.keyword);
 		this.searchView.clearFocus();
 		return true;
 	}
@@ -134,7 +133,13 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 			((GenericAdapter)listView.getAdapter()).notifyDataSetChanged();
 		
 	};
-	
+	//evento do adapter
+	@Override
+	public void onFavoriteChange(Establishment e) {
+		e.setFavorite(!e.isFavorite());
+		this.getModelInstance().setEstablishmentFavorite(e);
+		this.configuration(this.keyword);		
+	}
 	/**
 	 * configuração de obtencao do modelo localizada
 	 * @return
@@ -142,5 +147,6 @@ public class SearchActivity extends Activity implements OnClickListener,OnQueryT
 	private Model getModelInstance(){
 		return AbstractModelFactory.getInstance("real");
 	}
+	
 
 }

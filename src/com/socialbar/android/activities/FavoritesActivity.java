@@ -21,6 +21,7 @@ import com.socialbar.android.R;
 import com.socialbar.android.activities.advance.resources.GenericActivity;
 import com.socialbar.android.activities.advance.resources.GenericActivitySlider;
 import com.socialbar.android.activities.advance.resources.GenericAdapter;
+import com.socialbar.android.activities.advance.resources.GenericAdapterEvent;
 import com.socialbar.android.model.AbstractModelFactory;
 import com.socialbar.android.model.Establishment;
 import com.socialbar.android.model.Model;
@@ -28,7 +29,7 @@ import com.socialbar.android.model.Model;
 /**
  * Activity <code>favoritos</code>.
  */
-public class FavoritesActivity extends Activity implements OnClickListener {
+public class FavoritesActivity extends Activity implements OnClickListener, GenericAdapterEvent {
 	private GenericActivity genericActivity;
 	private GenericAdapter adapter;
 
@@ -55,19 +56,19 @@ public class FavoritesActivity extends Activity implements OnClickListener {
 		/**
 		 * configuracao inicial do oncreate
 		 */
-		this.configuration();
+		
 	}
 	@Override
 	protected void onResume() {
 		super.onResume();
-		((GenericAdapter)((ListView) findViewById(R.id.list_bar)).getAdapter()).notifyDataSetChanged();
+		this.configuration();
 		
 	};
 	/**
 	 * metodo de configuracao
 	 * realiza requisicao assincrona
 	 */
-	private void configuration() {
+	public void configuration() {
 		List<Establishment> es = this.getModelInstance().getFavorites();
 		this.onModelReceive(Establishment.class,es);	
 	}
@@ -108,7 +109,13 @@ public class FavoritesActivity extends Activity implements OnClickListener {
 	public void onBackPressed() {
 		this.genericActivity.finish();
 	}
-	
+	//evento do adapter
+	@Override
+	public void onFavoriteChange(Establishment e) {
+		e.setFavorite(!e.isFavorite());
+		this.getModelInstance().setEstablishmentFavorite(e);
+		this.configuration();
+	}
 	/**
 	 * configuração de obtencao do modelo localizada
 	 * @return
@@ -116,5 +123,6 @@ public class FavoritesActivity extends Activity implements OnClickListener {
 	private Model getModelInstance(){
 		return AbstractModelFactory.getInstance("real");
 	}
+	
 
 }

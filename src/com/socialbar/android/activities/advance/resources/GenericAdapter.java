@@ -8,6 +8,7 @@ import com.socialbar.android.model.AbstractModelFactory;
 import com.socialbar.android.model.Establishment;
 import com.socialbar.android.model.Model;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -81,18 +82,24 @@ public class GenericAdapter extends BaseAdapter {
 			holder.name = (TextView) v.findViewById(R.id.text_name);
 			holder.address = (TextView) v.findViewById(R.id.text_address);
 			holder.favorite = (ImageView) v.findViewById(R.id.img_favorite);
-
+			
+			
 			v.setTag(holder);
 		} else {
 			holder = (Holder) v.getTag();
 		}
 
 		Establishment e = this.data.get(position);
+		
+		if (e.isFavorite())
+				holder.favorite.setImageResource(R.drawable.icon_rating_important);
+			else
+				holder.favorite.setImageResource(R.drawable.icon_rating_not_important);
+		
 		holder.logo.setImageResource(R.drawable.bar_logo);
 		holder.name.setText(e.getName());
 		holder.address.setText(e.getAddress());
 
-		setFavorite(holder, e, false);	
 		//evento de click no item
 		v.setOnClickListener(new OnClickListener() {
 			@Override
@@ -101,7 +108,7 @@ public class GenericAdapter extends BaseAdapter {
 				if(swap)//alternador execucao
 					goToProfile(e);
 				else 
-					setFavorite(holder, e, true);
+					setFavorite(e);
 			}
 		});
 		//evento de longclick no item
@@ -125,7 +132,7 @@ public class GenericAdapter extends BaseAdapter {
 										if(!swap)//alternador de execucao
 											goToProfile(e);
 										else
-											setFavorite(holder, e, true);
+											setFavorite(e);
 									}
 								}).setIcon(android.R.drawable.ic_menu_view)
 						.setNegativeButton(R.string.dialog_not, null).show();
@@ -150,20 +157,8 @@ public class GenericAdapter extends BaseAdapter {
 	 * @param e
 	 * @param change
 	 */
-	private void setFavorite(Holder holder, Establishment e, boolean change) {
-		if (change) {
-			e.setFavorite(!e.isFavorite());                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-			Toast.makeText(
-					context,
-					context.getString(R.string.dialog_favorite_state_saved)
-							+ e.getName(), Toast.LENGTH_SHORT).show();
-		}
-		if (e.isFavorite())
-			holder.favorite.setImageResource(R.drawable.icon_rating_important);
-		else
-			holder.favorite
-					.setImageResource(R.drawable.icon_rating_not_important);
-
+	private void setFavorite(Establishment e) {
+		((GenericAdapterEvent)context).onFavoriteChange(e);
 	}
 	/**
 	 * class static para manter elementos da view
@@ -182,4 +177,7 @@ public class GenericAdapter extends BaseAdapter {
 	 * configuração de obtencao do modelo localizada
 	 * @return
 	 */
+	private Model getModelInstance(){
+		return AbstractModelFactory.getInstance("real");
+	}
 }

@@ -31,6 +31,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 		LocationListener {
 	private GenericActivity genericActivity;
 	private Establishment establishment;
+	LocationManager locationManager;
 
 	/** Called when the activity is first created. */
 
@@ -210,12 +211,13 @@ public class EditBarActivity extends Activity implements OnClickListener,
 	 * metodo para setar para pegar a localização
 	 */
 	public void getLocation() {
-		LocationManager mgr = (LocationManager) getSystemService(LOCATION_SERVICE);
+		this.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		Criteria criteria = new Criteria();
-		String best = mgr.getBestProvider(criteria, true);
-		Location location = mgr.getLastKnownLocation(best);
-		this.onLocationChanged(location);
-		mgr.removeUpdates(this);
+		String best = this.locationManager.getBestProvider(criteria, true);
+		Location location = this.locationManager.getLastKnownLocation(best);
+		if (location != null)
+			this.onLocationChanged(location);
+			
 	}
 
 	/**
@@ -228,7 +230,7 @@ public class EditBarActivity extends Activity implements OnClickListener,
 				.valueOf(location.getLatitude()));
 		((EditText) findViewById(R.id.edit_longitude)).setText(String
 				.valueOf(location.getLongitude()));
-
+		this.locationManager.removeUpdates(this);
 	}
 
 	// metodo da interface location
@@ -251,11 +253,13 @@ public class EditBarActivity extends Activity implements OnClickListener,
 		// TODO Auto-generated method stub
 
 	}
+
 	/**
 	 * configuração de obtencao do modelo localizada
+	 * 
 	 * @return
 	 */
-	private Model getModelInstance(){
+	private Model getModelInstance() {
 		return AbstractModelFactory.getInstance("real");
 	}
 
