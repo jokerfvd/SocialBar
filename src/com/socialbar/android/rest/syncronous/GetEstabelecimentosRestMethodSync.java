@@ -17,11 +17,12 @@ import com.socialbar.android.rest.rest.RestMethodResult;
 
 public class GetEstabelecimentosRestMethodSync extends GetEstabelecimentosRestMethod{
 
-	public GetEstabelecimentosRestMethodSync(double latitude, double longitude) {
+	public GetEstabelecimentosRestMethodSync(double latitude, double longitude, String token) {
 		ESTABELECIMENTO_URI = URI
 				.create("http://restserveruff.herokuapp.com/estabelecimentos/proximos.json?"
 						+"latitude="+Double.toString(latitude)+ 
-						"&longitude="+Double.toString(longitude));
+						"&longitude="+Double.toString(longitude)+
+						"&token="+token);
 	}
 	
 	public GetEstabelecimentosRestMethodSync(String... args) {

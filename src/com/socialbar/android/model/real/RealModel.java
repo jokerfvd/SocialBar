@@ -28,7 +28,7 @@ public class RealModel implements Model{
 	private RealUser user;
 
 	public RealModel() {
-		this.user = new RealUser("Duval","user");
+		this.user = new RealUser("duval","user");
 	}
 	
 	
@@ -55,7 +55,7 @@ public class RealModel implements Model{
 	@Override
 	public List<RealEstablishment> getEstablishment(double latitude,
 			double longitude) {
-		GetEstabelecimentosRestMethodSync rest = new GetEstabelecimentosRestMethodSync(latitude,longitude);
+		GetEstabelecimentosRestMethodSync rest = new GetEstabelecimentosRestMethodSync(latitude,longitude,user.getToken());
 		Request request = rest.buildRequest();
 		Response response = rest.doRequest(request);
 		List<RealEstablishment> establishments = rest.buildResult1(response);
@@ -95,7 +95,6 @@ public class RealModel implements Model{
 		Request request = rest.buildRequest();
 		Response response = rest.doRequest(request);
 		List<RealEstablishment> establishments = rest.buildResult1(response);
-		this.setFavoriteEstablishment(establishments);
 		return establishments;
 	}
 
@@ -109,13 +108,6 @@ public class RealModel implements Model{
 	public void setContext(Context context) {
 		// TODO Auto-generated method stub
 		
-	}
-	private void setFavoriteEstablishment(List<RealEstablishment> es){
-		for (Establishment e : es) 
-			e.setFavorite(true);
-	}
-	private Establishment setFavorite(String id){
-		return null;
 	}
 
 	@Override

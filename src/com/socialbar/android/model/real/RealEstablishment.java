@@ -23,6 +23,7 @@ public class RealEstablishment extends DummyEstablishment{
 		setName(json.getString("nome"));
 		setAddress(json.getString("endereco"));
 		setPhoneNumber(json.getString("telefone"));
+		setFavorite(json.getBoolean("favorito"));
 		//this.gostei = Integer.parseInt(json.getString("gostei"));
 		setLatitude(Double.parseDouble(json.getString("latitude")));
 		setLongitude(Double.parseDouble(json.getString("longitude")));
