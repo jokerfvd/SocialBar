@@ -8,11 +8,11 @@ import com.socialbar.android.rest.rest.Response;
 
 public class DeleteFavoritoRestMethodSync extends DeleteFavoritoRestMethod{
 
-	public DeleteFavoritoRestMethodSync(String token, String login, int establishmentId) {
+	public DeleteFavoritoRestMethodSync(String token, String login, String establishmentId) {
 		FAVORITOS_URI = URI
 				.create("http://restserveruff.herokuapp.com/usuarios/"
 						+ login + "/favoritos.json"
-						+"?estabelecimento_id="+Integer.toString(establishmentId)
+						+"?estabelecimento_id="+establishmentId
 						+"&token="+token);
 	}
 	

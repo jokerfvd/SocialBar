@@ -125,15 +125,15 @@ public class RealModel implements Model{
 		Request request = rest.buildRequest();
 		Response response = rest.doRequest(request);		
 	}
-	
-	public void setFavorite(boolean isFavorite, int establishment_id) {
-		if (isFavorite){
-			PostFavoritoRestMethodSync rest = new PostFavoritoRestMethodSync(user.getToken() ,user.getLogin(), establishment_id);
+	@Override
+	public void setEstablishmentFavorite(Establishment establishment) {
+		if (establishment.isFavorite()){
+			PostFavoritoRestMethodSync rest = new PostFavoritoRestMethodSync(user.getToken() ,user.getLogin(), establishment.getID());
 			Request request = rest.buildRequest();
 			Response response = rest.doRequest(request);
 		}
 		else{
-			DeleteFavoritoRestMethodSync rest = new DeleteFavoritoRestMethodSync(user.getToken(), user.getLogin(), establishment_id);
+			DeleteFavoritoRestMethodSync rest = new DeleteFavoritoRestMethodSync(user.getToken(), user.getLogin(), establishment.getID());
 			Request request = rest.buildRequest();
 			Response response = rest.doRequest(request);
 		}		

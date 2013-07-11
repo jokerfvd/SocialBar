@@ -227,13 +227,9 @@ public class BarProfileActivity extends Activity implements OnClickListener,
 	 * @param v
 	 */
 	private void changeFavorite(View v) {
-		
-		//exibir alerta
-		Toast.makeText(
-				this,
-				getString(R.string.dialog_favorite_state_saved)
-						+ this.establishment.getName(), Toast.LENGTH_SHORT)
-				.show();
+		this.establishment.setFavorite(!this.establishment.isFavorite());
+		this.getModelInstance().setEstablishmentFavorite(this.establishment);
+		this.configuration();
 	}
 
 	/**

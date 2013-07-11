@@ -9,12 +9,12 @@ import android.content.Context;
  * Interface <code>Model</code>. Interface para todos os objetos - basicas
  */
 public interface Model {
-	
+
 	/**
 	 * Adicionar um novo estabelecimento
 	 */
 	public void addEstablishment(Establishment establishment);
-	
+
 	/**
 	 * Atualiza
 	 */
@@ -62,25 +62,35 @@ public interface Model {
 	 * @return
 	 */
 	User getUser(String name, String password);
+
 	/**
 	 * pegar um usuario novo
+	 * 
 	 * @return
 	 */
 	User getUser();
+
 	/**
 	 * pegar lista de favoritos
+	 * 
 	 * @return
 	 */
 	<T extends Establishment> List<T> getFavorites();
+
+	public void setEstablishmentFavorite(Establishment establishment);
+
 	/**
 	 * pegar BroadCast ja pronto
+	 * 
 	 * @param me
 	 * @param id
 	 * @return
 	 */
 	BroadcastReceiver getEstablishmentPrototype(ModelEvent me, String id);
+
 	/**
 	 * Setar o contexto da aplicacao
+	 * 
 	 * @param context
 	 */
 	void setContext(Context context);
