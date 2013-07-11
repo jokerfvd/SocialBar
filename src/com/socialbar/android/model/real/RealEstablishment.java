@@ -28,8 +28,8 @@ public class RealEstablishment extends DummyEstablishment {
 		setAddress(json.getString("endereco"));
 		setPhoneNumber(json.getString("telefone"));
 		setFavorite(json.getBoolean("favorito"));
-		setLastModified(0);
-		//setLastModified(this.convertDateStringToTimestamp(json.getString("updated_at")));
+		//setLastModified(0);
+		setLastModified(this.convertDateStringToTimestamp(json.getString("updated_at")));
 		// this.gostei = Integer.parseInt(json.getString("gostei"));
 		setLatitude(Double.parseDouble(json.getString("latitude")));
 		setLongitude(Double.parseDouble(json.getString("longitude")));
