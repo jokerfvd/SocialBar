@@ -15,10 +15,10 @@ import com.socialbar.android.rest.rest.RestMethodResult;
 
 public class GetEstabelecimentoRestMethodSync extends GetEstabelecimentoRestMethod {
 
-	public GetEstabelecimentoRestMethodSync(String id) {
+	public GetEstabelecimentoRestMethodSync(String id, String token) {
 		ESTABELECIMENTO_URI = URI
 				.create("http://restserveruff.herokuapp.com/estabelecimentos/"
-						+ id + ".json");
+						+ id + ".json?token="+token);
 	}
 	
 	public Request buildRequest() {

@@ -48,7 +48,7 @@ public class RealModel implements Model{
 
 	@Override
 	public Establishment getEstablishment(String id) {
-		GetEstabelecimentoRestMethodSync rest = new GetEstabelecimentoRestMethodSync(id);
+		GetEstabelecimentoRestMethodSync rest = new GetEstabelecimentoRestMethodSync(id, user.getToken());
 		Request request = rest.buildRequest();
 		Response response = rest.doRequest(request);		
 		RealEstablishment establishment = rest.buildResult1(response);
@@ -67,7 +67,7 @@ public class RealModel implements Model{
 
 	@Override
 	public List<RealEstablishment> getEstablishment(String... args) {
-		GetEstabelecimentosRestMethodSync rest = new GetEstabelecimentosRestMethodSync(args);
+		GetEstabelecimentosRestMethodSync rest = new GetEstabelecimentosRestMethodSync(user.getToken(), args);
 		Request request = rest.buildRequest();
 		Response response = rest.doRequest(request);
 		List<RealEstablishment> establishments = rest.buildResult1(response);
