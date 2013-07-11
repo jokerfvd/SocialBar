@@ -14,10 +14,10 @@ import com.socialbar.android.rest.rest.Response;
 
 public class GetFavoritosRestMethodSync extends GetFavoritosRestMethod {
 	
-	public GetFavoritosRestMethodSync(String id) {
+	public GetFavoritosRestMethodSync(String login) {
 		FAVORITOS_URI = URI
 				.create("http://restserveruff.herokuapp.com/usuarios/"
-						+ id + "/favoritos.json");
+						+ login + "/favoritos.json");
 	}
 	public Request buildRequest() {
 		return super.buildRequest();
