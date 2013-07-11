@@ -160,4 +160,11 @@ public class GoogleRadar implements Radar, OnMyLocationChangeListener,
 
 	}
 
+	@Override
+	public void removeRadarState() {
+		this.savedActiveInfoView = false;
+		this.clickedMarkerID = null;
+		
+	}
+
 }

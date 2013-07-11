@@ -47,6 +47,10 @@ public interface Radar {
 	 */
 	void saveRadarState();
 	/**
+	 * remover estado de visualizacao do mapa
+	 */
+	void removeRadarState();
+	/**
 	 * disparar a atualizacao do visual do mapa
 	 */
 	void updateRadarState();

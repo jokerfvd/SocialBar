@@ -162,6 +162,7 @@ public final class R {
         public static final int menu_bar_edit=0x7f090003;
         public static final int menu_bar_profile=0x7f090004;
         public static final int menu_bar_search=0x7f090005;
+        public static final int menu_bar_update=0x7f090006;
     }
     public static final class string {
         public static final int action_settings=0x7f070001;

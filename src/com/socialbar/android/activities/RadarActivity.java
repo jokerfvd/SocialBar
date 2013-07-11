@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +34,7 @@ import com.socialbar.android.radar.GooglePointer;
 import com.socialbar.android.radar.GoogleRadar;
 import com.socialbar.android.radar.Radar;
 import com.socialbar.android.radar.RadarEvents;
+
 /**
  * Activity <code>Exibe o mapa</code>.
  */
@@ -45,9 +48,8 @@ public class RadarActivity extends Activity implements OnClickListener,
 	private Radar radar;
 	private double latitude;
 	private double longitude;
-	
-	
-	//armazenamento temporario
+
+	// armazenamento temporario
 	private List<Establishment> establishments;
 
 	/** Called when the activity is first created. */
@@ -90,11 +92,25 @@ public class RadarActivity extends Activity implements OnClickListener,
 	}
 
 	/**
+	 * criação de icones da actionbar
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_bar_update, menu);
+		return true;
+	}
+
+	/**
 	 * evento voltar
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.menu_refresh:
+			this.radar.removeRadarState();
+			this.reloadRadar();
+			return true;
 		case android.R.id.home:
 			this.onBackPressed();// encerra a activity
 			return true;
@@ -130,9 +146,12 @@ public class RadarActivity extends Activity implements OnClickListener,
 	 * metodo para execucao, executado no onResume
 	 */
 	private void exec() {
-		//Utility class for verifying that the Google Play services APK is available and up-to-date on this device
-		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
-		//Contains all possible error codes for when a client fails to connect to Google Play services
+		// Utility class for verifying that the Google Play services APK is
+		// available and up-to-date on this device
+		int resultCode = GooglePlayServicesUtil
+				.isGooglePlayServicesAvailable(getApplicationContext());
+		// Contains all possible error codes for when a client fails to connect
+		// to Google Play services
 		if (resultCode == ConnectionResult.SUCCESS) {
 			if (this.radar == null) {
 				this.radar = new GoogleRadar(myMapFragment.getMap());
@@ -141,13 +160,22 @@ public class RadarActivity extends Activity implements OnClickListener,
 					this.radar.setInfoWindow(this.createInfoWindowAdapter());
 				}
 			} else {
-				//this.radar.updateRadarState();
-				this.onRadarLocationChange(this.latitude, this.longitude);
+				// this.radar.updateRadarState();
+				this.reloadRadar();
 			}
 		} else {
 			GooglePlayServicesUtil.getErrorDialog(resultCode, this,
 					RQS_GooglePlayServices);
 		}
+	}
+
+	/**
+	 * metodo para a recarga do radar, seja pelo botao reload ou pela troca de
+	 * activity
+	 */
+	private void reloadRadar() {
+		this.radar.clearMap();
+		this.onRadarLocationChange(this.latitude, this.longitude);
 	}
 
 	/**
@@ -166,8 +194,8 @@ public class RadarActivity extends Activity implements OnClickListener,
 			public View getInfoContents(Marker marker) {
 
 				View v = getLayoutInflater().inflate(
-						R.layout.snippet_radar_info_window, null);				
-				
+						R.layout.snippet_radar_info_window, null);
+
 				Establishment es = findEstablishmentById(marker.getSnippet());
 
 				((TextView) v.findViewById(R.id.text_name)).setText(es
@@ -186,33 +214,38 @@ public class RadarActivity extends Activity implements OnClickListener,
 			}
 		};
 	}
-	
-	//tempo findEstablichmentById
-	private Establishment findEstablishmentById(String id){
-		if(this.establishments != null)
-		for(Establishment e: this.establishments)
-			if(id.equals(e.getID()))
-				return e;
+
+	/**
+	 * metodo utilizado para encontrar um estabelecimento valido por id na lista
+	 * de todos os estabelecimentos carregados do site utlizado pela infowindow
+	 */
+	private Establishment findEstablishmentById(String id) {
+		if (this.establishments != null)
+			for (Establishment e : this.establishments)
+				if (id.equals(e.getID()))
+					return e;
 		return null;
-	} 
+	}
 
 	// eventos do radar
 	/**
-	 * quando a latitude e longitude do mapa for capturada
-	 * a activity deve requisitar os pontos ao modelo passando as coordenadas
+	 * quando a latitude e longitude do mapa for capturada a activity deve
+	 * requisitar os pontos ao modelo passando as coordenadas
 	 * 
 	 */
 	@Override
 	public void onRadarLocationChange(double latitude, double longitude) {
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.establishments = this.getModelInstance().getEstablishment(latitude, longitude);
-		radar.addMakers(GooglePointer.getPointer(this.establishments, R.drawable.bar_mark));
+		this.establishments = this.getModelInstance().getEstablishment(
+				latitude, longitude);
+		radar.addMakers(GooglePointer.getPointer(this.establishments,
+				R.drawable.bar_mark));
 	}
-	
+
 	/**
 	 * evento para a definição do clique sobre a infowindow no mapa
-	 */	
+	 */
 	@Override
 	public void onRadarInfoWindowClick(String id) {
 		this.radar.saveRadarState();
@@ -220,11 +253,13 @@ public class RadarActivity extends Activity implements OnClickListener,
 		intent.putExtra("ID", id);
 		startActivity(intent);
 	}
+
 	/**
 	 * configuração de obtencao do modelo localizada
+	 * 
 	 * @return
 	 */
-	private Model getModelInstance(){
+	private Model getModelInstance() {
 		return AbstractModelFactory.getInstance("real");
 	}
 }
